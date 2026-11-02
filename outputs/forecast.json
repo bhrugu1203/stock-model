@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-02T21:10:56+00:00",
+ "generated": "2026-11-02T22:44:39+00:00",
  "data_through": "2026-11-02",
  "demo": false,
  "holdout_from": 2023,
@@ -118,7 +118,7 @@
      "end": "2019-01",
      "picks": -0.0091,
      "average_stock": -0.0354,
-     "sp500": -0.0305,
+     "sp500": -0.0306,
      "pick_wins": 46,
      "pick_count": 82
     },
@@ -301,7 +301,7 @@
      "name": "Tapestry, Inc.",
      "probability": 0.567,
      "percentile": 1.0,
-     "price": 120.78,
+     "price": 120.76,
      "traits": [
       "Expensive vs. book value",
       "Highly profitable business",
@@ -318,7 +318,7 @@
      "rank": 2,
      "ticker": "HBAN",
      "name": "Huntington Bancshares Inc /Md/",
-     "probability": 0.559,
+     "probability": 0.558,
      "percentile": 0.998,
      "price": 16.01,
      "traits": [
@@ -355,7 +355,7 @@
      "rank": 4,
      "ticker": "FITB",
      "name": "Fifth Third Bancorp",
-     "probability": 0.552,
+     "probability": 0.551,
      "percentile": 0.994,
      "price": 54.97,
      "traits": [
@@ -373,9 +373,9 @@
      "rank": 5,
      "ticker": "GDDY",
      "name": "Godaddy Inc.",
-     "probability": 0.55,
+     "probability": 0.551,
      "percentile": 0.992,
-     "price": 116.68,
+     "price": 116.61,
      "traits": [
       "Expensive vs. book value",
       "Heavy debt load"
@@ -392,7 +392,7 @@
      "name": "Loews Corp",
      "probability": 0.548,
      "percentile": 0.99,
-     "price": 111.43,
+     "price": 111.34,
      "traits": [
       "Cheap vs. earnings",
       "Cheap vs. book value"
@@ -409,7 +409,7 @@
      "name": "Las Vegas Sands Corp",
      "probability": 0.546,
      "percentile": 0.988,
-     "price": 38.19,
+     "price": 38.2,
      "traits": [
       "Cheap vs. earnings",
       "Expensive vs. book value",
@@ -425,9 +425,9 @@
      "rank": 8,
      "ticker": "LYV",
      "name": "Live Nation Entertainment, Inc.",
-     "probability": 0.544,
+     "probability": 0.545,
      "percentile": 0.986,
-     "price": 177.1,
+     "price": 177.15,
      "traits": [
       "Expensive vs. book value",
       "Heavy debt load"
@@ -457,11 +457,28 @@
     },
     {
      "rank": 10,
-     "ticker": "MTB",
-     "name": "M&T Bank Corp",
+     "ticker": "CMG",
+     "name": "Chipotle Mexican Grill Inc",
      "probability": 0.54,
      "percentile": 0.982,
-     "price": 224.53,
+     "price": 32.91,
+     "traits": [
+      "Expensive vs. book value",
+      "Strong return on assets"
+     ],
+     "volatility": 0.306,
+     "range_low": -0.229,
+     "range_high": 0.341,
+     "chance_of_loss": 0.469,
+     "hist_chance_of_loss": 0.345
+    },
+    {
+     "rank": 11,
+     "ticker": "MTB",
+     "name": "M&T Bank Corp",
+     "probability": 0.539,
+     "percentile": 0.98,
+     "price": 224.43,
      "traits": [
       "Cheap vs. earnings",
       "Cheap vs. book value",
@@ -474,29 +491,12 @@
      "hist_chance_of_loss": 0.32
     },
     {
-     "rank": 11,
-     "ticker": "CMG",
-     "name": "Chipotle Mexican Grill Inc",
-     "probability": 0.539,
-     "percentile": 0.98,
-     "price": 32.92,
-     "traits": [
-      "Expensive vs. book value",
-      "Strong return on assets"
-     ],
-     "volatility": 0.306,
-     "range_low": -0.229,
-     "range_high": 0.341,
-     "chance_of_loss": 0.469,
-     "hist_chance_of_loss": 0.345
-    },
-    {
      "rank": 12,
      "ticker": "KEY",
      "name": "Keycorp /New/",
-     "probability": 0.538,
+     "probability": 0.537,
      "percentile": 0.978,
-     "price": 21.5,
+     "price": 21.49,
      "traits": [
       "Cheap vs. earnings",
       "Cheap vs. book value",
@@ -513,7 +513,7 @@
      "rank": 13,
      "ticker": "CHTR",
      "name": "Charter Communications, Inc. /Mo/",
-     "probability": 0.537,
+     "probability": 0.536,
      "percentile": 0.976,
      "price": 115.54,
      "traits": [
@@ -534,7 +534,7 @@
      "name": "Ares Management Corp",
      "probability": 0.536,
      "percentile": 0.974,
-     "price": 132.94,
+     "price": 132.96,
      "traits": [
       "Cheap vs. earnings",
       "Cheap vs. book value",
@@ -551,9 +551,9 @@
      "rank": 15,
      "ticker": "BAC",
      "name": "Bank Of America Corp /De/",
-     "probability": 0.535,
+     "probability": 0.534,
      "percentile": 0.972,
-     "price": 49.56,
+     "price": 49.57,
      "traits": [
       "Cheap vs. earnings",
       "Cheap vs. book value",
@@ -574,11 +574,11 @@
     },
     {
      "feature": "rev_growth",
-     "importance": 0.191
+     "importance": 0.19
     },
     {
      "feature": "book_to_market",
-     "importance": 0.159
+     "importance": 0.158
     },
     {
      "feature": "leverage",
@@ -586,11 +586,11 @@
     },
     {
      "feature": "roa",
-     "importance": 0.147
+     "importance": 0.148
     },
     {
      "feature": "earnings_yield",
-     "importance": 0.131
+     "importance": 0.132
     }
    ]
   },
@@ -908,7 +908,7 @@
      "name": "Live Nation Entertainment, Inc.",
      "probability": 0.565,
      "percentile": 0.996,
-     "price": 177.1,
+     "price": 177.15,
      "traits": [
       "Expensive vs. book value",
       "Heavy debt load"
@@ -925,7 +925,7 @@
      "name": "Cencora, Inc.",
      "probability": 0.559,
      "percentile": 0.994,
-     "price": 337.85,
+     "price": 337.84,
      "traits": [
       "Expensive vs. book value",
       "Heavy debt load"
@@ -942,7 +942,7 @@
      "name": "Tapestry, Inc.",
      "probability": 0.559,
      "percentile": 0.992,
-     "price": 120.78,
+     "price": 120.76,
      "traits": [
       "Expensive vs. book value",
       "Highly profitable business",
@@ -961,7 +961,7 @@
      "name": "Loews Corp",
      "probability": 0.557,
      "percentile": 0.99,
-     "price": 111.43,
+     "price": 111.34,
      "traits": [
       "Cheap vs. earnings",
       "Cheap vs. book value"
@@ -969,7 +969,7 @@
      "volatility": 0.157,
      "range_low": -0.125,
      "range_high": 0.309,
-     "chance_of_loss": 0.333,
+     "chance_of_loss": 0.334,
      "hist_chance_of_loss": 0.309
     },
     {
@@ -978,7 +978,7 @@
      "name": "Ciena Corp",
      "probability": 0.557,
      "percentile": 0.988,
-     "price": 284.22,
+     "price": 284.34,
      "traits": [
       "Expensive vs. earnings",
       "Expensive vs. book value",
@@ -996,7 +996,7 @@
      "name": "Mastercard Inc",
      "probability": 0.555,
      "percentile": 0.986,
-     "price": 658.39,
+     "price": 658.1,
      "traits": [
       "Expensive vs. book value",
       "Strong return on assets",
@@ -1048,7 +1048,7 @@
      "name": "Moodys Corp /De/",
      "probability": 0.554,
      "percentile": 0.98,
-     "price": 505.57,
+     "price": 506.02,
      "traits": [
       "Expensive vs. book value",
       "Strong return on assets"
@@ -1100,7 +1100,7 @@
      "name": "Motorola Solutions, Inc.",
      "probability": 0.551,
      "percentile": 0.974,
-     "price": 487.23,
+     "price": 487.31,
      "traits": [
       "Expensive vs. book value"
      ],
@@ -1396,9 +1396,9 @@
      "rank": 1,
      "ticker": "LYV",
      "name": "Live Nation Entertainment, Inc.",
-     "probability": 0.626,
+     "probability": 0.628,
      "percentile": 1.0,
-     "price": 177.1,
+     "price": 177.15,
      "traits": [
       "Expensive vs. book value",
       "Heavy debt load"
@@ -1415,7 +1415,7 @@
      "name": "Moodys Corp /De/",
      "probability": 0.615,
      "percentile": 0.998,
-     "price": 505.57,
+     "price": 506.02,
      "traits": [
       "Expensive vs. book value",
       "Strong return on assets"
@@ -1432,7 +1432,7 @@
      "name": "Tapestry, Inc.",
      "probability": 0.609,
      "percentile": 0.996,
-     "price": 120.78,
+     "price": 120.76,
      "traits": [
       "Expensive vs. book value",
       "Highly profitable business",
@@ -1451,7 +1451,7 @@
      "name": "Motorola Solutions, Inc.",
      "probability": 0.603,
      "percentile": 0.994,
-     "price": 487.23,
+     "price": 487.31,
      "traits": [
       "Expensive vs. book value"
      ],
@@ -1465,7 +1465,7 @@
      "rank": 5,
      "ticker": "AMGN",
      "name": "Amgen Inc",
-     "probability": 0.598,
+     "probability": 0.599,
      "percentile": 0.992,
      "price": 465.45,
      "traits": [
@@ -1481,7 +1481,7 @@
      "rank": 6,
      "ticker": "EXPE",
      "name": "Expedia Group, Inc.",
-     "probability": 0.594,
+     "probability": 0.595,
      "percentile": 0.99,
      "price": 298.99,
      "traits": [
@@ -1498,7 +1498,7 @@
      "rank": 7,
      "ticker": "KLAC",
      "name": "Kla Corp",
-     "probability": 0.592,
+     "probability": 0.593,
      "percentile": 0.988,
      "price": 153.11,
      "traits": [
@@ -1518,7 +1518,7 @@
      "name": "Godaddy Inc.",
      "probability": 0.588,
      "percentile": 0.986,
-     "price": 116.68,
+     "price": 116.61,
      "traits": [
       "Expensive vs. book value",
       "Heavy debt load"
@@ -1533,9 +1533,9 @@
      "rank": 9,
      "ticker": "AMT",
      "name": "American Tower Corp /Ma/",
-     "probability": 0.586,
+     "probability": 0.587,
      "percentile": 0.984,
-     "price": 188.4,
+     "price": 188.3,
      "traits": [
       "Expensive vs. book value",
       "Fast revenue growth"
@@ -1570,7 +1570,7 @@
      "name": "Las Vegas Sands Corp",
      "probability": 0.581,
      "percentile": 0.98,
-     "price": 38.19,
+     "price": 38.2,
      "traits": [
       "Cheap vs. earnings",
       "Expensive vs. book value",
@@ -1588,7 +1588,7 @@
      "name": "Mastercard Inc",
      "probability": 0.577,
      "percentile": 0.978,
-     "price": 658.39,
+     "price": 658.1,
      "traits": [
       "Expensive vs. book value",
       "Strong return on assets",
@@ -1604,7 +1604,7 @@
      "rank": 13,
      "ticker": "LRCX",
      "name": "Lam Research Corp",
-     "probability": 0.566,
+     "probability": 0.567,
      "percentile": 0.976,
      "price": 227.56,
      "traits": [
@@ -1623,7 +1623,7 @@
      "rank": 14,
      "ticker": "IDXX",
      "name": "Idexx Laboratories Inc /De",
-     "probability": 0.565,
+     "probability": 0.566,
      "percentile": 0.974,
      "price": 671.64,
      "traits": [
@@ -1639,22 +1639,17 @@
     },
     {
      "rank": 15,
-     "ticker": "APP",
-     "name": "Applovin Corp",
+     "ticker": "DRI",
+     "name": "Darden Restaurants Inc",
      "probability": 0.563,
      "percentile": 0.972,
-     "price": 228.85,
-     "traits": [
-      "Expensive vs. book value",
-      "Highly profitable business",
-      "Strong return on assets",
-      "Fast revenue growth"
-     ],
-     "volatility": 0.904,
-     "range_low": -0.899,
-     "range_high": 1.668,
-     "chance_of_loss": 0.696,
-     "hist_chance_of_loss": 0.25
+     "price": 222.83,
+     "traits": [],
+     "volatility": 0.193,
+     "range_low": -0.203,
+     "range_high": 0.604,
+     "chance_of_loss": 0.326,
+     "hist_chance_of_loss": 0.061
     }
    ],
    "importance": [
@@ -1664,7 +1659,7 @@
     },
     {
      "feature": "leverage",
-     "importance": 0.197
+     "importance": 0.196
     },
     {
      "feature": "rev_growth",
@@ -1672,7 +1667,7 @@
     },
     {
      "feature": "book_to_market",
-     "importance": 0.158
+     "importance": 0.159
     },
     {
      "feature": "roa",
@@ -1680,9 +1675,407 @@
     },
     {
      "feature": "earnings_yield",
-     "importance": 0.109
+     "importance": 0.11
     }
    ]
   }
- ]
+ ],
+ "live": {
+  "started": "2026-11-02",
+  "horizons": [
+   {
+    "months": 6,
+    "label": "6 months",
+    "picks": 15,
+    "closed": 0,
+    "open": 15,
+    "closed_wins": 0,
+    "closed_losses": 0,
+    "open_beating": 11,
+    "avg_ret": 0.0,
+    "avg_sp_ret": -0.0,
+    "cohorts": [
+     {
+      "date": "2026-11-02",
+      "ret": 0.0,
+      "sp_ret": -0.0,
+      "beat": 11,
+      "n": 15,
+      "closed": false,
+      "tickers": "TPR HBAN DDOG FITB GDDY"
+     }
+    ],
+    "first_picks": [
+     {
+      "ticker": "TPR",
+      "price": 120.76,
+      "now": 120.76,
+      "ret": 0.0,
+      "sp_ret": -0.0
+     },
+     {
+      "ticker": "HBAN",
+      "price": 16.01,
+      "now": 16.01,
+      "ret": 0.0,
+      "sp_ret": -0.0
+     },
+     {
+      "ticker": "DDOG",
+      "price": 216.1,
+      "now": 216.1,
+      "ret": 0.0,
+      "sp_ret": -0.0
+     },
+     {
+      "ticker": "FITB",
+      "price": 54.97,
+      "now": 54.97,
+      "ret": 0.0,
+      "sp_ret": -0.0
+     },
+     {
+      "ticker": "GDDY",
+      "price": 116.61,
+      "now": 116.61,
+      "ret": 0.0,
+      "sp_ret": -0.0
+     },
+     {
+      "ticker": "L",
+      "price": 111.34,
+      "now": 111.34,
+      "ret": -0.0,
+      "sp_ret": -0.0
+     },
+     {
+      "ticker": "LVS",
+      "price": 38.2,
+      "now": 38.2,
+      "ret": 0.0,
+      "sp_ret": -0.0
+     },
+     {
+      "ticker": "LYV",
+      "price": 177.15,
+      "now": 177.15,
+      "ret": -0.0,
+      "sp_ret": -0.0
+     },
+     {
+      "ticker": "EXPE",
+      "price": 298.99,
+      "now": 298.99,
+      "ret": -0.0,
+      "sp_ret": -0.0
+     },
+     {
+      "ticker": "CMG",
+      "price": 32.91,
+      "now": 32.91,
+      "ret": -0.0,
+      "sp_ret": -0.0
+     },
+     {
+      "ticker": "MTB",
+      "price": 224.43,
+      "now": 224.43,
+      "ret": -0.0,
+      "sp_ret": -0.0
+     },
+     {
+      "ticker": "KEY",
+      "price": 21.49,
+      "now": 21.49,
+      "ret": -0.0,
+      "sp_ret": -0.0
+     },
+     {
+      "ticker": "CHTR",
+      "price": 115.54,
+      "now": 115.54,
+      "ret": 0.0,
+      "sp_ret": -0.0
+     },
+     {
+      "ticker": "ARES",
+      "price": 132.96,
+      "now": 132.96,
+      "ret": 0.0,
+      "sp_ret": -0.0
+     },
+     {
+      "ticker": "BAC",
+      "price": 49.57,
+      "now": 49.57,
+      "ret": -0.0,
+      "sp_ret": -0.0
+     }
+    ],
+    "latest_date": "2026-11-02"
+   },
+   {
+    "months": 12,
+    "label": "1 year",
+    "picks": 15,
+    "closed": 0,
+    "open": 15,
+    "closed_wins": 0,
+    "closed_losses": 0,
+    "open_beating": 11,
+    "avg_ret": -0.0,
+    "avg_sp_ret": -0.0,
+    "cohorts": [
+     {
+      "date": "2026-11-02",
+      "ret": -0.0,
+      "sp_ret": -0.0,
+      "beat": 11,
+      "n": 15,
+      "closed": false,
+      "tickers": "CRWD DDOG LYV COR TPR"
+     }
+    ],
+    "first_picks": [
+     {
+      "ticker": "CRWD",
+      "price": 241.81,
+      "now": 241.81,
+      "ret": -0.0,
+      "sp_ret": -0.0
+     },
+     {
+      "ticker": "DDOG",
+      "price": 216.1,
+      "now": 216.1,
+      "ret": 0.0,
+      "sp_ret": -0.0
+     },
+     {
+      "ticker": "LYV",
+      "price": 177.15,
+      "now": 177.15,
+      "ret": -0.0,
+      "sp_ret": -0.0
+     },
+     {
+      "ticker": "COR",
+      "price": 337.84,
+      "now": 337.84,
+      "ret": -0.0,
+      "sp_ret": -0.0
+     },
+     {
+      "ticker": "TPR",
+      "price": 120.76,
+      "now": 120.76,
+      "ret": 0.0,
+      "sp_ret": -0.0
+     },
+     {
+      "ticker": "L",
+      "price": 111.34,
+      "now": 111.34,
+      "ret": -0.0,
+      "sp_ret": -0.0
+     },
+     {
+      "ticker": "CIEN",
+      "price": 284.34,
+      "now": 284.34,
+      "ret": -0.0,
+      "sp_ret": -0.0
+     },
+     {
+      "ticker": "MA",
+      "price": 658.1,
+      "now": 658.1,
+      "ret": -0.0,
+      "sp_ret": -0.0
+     },
+     {
+      "ticker": "AMGN",
+      "price": 465.45,
+      "now": 465.45,
+      "ret": 0.0,
+      "sp_ret": -0.0
+     },
+     {
+      "ticker": "FITB",
+      "price": 54.97,
+      "now": 54.97,
+      "ret": 0.0,
+      "sp_ret": -0.0
+     },
+     {
+      "ticker": "MCO",
+      "price": 506.02,
+      "now": 506.02,
+      "ret": -0.0,
+      "sp_ret": -0.0
+     },
+     {
+      "ticker": "EXPE",
+      "price": 298.99,
+      "now": 298.99,
+      "ret": -0.0,
+      "sp_ret": -0.0
+     },
+     {
+      "ticker": "HBAN",
+      "price": 16.01,
+      "now": 16.01,
+      "ret": 0.0,
+      "sp_ret": -0.0
+     },
+     {
+      "ticker": "MSI",
+      "price": 487.31,
+      "now": 487.31,
+      "ret": -0.0,
+      "sp_ret": -0.0
+     },
+     {
+      "ticker": "CNC",
+      "price": 66.53,
+      "now": 66.53,
+      "ret": -0.0,
+      "sp_ret": -0.0
+     }
+    ],
+    "latest_date": "2026-11-02"
+   },
+   {
+    "months": 24,
+    "label": "2 years",
+    "picks": 15,
+    "closed": 0,
+    "open": 15,
+    "closed_wins": 0,
+    "closed_losses": 0,
+    "open_beating": 12,
+    "avg_ret": -0.0,
+    "avg_sp_ret": -0.0,
+    "cohorts": [
+     {
+      "date": "2026-11-02",
+      "ret": -0.0,
+      "sp_ret": -0.0,
+      "beat": 12,
+      "n": 15,
+      "closed": false,
+      "tickers": "LYV MCO TPR MSI AMGN"
+     }
+    ],
+    "first_picks": [
+     {
+      "ticker": "LYV",
+      "price": 177.15,
+      "now": 177.15,
+      "ret": -0.0,
+      "sp_ret": -0.0
+     },
+     {
+      "ticker": "MCO",
+      "price": 506.02,
+      "now": 506.02,
+      "ret": -0.0,
+      "sp_ret": -0.0
+     },
+     {
+      "ticker": "TPR",
+      "price": 120.76,
+      "now": 120.76,
+      "ret": 0.0,
+      "sp_ret": -0.0
+     },
+     {
+      "ticker": "MSI",
+      "price": 487.31,
+      "now": 487.31,
+      "ret": -0.0,
+      "sp_ret": -0.0
+     },
+     {
+      "ticker": "AMGN",
+      "price": 465.45,
+      "now": 465.45,
+      "ret": 0.0,
+      "sp_ret": -0.0
+     },
+     {
+      "ticker": "EXPE",
+      "price": 298.99,
+      "now": 298.99,
+      "ret": -0.0,
+      "sp_ret": -0.0
+     },
+     {
+      "ticker": "KLAC",
+      "price": 153.11,
+      "now": 153.11,
+      "ret": 0.0,
+      "sp_ret": -0.0
+     },
+     {
+      "ticker": "GDDY",
+      "price": 116.61,
+      "now": 116.61,
+      "ret": 0.0,
+      "sp_ret": -0.0
+     },
+     {
+      "ticker": "AMT",
+      "price": 188.3,
+      "now": 188.3,
+      "ret": 0.0,
+      "sp_ret": -0.0
+     },
+     {
+      "ticker": "FTNT",
+      "price": 126.21,
+      "now": 126.21,
+      "ret": -0.0,
+      "sp_ret": -0.0
+     },
+     {
+      "ticker": "LVS",
+      "price": 38.2,
+      "now": 38.2,
+      "ret": 0.0,
+      "sp_ret": -0.0
+     },
+     {
+      "ticker": "MA",
+      "price": 658.1,
+      "now": 658.1,
+      "ret": -0.0,
+      "sp_ret": -0.0
+     },
+     {
+      "ticker": "LRCX",
+      "price": 227.56,
+      "now": 227.56,
+      "ret": -0.0,
+      "sp_ret": -0.0
+     },
+     {
+      "ticker": "IDXX",
+      "price": 671.64,
+      "now": 671.64,
+      "ret": 0.0,
+      "sp_ret": -0.0
+     },
+     {
+      "ticker": "DRI",
+      "price": 222.83,
+      "now": 222.83,
+      "ret": 0.0,
+      "sp_ret": -0.0
+     }
+    ],
+    "latest_date": "2026-11-02"
+   }
+  ]
+ }
 }
