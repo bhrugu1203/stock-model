@@ -9,7 +9,9 @@ def make_model():
     return RandomForestClassifier(**config.MODEL_PARAMS)
 
 
-def run_backtest(monthly, spy, panel, feature_names):
+def run_backtest(monthly, spy, panel, feature_names, final=False):
+    """Score each rebalance year. Years from config.HOLDOUT_FROM_YEAR on are skipped
+    unless final=True, so they stay untouched while you tune."""
     h = config.HORIZON_MONTHS
     dates = monthly.index
     prices = monthly.ffill()   # a delisted or bought-out stock keeps its last price
@@ -19,6 +21,8 @@ def run_backtest(monthly, spy, panel, feature_names):
     for i in range(len(dates) - h):
         d = dates[i]
         if d.year < config.FIRST_TEST_YEAR or d.month != config.REBALANCE_MONTH:
+            continue
+        if d.year >= config.HOLDOUT_FROM_YEAR and not final:
             continue
 
         cutoff = dates[i - h]   # outcomes up to here were fully known on date d

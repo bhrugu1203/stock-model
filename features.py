@@ -1,7 +1,8 @@
 """Turn prices into model inputs ("features") and the target we predict.
 
 To add a new feature: write a function that takes the monthly price table and
-returns a table of the same shape, then add it to FEATURE_BUILDERS.
+returns a table of the same shape, then add it to FEATURE_BUILDERS. Features built
+from company financials take (prices, financials) and go in FUNDAMENTAL_BUILDERS.
 """
 import pandas as pd
 
@@ -24,7 +25,26 @@ FEATURE_BUILDERS = {
 }
 
 
-def build_panel(monthly, members=None):
+# f is the dict from fundamentals.build(): tables of what each company had reported by each date
+def _earnings_yield(m, f):   return f["net_income"] / f["market_cap"]               # cheap vs profits (E/P)
+def _book_to_market(m, f):   return f["equity"] / f["market_cap"]                   # cheap vs net worth
+def _gross_prof(m, f):       return f["gross_profit"] / f["assets"]                 # quality: gross profit per $ of assets
+def _roa(m, f):              return f["net_income"] / f["assets"]                   # return on assets
+def _rev_growth(m, f):       return f["revenue_growth"]                             # sales growth vs prior year
+def _leverage(m, f):         return f["liabilities"].fillna(f["assets"] - f["equity"]) / f["assets"]
+
+
+FUNDAMENTAL_BUILDERS = {
+    "earnings_yield": _earnings_yield,
+    "book_to_market": _book_to_market,
+    "gross_prof": _gross_prof,
+    "roa": _roa,
+    "rev_growth": _rev_growth,
+    "leverage": _leverage,
+}
+
+
+def build_panel(monthly, members=None, fundamentals=None):
     """Return (panel, feature_names). panel has one row per (date, ticker) with
     rank-normalised features and 'fwd_rel' = next-N-month return minus the median stock.
     Only stocks that were index members on that date (members table) get a row."""
@@ -32,6 +52,11 @@ def build_panel(monthly, members=None):
         members = monthly.notna()
     feats = {k: f(monthly).where(members) for k, f in FEATURE_BUILDERS.items()}
     ranked = {k: v.rank(axis=1, pct=True) for k, v in feats.items()}
+    if fundamentals is not None:
+        for k, fn in FUNDAMENTAL_BUILDERS.items():
+            raw = fn(monthly, fundamentals).replace([float("inf"), float("-inf")], float("nan"))
+            # a missing financial (e.g. banks report no gross profit) counts as middle of the pack
+            ranked[k] = raw.where(members).rank(axis=1, pct=True).fillna(0.5).where(members)
 
     h = config.HORIZON_MONTHS
     # carry the last price forward so a stock that is bought out or delisted keeps its
@@ -42,6 +67,6 @@ def build_panel(monthly, members=None):
     panel = pd.DataFrame({**{k: v.stack() for k, v in ranked.items()},
                           "fwd_rel": fwd_rel.stack()})
     panel.index.names = ["date", "ticker"]
-    names = list(FEATURE_BUILDERS)
-    panel = panel.dropna(subset=names)
+    panel = panel.dropna(subset=list(FEATURE_BUILDERS))
+    names = list(ranked)
     return panel, names

@@ -6,6 +6,7 @@ UNIVERSE = "historical"        # "historical" = S&P 500 members as they were on 
                                # "today" = random sample of today's S&P 500 (the old, biased setup)
 N_STOCKS = 150                 # "today" only: how many of today's S&P 500 to sample
 SAMPLE_SEED = 42               # "today" only: change to test a different random sample of stocks
+HOLDOUT_FROM_YEAR = 2023       # years from here on are kept for one final check (python run.py --final)
 HORIZON_MONTHS = 12            # how far ahead the model predicts
 REBALANCE_MONTH = 1            # 1 = rebalance each January
 TOP_FRACTION = 0.20            # hold the top 20% of stocks the model likes
@@ -18,6 +19,9 @@ MODEL_PARAMS = dict(
     n_jobs=-1,
     random_state=0,
 )
+
+USE_FUNDAMENTALS = True        # add company financials from SEC filings to the model's inputs
+SEC_USER_AGENT = "stock-model bhrugu1203@icloud.com"   # the SEC asks scripts to include a contact email
 
 CACHE_DIR = "data"
 OUTPUT_DIR = "outputs"

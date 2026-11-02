@@ -20,6 +20,7 @@ python run.py --demo             # offline test on fake data (results are meanin
 python run.py                    # real data (first run downloads several minutes, then cached in data/)
 python run.py --refresh          # force a fresh download
 python run.py --no-fundamentals  # skip the slow P/E lookups for the picks
+python run.py --final            # also score the held-out years (2023+); do this rarely
 ```
 
 Results print to the terminal and save to `outputs/` (growth chart, yearly returns, current picks).
@@ -52,7 +53,8 @@ https://bhrugu1203.github.io/stock-model/. Your Mac doesn't need to be on.
 | File | What it controls |
 |---|---|
 | `config.py` | stock universe (historical or today's list), dates, horizon, top-fraction, trading costs, model settings |
-| `features.py` | the inputs the model sees. Add a function plus one line in `FEATURE_BUILDERS` |
+| `features.py` | the inputs the model sees. Add a function plus one line in `FEATURE_BUILDERS` (prices) or `FUNDAMENTAL_BUILDERS` (financials) |
+| `fundamentals.py` | company financials from SEC filings, lined up by when they were published |
 | `backtest.py` | walk-forward training and the scorecard |
 | `picks.py` | today's top picks and the fundamentals shown |
 | `data.py` | downloading and caching prices and past S&P 500 membership |
@@ -63,7 +65,8 @@ https://bhrugu1203.github.io/stock-model/. Your Mac doesn't need to be on.
 2. Add features in `features.py` (e.g. 3-month momentum, price vs 200-day average).
 3. Swap the model in `backtest.make_model()` (try `GradientBoostingClassifier`).
 4. Set `UNIVERSE = "today"` and compare with `"historical"` to see how much survivorship bias inflates results.
-5. Add real historical fundamentals (needs paid data or SEC filings). This is where a finance major can add the most value.
+5. Add more financials in `fundamentals.py` (`ITEMS`) and new ratios in `features.py`. Gross profit is only
+   reported under that name by ~40% of companies; adding revenue minus `CostOfRevenue` would fill many gaps.
 
 ## Limitations (read these)
 - **Survivorship bias (reduced, not gone):** by default the backtest uses the S&P 500 as it actually was on each date
@@ -71,7 +74,11 @@ https://bhrugu1203.github.io/stock-model/. Your Mac doesn't need to be on.
   But Yahoo Finance has no prices for many companies that went bust, were bought out or changed ticker.
   The run prints how many real members are covered. The missing ones are mostly not random, so results can still be off.
 - **Reused tickers:** if a ticker was later given to a different company, Yahoo returns the new company's prices.
-- **Price-only features:** the model is not trained on fundamentals; picks only *display* current ones.
+- **Held-out years:** 2023 onward is skipped unless you pass `--final`. Tune on 2016-2022 only; every look at
+  the held-out years makes them a little less honest.
+- **SEC financials are approximate:** the SEC's frames data holds each company's latest reported figure, so a
+  later restatement can leak in. Numbers count as published 3-4 months after the period ends (a safe guess,
+  not the real filing date). Market value is estimated from the public float, which leaves out insiders' shares.
 - **Small sample:** about 10 yearly results. One great or terrible year means little.
 - **Simplified costs, no taxes.**
 - Beating the S&P 500 is hard. "No edge" is a normal, honest result.

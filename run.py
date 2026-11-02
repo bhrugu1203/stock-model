@@ -9,6 +9,7 @@ import pandas as pd
 
 import config
 import data
+import fundamentals
 from backtest import run_backtest, scorecard
 from features import build_panel
 from picks import current_picks
@@ -19,6 +20,9 @@ def main():
     ap.add_argument("--demo", action="store_true", help="use fake data (offline test, results meaningless)")
     ap.add_argument("--refresh", action="store_true", help="re-download prices instead of using the cache")
     ap.add_argument("--no-fundamentals", action="store_true", help="skip the slow P/E lookups for picks")
+    ap.add_argument("--final", action="store_true",
+                    help=f"also score the held-out years ({config.HOLDOUT_FROM_YEAR}+). Do this rarely: "
+                         "once you tune on these years they stop being an honest test")
     args = ap.parse_args()
 
     os.makedirs(config.OUTPUT_DIR, exist_ok=True)
@@ -30,8 +34,13 @@ def main():
         print(f"Price coverage of real index members: {cov.min():.0%} to {cov.max():.0%} "
               "(the rest have no Yahoo data, mostly companies that were bought out, went bust or renamed)")
 
-    panel, names = build_panel(monthly, members)
-    res, model = run_backtest(monthly, spy, panel, names)
+    fund = None
+    if config.USE_FUNDAMENTALS:
+        fund = fundamentals.synthetic(monthly) if args.demo else fundamentals.build(monthly, refresh=args.refresh)
+    panel, names = build_panel(monthly, members, fund)
+    res, model = run_backtest(monthly, spy, panel, names, final=args.final)
+    if not args.final:
+        print(f"\n(Years {config.HOLDOUT_FROM_YEAR}+ are held out for a final check: python run.py --final)")
 
     print("\nYearly returns % (buy in rebalance month, hold one horizon):")
     print((res * 100).round(1).to_string())

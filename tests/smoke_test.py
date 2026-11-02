@@ -2,12 +2,14 @@
 import os, sys
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import data
+import fundamentals
 from backtest import run_backtest, scorecard
 from features import build_panel
 
 monthly, spy, members = data.synthetic_prices()
-panel, names = build_panel(monthly, members)
-res, model = run_backtest(monthly, spy, panel, names)
+panel, names = build_panel(monthly, members, fundamentals.synthetic(monthly))
+assert "earnings_yield" in names
+res, model = run_backtest(monthly, spy, panel, names, final=True)
 assert len(res) >= 8 and model is not None
 assert not res.isna().any().any()
 print(scorecard(res)[1])
