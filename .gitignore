@@ -1,0 +1,8 @@
+.venv/
+__pycache__/
+.DS_Store
+# price downloads are rebuilt by run.py; the news archive is kept
+data/*
+!data/news/
+data/news/collector.log
+outputs/*.log
