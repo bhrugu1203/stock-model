@@ -12,11 +12,12 @@ import pandas as pd
 
 import config
 
-FRAMES_URL = "https://data.sec.gov/api/xbrl/frames/{tax}/{tag}/USD/{period}.json"
+FRAMES_URL = "https://data.sec.gov/api/xbrl/frames/{tax}/{tag}/{unit}/{period}.json"
+SUBMISSIONS_URL = "https://data.sec.gov/submissions/CIK{cik:010d}.json"
 TICKERS_URL = "https://www.sec.gov/files/company_tickers.json"
 SEC_DIR = os.path.join(config.CACHE_DIR, "sec")
 
-# name: (taxonomy, tags to try in order, "annual" or "instant", months until it counts as published)
+# name: (taxonomy, tags to try in order, "annual" / "quarterly" / "instant", months until it counts as published)
 ITEMS = {
     "revenue":      ("us-gaap", ["RevenueFromContractWithCustomerExcludingAssessedTax", "Revenues",
                                  "SalesRevenueNet"], "annual", 4),
@@ -30,7 +31,12 @@ ITEMS = {
     "liabilities":  ("us-gaap", ["Liabilities"], "instant", 3),
     # market value of shares held by outsiders, measured mid-year and reported in the annual report
     "public_float": ("dei", ["EntityPublicFloat"], "instant", 10),
+    "op_cash_flow": ("us-gaap", ["NetCashProvidedByUsedInOperatingActivities"], "annual", 4),
+    "net_income_q": ("us-gaap", ["NetIncomeLoss"], "quarterly", 2),     # single quarters (Q4 is rarely filed alone)
+    # shares outstanding, as printed on the cover of each filing (dated close to the filing day)
+    "shares":       ("dei", ["EntityCommonStockSharesOutstanding"], "instant", 1),
 }
+UNITS = {"shares": "shares"}   # everything else is in US dollars
 MAX_AGE_MONTHS = 24   # ignore numbers older than this (company stopped filing)
 
 
@@ -50,6 +56,8 @@ def _periods(kind):
     first, last = int(config.START_DATE[:4]) - 1, pd.Timestamp.today().year
     if kind == "annual":
         return [f"CY{y}" for y in range(first, last)]
+    if kind == "quarterly":
+        return [f"CY{y}Q{q}" for y in range(first, last + 1) for q in range(1, 5)]
     return [f"CY{y}Q{q}I" for y in range(first, last + 1) for q in range(1, 5)]
 
 
@@ -61,7 +69,7 @@ def download(items=None):
         print(f"  SEC: {name}")
         for rank, tag in enumerate(tags):
             for period in _periods(kind):
-                d = _get(FRAMES_URL.format(tax=tax, tag=tag, period=period))
+                d = _get(FRAMES_URL.format(tax=tax, tag=tag, unit=UNITS.get(name, "USD"), period=period))
                 time.sleep(0.12)   # the SEC allows at most 10 requests a second
                 for rec in (d or {}).get("data", []):
                     rows.append((name, rank, rec["cik"], rec["end"], rec["val"]))
@@ -92,6 +100,48 @@ def _ticker_map(refresh=False):
 
 def company_names():
     return _ticker_map()["name"]
+
+
+SIC_GROUPS = [  # (first 2 SIC digits up to, sector name)
+    (9, "Agriculture"), (14, "Mining & energy"), (17, "Construction"), (39, "Manufacturing"),
+    (49, "Transport"), (51, "Wholesale"), (59, "Retail"), (67, "Finance & real estate"),
+    (89, "Services"), (99, "Other"),
+]
+
+
+def _sector(sic):
+    if pd.isna(sic) or not str(sic).strip().isdigit():
+        return "Unknown"
+    code = int(str(sic).strip())
+    two = code // 100
+    if two == 28: return "Chemicals & pharma"
+    if two in (35, 36): return "Tech hardware & electronics"
+    if two == 73: return "Software & business services"
+    if two == 13 or two == 29: return "Oil & gas"
+    if two == 49: return "Utilities"
+    if two == 48: return "Telecom & media"
+    if two in (60, 61, 62, 63, 64, 67): return "Finance"
+    if two == 65: return "Real estate"
+    if two == 80: return "Health services"
+    return next(name for top, name in SIC_GROUPS if two <= top)
+
+
+def sectors(tickers):
+    """Ticker -> broad industry group, from each company's SEC industry (SIC) code. Cached in data/sec/."""
+    path = os.path.join(SEC_DIR, "sic.csv")
+    cik = _ticker_map()["cik"]
+    known = pd.read_csv(path, index_col="cik")["sic"] if os.path.exists(path) else pd.Series(dtype=object)
+    todo = sorted({int(cik[t]) for t in tickers if t in cik.index} - set(known.index))
+    if todo:
+        print(f"Downloading industry codes for {len(todo)} companies from the SEC...")
+        new = {}
+        for c in todo:
+            d = _get(SUBMISSIONS_URL.format(cik=c)) or {}
+            new[c] = d.get("sic", "")
+            time.sleep(0.12)
+        known = pd.concat([known, pd.Series(new, name="sic")])
+        known.rename("sic").rename_axis("cik").to_csv(path)
+    return pd.Series({t: _sector(known.get(int(cik[t]))) if t in cik.index else "Unknown" for t in tickers})
 
 
 def load_raw(refresh=False):

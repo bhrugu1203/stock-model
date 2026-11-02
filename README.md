@@ -65,6 +65,22 @@ everything up to then, remakes the picks and publishes the website. Your Mac doe
 - Don't commit a `news.py` run made on your Mac; it would clash with the cloud's copy of `headlines.csv`.
   If you ran it locally, throw that away with `git checkout data/news outputs/news.html` before `git pull`.
 
+## Testing new ideas fairly
+
+```bash
+python experiments.py                                  # test every candidate signal one at a time
+python experiments.py --combo earnings_momentum        # test one or several together
+python experiments.py --industry                       # rank the financials within each industry
+```
+
+Candidate signals live in `CANDIDATE_BUILDERS` in `features.py`. Each one is added to the current model and replayed
+on 2016-2022 for every holding period and quarterly start month (12 results). It only **passes** if it beats the
+current model in at least 9 of the 12 and by at least 0.2 points per period on average. Only passing signals should be
+moved into `FUNDAMENTAL_BUILDERS`. Don't lower the bar after seeing results: that is how backtests end up fitting noise.
+
+First round (Nov 2026): asset growth, profitability change, margin change, share buybacks, accruals, cash
+profitability, earnings momentum and ranking within industry. **None passed**; results in `outputs/experiments.csv`.
+
 ## Where to tweak
 
 | File | What it controls |
@@ -78,6 +94,7 @@ everything up to then, remakes the picks and publishes the website. Your Mac doe
 | `news.py` | the news collector |
 | `forecast.py` | today's picks per holding period, risk estimates and track record |
 | `dashboard.py` | the website |
+| `experiments.py` | the fair test for new signals |
 
 ## Ideas to try next
 1. Change `TOP_FRACTION` (0.1, 0.3) and `HORIZON_MONTHS` (6, 24, 36).
