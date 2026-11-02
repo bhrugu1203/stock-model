@@ -21,6 +21,7 @@ MODEL_PARAMS = dict(
 )
 
 USE_FUNDAMENTALS = True        # add company financials from SEC filings to the model's inputs
+USE_PRICE_FEATURES = False     # also feed the model price patterns (momentum, volatility); they hurt in 2016-2022
 SEC_USER_AGENT = "stock-model bhrugu1203@icloud.com"   # the SEC asks scripts to include a contact email
 
 CACHE_DIR = "data"

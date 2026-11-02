@@ -2,6 +2,8 @@
 
 A beginner-friendly, tweakable stock-picking project. It predicts which S&P 500 stocks are likely to beat the typical stock over the next 12 months, then honestly backtests that idea against the S&P 500.
 
+By default the model uses only company financials from SEC filings (value, profitability, growth, debt). Price patterns are switched off because they made 2016-2022 results worse; set `USE_PRICE_FEATURES = True` to compare.
+
 **Educational project, not financial advice.**
 
 ## Setup (one time, in Terminal)
@@ -52,7 +54,7 @@ https://bhrugu1203.github.io/stock-model/. Your Mac doesn't need to be on.
 
 | File | What it controls |
 |---|---|
-| `config.py` | stock universe (historical or today's list), dates, horizon, top-fraction, trading costs, model settings |
+| `config.py` | stock universe (historical or today's list), which inputs to use (`USE_FUNDAMENTALS`, `USE_PRICE_FEATURES`), dates, horizon, top-fraction, trading costs, model settings |
 | `features.py` | the inputs the model sees. Add a function plus one line in `FEATURE_BUILDERS` (prices) or `FUNDAMENTAL_BUILDERS` (financials) |
 | `fundamentals.py` | company financials from SEC filings, lined up by when they were published |
 | `backtest.py` | walk-forward training and the scorecard |

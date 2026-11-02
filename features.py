@@ -69,4 +69,7 @@ def build_panel(monthly, members=None, fundamentals=None):
     panel.index.names = ["date", "ticker"]
     panel = panel.dropna(subset=list(FEATURE_BUILDERS))
     names = list(ranked)
+    if fundamentals is not None and not config.USE_PRICE_FEATURES:
+        # price features stay in the panel (the momentum benchmark uses them) but the model skips them
+        names = list(FUNDAMENTAL_BUILDERS)
     return panel, names
