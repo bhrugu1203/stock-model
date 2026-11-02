@@ -1,0 +1,1688 @@
+{
+ "generated": "2026-11-02T20:49:30+00:00",
+ "data_through": "2026-11-02",
+ "demo": false,
+ "holdout_from": 2023,
+ "top_fraction": 0.2,
+ "market_drift": 0.08,
+ "horizons": [
+  {
+   "months": 6,
+   "label": "6 months",
+   "universe": 498,
+   "summary": {
+    "periods": 27,
+    "beat_sp500": 14,
+    "beat_average_stock": 13,
+    "avg_picks": 0.0631,
+    "avg_sp500": 0.0648,
+    "avg_average_stock": 0.0668,
+    "pick_wins": 1096,
+    "pick_losses": 1167,
+    "first": "2016-01",
+    "last": "2023-01"
+   },
+   "periods": [
+    {
+     "start": "2016-01",
+     "end": "2016-07",
+     "picks": 0.1449,
+     "average_stock": 0.1764,
+     "sp500": 0.1324,
+     "pick_wins": 43,
+     "pick_count": 74
+    },
+    {
+     "start": "2016-04",
+     "end": "2016-10",
+     "picks": 0.0167,
+     "average_stock": 0.0368,
+     "sp500": 0.0407,
+     "pick_wins": 33,
+     "pick_count": 75
+    },
+    {
+     "start": "2016-07",
+     "end": "2017-01",
+     "picks": 0.0305,
+     "average_stock": 0.0709,
+     "sp500": 0.0594,
+     "pick_wins": 27,
+     "pick_count": 77
+    },
+    {
+     "start": "2016-10",
+     "end": "2017-04",
+     "picks": 0.1357,
+     "average_stock": 0.1291,
+     "sp500": 0.1316,
+     "pick_wins": 38,
+     "pick_count": 78
+    },
+    {
+     "start": "2017-01",
+     "end": "2017-07",
+     "picks": 0.0838,
+     "average_stock": 0.0816,
+     "sp500": 0.0946,
+     "pick_wins": 38,
+     "pick_count": 78
+    },
+    {
+     "start": "2017-04",
+     "end": "2017-10",
+     "picks": 0.0659,
+     "average_stock": 0.0818,
+     "sp500": 0.0908,
+     "pick_wins": 39,
+     "pick_count": 80
+    },
+    {
+     "start": "2017-07",
+     "end": "2018-01",
+     "picks": 0.1811,
+     "average_stock": 0.1455,
+     "sp500": 0.1539,
+     "pick_wins": 46,
+     "pick_count": 80
+    },
+    {
+     "start": "2017-10",
+     "end": "2018-04",
+     "picks": 0.0502,
+     "average_stock": 0.0443,
+     "sp500": 0.038,
+     "pick_wins": 37,
+     "pick_count": 81
+    },
+    {
+     "start": "2018-01",
+     "end": "2018-07",
+     "picks": -0.0168,
+     "average_stock": 0.008,
+     "sp500": 0.0065,
+     "pick_wins": 37,
+     "pick_count": 81
+    },
+    {
+     "start": "2018-04",
+     "end": "2018-10",
+     "picks": 0.0207,
+     "average_stock": 0.0055,
+     "sp500": 0.0324,
+     "pick_wins": 35,
+     "pick_count": 81
+    },
+    {
+     "start": "2018-07",
+     "end": "2019-01",
+     "picks": -0.0091,
+     "average_stock": -0.0354,
+     "sp500": -0.0306,
+     "pick_wins": 46,
+     "pick_count": 82
+    },
+    {
+     "start": "2018-10",
+     "end": "2019-04",
+     "picks": 0.1277,
+     "average_stock": 0.1076,
+     "sp500": 0.0976,
+     "pick_wins": 50,
+     "pick_count": 82
+    },
+    {
+     "start": "2019-01",
+     "end": "2019-07",
+     "picks": 0.1038,
+     "average_stock": 0.1031,
+     "sp500": 0.1121,
+     "pick_wins": 40,
+     "pick_count": 83
+    },
+    {
+     "start": "2019-04",
+     "end": "2019-10",
+     "picks": 0.0236,
+     "average_stock": 0.0307,
+     "sp500": 0.0415,
+     "pick_wins": 38,
+     "pick_count": 83
+    },
+    {
+     "start": "2019-07",
+     "end": "2020-01",
+     "picks": 0.0477,
+     "average_stock": 0.0582,
+     "sp500": 0.092,
+     "pick_wins": 36,
+     "pick_count": 84
+    },
+    {
+     "start": "2019-10",
+     "end": "2020-04",
+     "picks": -0.0953,
+     "average_stock": -0.1231,
+     "sp500": -0.032,
+     "pick_wins": 32,
+     "pick_count": 85
+    },
+    {
+     "start": "2020-01",
+     "end": "2020-07",
+     "picks": 0.0671,
+     "average_stock": -0.0601,
+     "sp500": 0.0253,
+     "pick_wins": 49,
+     "pick_count": 86
+    },
+    {
+     "start": "2020-04",
+     "end": "2020-10",
+     "picks": 0.1506,
+     "average_stock": 0.1286,
+     "sp500": 0.1336,
+     "pick_wins": 44,
+     "pick_count": 87
+    },
+    {
+     "start": "2020-07",
+     "end": "2021-01",
+     "picks": 0.1327,
+     "average_stock": 0.1997,
+     "sp500": 0.1428,
+     "pick_wins": 36,
+     "pick_count": 88
+    },
+    {
+     "start": "2020-10",
+     "end": "2021-04",
+     "picks": 0.3026,
+     "average_stock": 0.4,
+     "sp500": 0.2876,
+     "pick_wins": 41,
+     "pick_count": 88
+    },
+    {
+     "start": "2021-01",
+     "end": "2021-07",
+     "picks": 0.2289,
+     "average_stock": 0.2102,
+     "sp500": 0.1927,
+     "pick_wins": 56,
+     "pick_count": 88
+    },
+    {
+     "start": "2021-04",
+     "end": "2021-10",
+     "picks": 0.136,
+     "average_stock": 0.0718,
+     "sp500": 0.1077,
+     "pick_wins": 47,
+     "pick_count": 89
+    },
+    {
+     "start": "2021-07",
+     "end": "2022-01",
+     "picks": -0.0097,
+     "average_stock": 0.0273,
+     "sp500": 0.0329,
+     "pick_wins": 33,
+     "pick_count": 90
+    },
+    {
+     "start": "2021-10",
+     "end": "2022-04",
+     "picks": -0.1313,
+     "average_stock": -0.0492,
+     "sp500": -0.0969,
+     "pick_wins": 32,
+     "pick_count": 90
+    },
+    {
+     "start": "2022-01",
+     "end": "2022-07",
+     "picks": -0.0641,
+     "average_stock": -0.0553,
+     "sp500": -0.0775,
+     "pick_wins": 38,
+     "pick_count": 90
+    },
+    {
+     "start": "2022-04",
+     "end": "2022-10",
+     "picks": -0.0457,
+     "average_stock": -0.0405,
+     "sp500": -0.0547,
+     "pick_wins": 49,
+     "pick_count": 91
+    },
+    {
+     "start": "2022-07",
+     "end": "2023-01",
+     "picks": 0.0259,
+     "average_stock": 0.0494,
+     "sp500": -0.0048,
+     "pick_wins": 56,
+     "pick_count": 92
+    }
+   ],
+   "calibration": [
+    {
+     "bucket": "Bottom 20%",
+     "hit_rate": 0.484,
+     "n": 2263
+    },
+    {
+     "bucket": "20-40%",
+     "hit_rate": 0.502,
+     "n": 2275
+    },
+    {
+     "bucket": "40-60%",
+     "hit_rate": 0.507,
+     "n": 2270
+    },
+    {
+     "bucket": "60-80%",
+     "hit_rate": 0.511,
+     "n": 2275
+    },
+    {
+     "bucket": "Top 20%",
+     "hit_rate": 0.493,
+     "n": 2285
+    }
+   ],
+   "picks": [
+    {
+     "rank": 1,
+     "ticker": "TPR",
+     "name": "Tapestry, Inc.",
+     "probability": 0.566,
+     "percentile": 1.0,
+     "price": 119.91,
+     "traits": [
+      "Expensive vs. book value",
+      "Highly profitable business",
+      "Strong return on assets",
+      "Heavy debt load"
+     ],
+     "volatility": 0.404,
+     "range_low": -0.307,
+     "range_high": 0.441,
+     "chance_of_loss": 0.501,
+     "hist_chance_of_loss": 0.457
+    },
+    {
+     "rank": 2,
+     "ticker": "HBAN",
+     "name": "Huntington Bancshares Inc /Md/",
+     "probability": 0.558,
+     "percentile": 0.998,
+     "price": 16.0,
+     "traits": [
+      "Cheap vs. earnings",
+      "Cheap vs. book value",
+      "Weak return on assets"
+     ],
+     "volatility": 0.233,
+     "range_low": -0.169,
+     "range_high": 0.268,
+     "chance_of_loss": 0.436,
+     "hist_chance_of_loss": 0.34
+    },
+    {
+     "rank": 3,
+     "ticker": "DDOG",
+     "name": "Datadog, Inc.",
+     "probability": 0.557,
+     "percentile": 0.996,
+     "price": 219.18,
+     "traits": [
+      "Expensive vs. earnings",
+      "Expensive vs. book value",
+      "Weak return on assets",
+      "Fast revenue growth"
+     ],
+     "volatility": 0.615,
+     "range_low": -0.458,
+     "range_high": 0.654,
+     "chance_of_loss": 0.55,
+     "hist_chance_of_loss": 0.383
+    },
+    {
+     "rank": 4,
+     "ticker": "FITB",
+     "name": "Fifth Third Bancorp",
+     "probability": 0.551,
+     "percentile": 0.994,
+     "price": 54.86,
+     "traits": [
+      "Cheap vs. earnings",
+      "Cheap vs. book value",
+      "Weak return on assets"
+     ],
+     "volatility": 0.248,
+     "range_low": -0.182,
+     "range_high": 0.284,
+     "chance_of_loss": 0.444,
+     "hist_chance_of_loss": 0.365
+    },
+    {
+     "rank": 5,
+     "ticker": "GDDY",
+     "name": "Godaddy Inc.",
+     "probability": 0.551,
+     "percentile": 0.992,
+     "price": 117.43,
+     "traits": [
+      "Expensive vs. book value",
+      "Heavy debt load"
+     ],
+     "volatility": 0.321,
+     "range_low": -0.242,
+     "range_high": 0.357,
+     "chance_of_loss": 0.475,
+     "hist_chance_of_loss": 0.356
+    },
+    {
+     "rank": 6,
+     "ticker": "LVS",
+     "name": "Las Vegas Sands Corp",
+     "probability": 0.547,
+     "percentile": 0.99,
+     "price": 38.1,
+     "traits": [
+      "Cheap vs. earnings",
+      "Expensive vs. book value",
+      "Heavy debt load"
+     ],
+     "volatility": 0.36,
+     "range_low": -0.273,
+     "range_high": 0.396,
+     "chance_of_loss": 0.488,
+     "hist_chance_of_loss": 0.442
+    },
+    {
+     "rank": 7,
+     "ticker": "L",
+     "name": "Loews Corp",
+     "probability": 0.546,
+     "percentile": 0.988,
+     "price": 112.15,
+     "traits": [
+      "Cheap vs. earnings",
+      "Cheap vs. book value"
+     ],
+     "volatility": 0.157,
+     "range_low": -0.103,
+     "range_high": 0.193,
+     "chance_of_loss": 0.38,
+     "hist_chance_of_loss": 0.33
+    },
+    {
+     "rank": 8,
+     "ticker": "LYV",
+     "name": "Live Nation Entertainment, Inc.",
+     "probability": 0.545,
+     "percentile": 0.986,
+     "price": 177.32,
+     "traits": [
+      "Expensive vs. book value",
+      "Heavy debt load"
+     ],
+     "volatility": 0.272,
+     "range_low": -0.202,
+     "range_high": 0.308,
+     "chance_of_loss": 0.456,
+     "hist_chance_of_loss": 0.294
+    },
+    {
+     "rank": 9,
+     "ticker": "EXPE",
+     "name": "Expedia Group, Inc.",
+     "probability": 0.542,
+     "percentile": 0.984,
+     "price": 296.44,
+     "traits": [
+      "Expensive vs. book value",
+      "Heavy debt load"
+     ],
+     "volatility": 0.355,
+     "range_low": -0.269,
+     "range_high": 0.391,
+     "chance_of_loss": 0.487,
+     "hist_chance_of_loss": 0.325
+    },
+    {
+     "rank": 10,
+     "ticker": "MTB",
+     "name": "M&T Bank Corp",
+     "probability": 0.54,
+     "percentile": 0.982,
+     "price": 224.16,
+     "traits": [
+      "Cheap vs. earnings",
+      "Cheap vs. book value",
+      "Weak return on assets"
+     ],
+     "volatility": 0.217,
+     "range_low": -0.155,
+     "range_high": 0.253,
+     "chance_of_loss": 0.427,
+     "hist_chance_of_loss": 0.32
+    },
+    {
+     "rank": 11,
+     "ticker": "CMG",
+     "name": "Chipotle Mexican Grill Inc",
+     "probability": 0.539,
+     "percentile": 0.98,
+     "price": 32.82,
+     "traits": [
+      "Expensive vs. book value",
+      "Strong return on assets"
+     ],
+     "volatility": 0.305,
+     "range_low": -0.229,
+     "range_high": 0.341,
+     "chance_of_loss": 0.469,
+     "hist_chance_of_loss": 0.345
+    },
+    {
+     "rank": 12,
+     "ticker": "KEY",
+     "name": "Keycorp /New/",
+     "probability": 0.538,
+     "percentile": 0.978,
+     "price": 21.48,
+     "traits": [
+      "Cheap vs. earnings",
+      "Cheap vs. book value",
+      "Weak return on assets",
+      "Heavy debt load"
+     ],
+     "volatility": 0.246,
+     "range_low": -0.18,
+     "range_high": 0.281,
+     "chance_of_loss": 0.443,
+     "hist_chance_of_loss": 0.33
+    },
+    {
+     "rank": 13,
+     "ticker": "ARES",
+     "name": "Ares Management Corp",
+     "probability": 0.537,
+     "percentile": 0.976,
+     "price": 132.68,
+     "traits": [
+      "Cheap vs. earnings",
+      "Cheap vs. book value",
+      "Weak return on assets",
+      "Fast revenue growth"
+     ],
+     "volatility": 0.332,
+     "range_low": -0.25,
+     "range_high": 0.367,
+     "chance_of_loss": 0.479,
+     "hist_chance_of_loss": 0.276
+    },
+    {
+     "rank": 14,
+     "ticker": "BAC",
+     "name": "Bank Of America Corp /De/",
+     "probability": 0.534,
+     "percentile": 0.974,
+     "price": 49.79,
+     "traits": [
+      "Cheap vs. earnings",
+      "Cheap vs. book value",
+      "Weak return on assets",
+      "Heavy debt load"
+     ],
+     "volatility": 0.218,
+     "range_low": -0.156,
+     "range_high": 0.253,
+     "chance_of_loss": 0.428,
+     "hist_chance_of_loss": 0.391
+    },
+    {
+     "rank": 15,
+     "ticker": "CHTR",
+     "name": "Charter Communications, Inc. /Mo/",
+     "probability": 0.533,
+     "percentile": 0.972,
+     "price": 114.51,
+     "traits": [
+      "Cheap vs. earnings",
+      "Cheap vs. book value",
+      "Shrinking or slow revenue",
+      "Heavy debt load"
+     ],
+     "volatility": 0.433,
+     "range_low": -0.329,
+     "range_high": 0.471,
+     "chance_of_loss": 0.509,
+     "hist_chance_of_loss": 0.34
+    }
+   ],
+   "importance": [
+    {
+     "feature": "gross_prof",
+     "importance": 0.217
+    },
+    {
+     "feature": "rev_growth",
+     "importance": 0.191
+    },
+    {
+     "feature": "book_to_market",
+     "importance": 0.158
+    },
+    {
+     "feature": "leverage",
+     "importance": 0.156
+    },
+    {
+     "feature": "roa",
+     "importance": 0.147
+    },
+    {
+     "feature": "earnings_yield",
+     "importance": 0.131
+    }
+   ]
+  },
+  {
+   "months": 12,
+   "label": "1 year",
+   "universe": 498,
+   "summary": {
+    "periods": 25,
+    "beat_sp500": 14,
+    "beat_average_stock": 13,
+    "avg_picks": 0.1433,
+    "avg_sp500": 0.1419,
+    "avg_average_stock": 0.1428,
+    "pick_wins": 981,
+    "pick_losses": 1099,
+    "first": "2016-01",
+    "last": "2023-01"
+   },
+   "periods": [
+    {
+     "start": "2016-01",
+     "end": "2017-01",
+     "picks": 0.1874,
+     "average_stock": 0.2582,
+     "sp500": 0.1998,
+     "pick_wins": 33,
+     "pick_count": 74
+    },
+    {
+     "start": "2016-04",
+     "end": "2017-04",
+     "picks": 0.1377,
+     "average_stock": 0.1763,
+     "sp500": 0.1777,
+     "pick_wins": 28,
+     "pick_count": 75
+    },
+    {
+     "start": "2016-07",
+     "end": "2017-07",
+     "picks": 0.1142,
+     "average_stock": 0.1564,
+     "sp500": 0.1597,
+     "pick_wins": 29,
+     "pick_count": 77
+    },
+    {
+     "start": "2016-10",
+     "end": "2017-10",
+     "picks": 0.2294,
+     "average_stock": 0.2334,
+     "sp500": 0.2343,
+     "pick_wins": 38,
+     "pick_count": 78
+    },
+    {
+     "start": "2017-01",
+     "end": "2018-01",
+     "picks": 0.2739,
+     "average_stock": 0.2409,
+     "sp500": 0.263,
+     "pick_wins": 38,
+     "pick_count": 78
+    },
+    {
+     "start": "2017-04",
+     "end": "2018-04",
+     "picks": 0.1387,
+     "average_stock": 0.1299,
+     "sp500": 0.1322,
+     "pick_wins": 34,
+     "pick_count": 80
+    },
+    {
+     "start": "2017-07",
+     "end": "2018-07",
+     "picks": 0.1843,
+     "average_stock": 0.1545,
+     "sp500": 0.1614,
+     "pick_wins": 42,
+     "pick_count": 80
+    },
+    {
+     "start": "2017-10",
+     "end": "2018-10",
+     "picks": 0.1022,
+     "average_stock": 0.0548,
+     "sp500": 0.0716,
+     "pick_wins": 36,
+     "pick_count": 81
+    },
+    {
+     "start": "2018-01",
+     "end": "2019-01",
+     "picks": -0.0111,
+     "average_stock": -0.0255,
+     "sp500": -0.0243,
+     "pick_wins": 41,
+     "pick_count": 81
+    },
+    {
+     "start": "2018-04",
+     "end": "2019-04",
+     "picks": 0.1565,
+     "average_stock": 0.1111,
+     "sp500": 0.1331,
+     "pick_wins": 46,
+     "pick_count": 81
+    },
+    {
+     "start": "2018-07",
+     "end": "2019-07",
+     "picks": 0.0985,
+     "average_stock": 0.0665,
+     "sp500": 0.0781,
+     "pick_wins": 44,
+     "pick_count": 82
+    },
+    {
+     "start": "2018-10",
+     "end": "2019-10",
+     "picks": 0.1719,
+     "average_stock": 0.1418,
+     "sp500": 0.1431,
+     "pick_wins": 46,
+     "pick_count": 82
+    },
+    {
+     "start": "2019-01",
+     "end": "2020-01",
+     "picks": 0.2437,
+     "average_stock": 0.1708,
+     "sp500": 0.2145,
+     "pick_wins": 45,
+     "pick_count": 83
+    },
+    {
+     "start": "2019-04",
+     "end": "2020-04",
+     "picks": -0.0032,
+     "average_stock": -0.0908,
+     "sp500": 0.0081,
+     "pick_wins": 41,
+     "pick_count": 83
+    },
+    {
+     "start": "2019-07",
+     "end": "2020-07",
+     "picks": 0.1269,
+     "average_stock": 0.002,
+     "sp500": 0.1197,
+     "pick_wins": 42,
+     "pick_count": 84
+    },
+    {
+     "start": "2019-10",
+     "end": "2020-10",
+     "picks": 0.0914,
+     "average_stock": -0.011,
+     "sp500": 0.0973,
+     "pick_wins": 41,
+     "pick_count": 85
+    },
+    {
+     "start": "2020-01",
+     "end": "2021-01",
+     "picks": 0.1607,
+     "average_stock": 0.1071,
+     "sp500": 0.1717,
+     "pick_wins": 34,
+     "pick_count": 86
+    },
+    {
+     "start": "2020-04",
+     "end": "2021-04",
+     "picks": 0.4957,
+     "average_stock": 0.5818,
+     "sp500": 0.4596,
+     "pick_wins": 39,
+     "pick_count": 87
+    },
+    {
+     "start": "2020-07",
+     "end": "2021-07",
+     "picks": 0.3857,
+     "average_stock": 0.462,
+     "sp500": 0.363,
+     "pick_wins": 41,
+     "pick_count": 88
+    },
+    {
+     "start": "2020-10",
+     "end": "2021-10",
+     "picks": 0.4253,
+     "average_stock": 0.4964,
+     "sp500": 0.4262,
+     "pick_wins": 38,
+     "pick_count": 88
+    },
+    {
+     "start": "2021-01",
+     "end": "2022-01",
+     "picks": 0.2353,
+     "average_stock": 0.2498,
+     "sp500": 0.2319,
+     "pick_wins": 44,
+     "pick_count": 88
+    },
+    {
+     "start": "2021-04",
+     "end": "2022-04",
+     "picks": -0.0313,
+     "average_stock": 0.0179,
+     "sp500": 0.0003,
+     "pick_wins": 37,
+     "pick_count": 89
+    },
+    {
+     "start": "2021-07",
+     "end": "2022-07",
+     "picks": -0.0881,
+     "average_stock": -0.0205,
+     "sp500": -0.0471,
+     "pick_wins": 36,
+     "pick_count": 90
+    },
+    {
+     "start": "2021-10",
+     "end": "2022-10",
+     "picks": -0.1803,
+     "average_stock": -0.0834,
+     "sp500": -0.1463,
+     "pick_wins": 39,
+     "pick_count": 90
+    },
+    {
+     "start": "2022-01",
+     "end": "2023-01",
+     "picks": -0.0618,
+     "average_stock": -0.0104,
+     "sp500": -0.0819,
+     "pick_wins": 49,
+     "pick_count": 90
+    }
+   ],
+   "calibration": [
+    {
+     "bucket": "Bottom 20%",
+     "hit_rate": 0.481,
+     "n": 2080
+    },
+    {
+     "bucket": "20-40%",
+     "hit_rate": 0.527,
+     "n": 2091
+    },
+    {
+     "bucket": "40-60%",
+     "hit_rate": 0.514,
+     "n": 2085
+    },
+    {
+     "bucket": "60-80%",
+     "hit_rate": 0.465,
+     "n": 2090
+    },
+    {
+     "bucket": "Top 20%",
+     "hit_rate": 0.51,
+     "n": 2102
+    }
+   ],
+   "picks": [
+    {
+     "rank": 1,
+     "ticker": "CRWD",
+     "name": "Crowdstrike Holdings, Inc.",
+     "probability": 0.582,
+     "percentile": 1.0,
+     "price": 242.7,
+     "traits": [
+      "Expensive vs. earnings",
+      "Expensive vs. book value",
+      "Weak return on assets"
+     ],
+     "volatility": 0.562,
+     "range_low": -0.55,
+     "range_high": 0.901,
+     "chance_of_loss": 0.555,
+     "hist_chance_of_loss": 0.256
+    },
+    {
+     "rank": 2,
+     "ticker": "DDOG",
+     "name": "Datadog, Inc.",
+     "probability": 0.578,
+     "percentile": 0.998,
+     "price": 219.18,
+     "traits": [
+      "Expensive vs. earnings",
+      "Expensive vs. book value",
+      "Weak return on assets",
+      "Fast revenue growth"
+     ],
+     "volatility": 0.615,
+     "range_low": -0.592,
+     "range_high": 0.972,
+     "chance_of_loss": 0.57,
+     "hist_chance_of_loss": 0.267
+    },
+    {
+     "rank": 3,
+     "ticker": "LYV",
+     "name": "Live Nation Entertainment, Inc.",
+     "probability": 0.565,
+     "percentile": 0.996,
+     "price": 177.32,
+     "traits": [
+      "Expensive vs. book value",
+      "Heavy debt load"
+     ],
+     "volatility": 0.272,
+     "range_low": -0.264,
+     "range_high": 0.48,
+     "chance_of_loss": 0.437,
+     "hist_chance_of_loss": 0.262
+    },
+    {
+     "rank": 4,
+     "ticker": "COR",
+     "name": "Cencora, Inc.",
+     "probability": 0.559,
+     "percentile": 0.994,
+     "price": 335.03,
+     "traits": [
+      "Expensive vs. book value",
+      "Heavy debt load"
+     ],
+     "volatility": 0.246,
+     "range_low": -0.233,
+     "range_high": 0.441,
+     "chance_of_loss": 0.42,
+     "hist_chance_of_loss": 0.199
+    },
+    {
+     "rank": 5,
+     "ticker": "TPR",
+     "name": "Tapestry, Inc.",
+     "probability": 0.559,
+     "percentile": 0.992,
+     "price": 119.91,
+     "traits": [
+      "Expensive vs. book value",
+      "Highly profitable business",
+      "Strong return on assets",
+      "Heavy debt load"
+     ],
+     "volatility": 0.404,
+     "range_low": -0.405,
+     "range_high": 0.675,
+     "chance_of_loss": 0.501,
+     "hist_chance_of_loss": 0.403
+    },
+    {
+     "rank": 6,
+     "ticker": "CIEN",
+     "name": "Ciena Corp",
+     "probability": 0.557,
+     "percentile": 0.99,
+     "price": 288.48,
+     "traits": [
+      "Expensive vs. earnings",
+      "Expensive vs. book value",
+      "Fast revenue growth"
+     ],
+     "volatility": 0.573,
+     "range_low": -0.559,
+     "range_high": 0.915,
+     "chance_of_loss": 0.558,
+     "hist_chance_of_loss": 0.304
+    },
+    {
+     "rank": 7,
+     "ticker": "L",
+     "name": "Loews Corp",
+     "probability": 0.556,
+     "percentile": 0.988,
+     "price": 112.15,
+     "traits": [
+      "Cheap vs. earnings",
+      "Cheap vs. book value"
+     ],
+     "volatility": 0.157,
+     "range_low": -0.125,
+     "range_high": 0.309,
+     "chance_of_loss": 0.333,
+     "hist_chance_of_loss": 0.309
+    },
+    {
+     "rank": 8,
+     "ticker": "MA",
+     "name": "Mastercard Inc",
+     "probability": 0.555,
+     "percentile": 0.986,
+     "price": 658.33,
+     "traits": [
+      "Expensive vs. book value",
+      "Strong return on assets",
+      "Heavy debt load"
+     ],
+     "volatility": 0.172,
+     "range_low": -0.144,
+     "range_high": 0.331,
+     "chance_of_loss": 0.352,
+     "hist_chance_of_loss": 0.131
+    },
+    {
+     "rank": 9,
+     "ticker": "AMGN",
+     "name": "Amgen Inc",
+     "probability": 0.554,
+     "percentile": 0.984,
+     "price": 467.91,
+     "traits": [
+      "Expensive vs. book value"
+     ],
+     "volatility": 0.251,
+     "range_low": -0.239,
+     "range_high": 0.448,
+     "chance_of_loss": 0.423,
+     "hist_chance_of_loss": 0.183
+    },
+    {
+     "rank": 10,
+     "ticker": "FITB",
+     "name": "Fifth Third Bancorp",
+     "probability": 0.554,
+     "percentile": 0.982,
+     "price": 54.86,
+     "traits": [
+      "Cheap vs. earnings",
+      "Cheap vs. book value",
+      "Weak return on assets"
+     ],
+     "volatility": 0.248,
+     "range_low": -0.236,
+     "range_high": 0.444,
+     "chance_of_loss": 0.422,
+     "hist_chance_of_loss": 0.34
+    },
+    {
+     "rank": 11,
+     "ticker": "MCO",
+     "name": "Moodys Corp /De/",
+     "probability": 0.554,
+     "percentile": 0.98,
+     "price": 504.83,
+     "traits": [
+      "Expensive vs. book value",
+      "Strong return on assets"
+     ],
+     "volatility": 0.192,
+     "range_low": -0.168,
+     "range_high": 0.36,
+     "chance_of_loss": 0.374,
+     "hist_chance_of_loss": 0.183
+    },
+    {
+     "rank": 12,
+     "ticker": "EXPE",
+     "name": "Expedia Group, Inc.",
+     "probability": 0.551,
+     "percentile": 0.978,
+     "price": 296.44,
+     "traits": [
+      "Expensive vs. book value",
+      "Heavy debt load"
+     ],
+     "volatility": 0.355,
+     "range_low": -0.355,
+     "range_high": 0.603,
+     "chance_of_loss": 0.481,
+     "hist_chance_of_loss": 0.283
+    },
+    {
+     "rank": 13,
+     "ticker": "HBAN",
+     "name": "Huntington Bancshares Inc /Md/",
+     "probability": 0.551,
+     "percentile": 0.976,
+     "price": 16.0,
+     "traits": [
+      "Cheap vs. earnings",
+      "Cheap vs. book value",
+      "Weak return on assets"
+     ],
+     "volatility": 0.233,
+     "range_low": -0.218,
+     "range_high": 0.421,
+     "chance_of_loss": 0.41,
+     "hist_chance_of_loss": 0.325
+    },
+    {
+     "rank": 14,
+     "ticker": "MSI",
+     "name": "Motorola Solutions, Inc.",
+     "probability": 0.551,
+     "percentile": 0.974,
+     "price": 487.62,
+     "traits": [
+      "Expensive vs. book value"
+     ],
+     "volatility": 0.243,
+     "range_low": -0.23,
+     "range_high": 0.436,
+     "chance_of_loss": 0.418,
+     "hist_chance_of_loss": 0.12
+    },
+    {
+     "rank": 15,
+     "ticker": "CNC",
+     "name": "Centene Corp",
+     "probability": 0.55,
+     "percentile": 0.972,
+     "price": 66.9,
+     "traits": [
+      "Expensive vs. earnings",
+      "Cheap vs. book value",
+      "Weak return on assets",
+      "Fast revenue growth"
+     ],
+     "volatility": 0.572,
+     "range_low": -0.558,
+     "range_high": 0.915,
+     "chance_of_loss": 0.558,
+     "hist_chance_of_loss": 0.309
+    }
+   ],
+   "importance": [
+    {
+     "feature": "gross_prof",
+     "importance": 0.21
+    },
+    {
+     "feature": "leverage",
+     "importance": 0.194
+    },
+    {
+     "feature": "rev_growth",
+     "importance": 0.182
+    },
+    {
+     "feature": "roa",
+     "importance": 0.163
+    },
+    {
+     "feature": "book_to_market",
+     "importance": 0.142
+    },
+    {
+     "feature": "earnings_yield",
+     "importance": 0.108
+    }
+   ]
+  },
+  {
+   "months": 24,
+   "label": "2 years",
+   "universe": 498,
+   "summary": {
+    "periods": 21,
+    "beat_sp500": 12,
+    "beat_average_stock": 14,
+    "avg_picks": 0.3428,
+    "avg_sp500": 0.3255,
+    "avg_average_stock": 0.3091,
+    "pick_wins": 818,
+    "pick_losses": 903,
+    "first": "2016-01",
+    "last": "2023-01"
+   },
+   "periods": [
+    {
+     "start": "2016-01",
+     "end": "2018-01",
+     "picks": 0.6662,
+     "average_stock": 0.5747,
+     "sp500": 0.5153,
+     "pick_wins": 43,
+     "pick_count": 74
+    },
+    {
+     "start": "2016-04",
+     "end": "2018-04",
+     "picks": 0.4568,
+     "average_stock": 0.3562,
+     "sp500": 0.3334,
+     "pick_wins": 44,
+     "pick_count": 75
+    },
+    {
+     "start": "2016-07",
+     "end": "2018-07",
+     "picks": 0.4217,
+     "average_stock": 0.3451,
+     "sp500": 0.3468,
+     "pick_wins": 42,
+     "pick_count": 77
+    },
+    {
+     "start": "2016-10",
+     "end": "2018-10",
+     "picks": 0.2981,
+     "average_stock": 0.2859,
+     "sp500": 0.3227,
+     "pick_wins": 37,
+     "pick_count": 78
+    },
+    {
+     "start": "2017-01",
+     "end": "2019-01",
+     "picks": 0.3294,
+     "average_stock": 0.2028,
+     "sp500": 0.2324,
+     "pick_wins": 49,
+     "pick_count": 78
+    },
+    {
+     "start": "2017-04",
+     "end": "2019-04",
+     "picks": 0.3528,
+     "average_stock": 0.2506,
+     "sp500": 0.283,
+     "pick_wins": 44,
+     "pick_count": 80
+    },
+    {
+     "start": "2017-07",
+     "end": "2019-07",
+     "picks": 0.2994,
+     "average_stock": 0.223,
+     "sp500": 0.2521,
+     "pick_wins": 40,
+     "pick_count": 80
+    },
+    {
+     "start": "2017-10",
+     "end": "2019-10",
+     "picks": 0.2677,
+     "average_stock": 0.1987,
+     "sp500": 0.225,
+     "pick_wins": 39,
+     "pick_count": 81
+    },
+    {
+     "start": "2018-01",
+     "end": "2020-01",
+     "picks": 0.2099,
+     "average_stock": 0.1418,
+     "sp500": 0.185,
+     "pick_wins": 38,
+     "pick_count": 81
+    },
+    {
+     "start": "2018-04",
+     "end": "2020-04",
+     "picks": 0.0777,
+     "average_stock": 0.0252,
+     "sp500": 0.1424,
+     "pick_wins": 31,
+     "pick_count": 81
+    },
+    {
+     "start": "2018-07",
+     "end": "2020-07",
+     "picks": 0.1592,
+     "average_stock": 0.0817,
+     "sp500": 0.2072,
+     "pick_wins": 31,
+     "pick_count": 82
+    },
+    {
+     "start": "2018-10",
+     "end": "2020-10",
+     "picks": 0.2226,
+     "average_stock": 0.1539,
+     "sp500": 0.2544,
+     "pick_wins": 36,
+     "pick_count": 82
+    },
+    {
+     "start": "2019-01",
+     "end": "2021-01",
+     "picks": 0.3693,
+     "average_stock": 0.3034,
+     "sp500": 0.423,
+     "pick_wins": 35,
+     "pick_count": 83
+    },
+    {
+     "start": "2019-04",
+     "end": "2021-04",
+     "picks": 0.37,
+     "average_stock": 0.391,
+     "sp500": 0.4715,
+     "pick_wins": 29,
+     "pick_count": 83
+    },
+    {
+     "start": "2019-07",
+     "end": "2021-07",
+     "picks": 0.4033,
+     "average_stock": 0.4262,
+     "sp500": 0.5262,
+     "pick_wins": 28,
+     "pick_count": 84
+    },
+    {
+     "start": "2019-10",
+     "end": "2021-10",
+     "picks": 0.3837,
+     "average_stock": 0.4425,
+     "sp500": 0.565,
+     "pick_wins": 25,
+     "pick_count": 85
+    },
+    {
+     "start": "2020-01",
+     "end": "2022-01",
+     "picks": 0.4394,
+     "average_stock": 0.3778,
+     "sp500": 0.4435,
+     "pick_wins": 39,
+     "pick_count": 86
+    },
+    {
+     "start": "2020-04",
+     "end": "2022-04",
+     "picks": 0.5623,
+     "average_stock": 0.604,
+     "sp500": 0.4601,
+     "pick_wins": 48,
+     "pick_count": 87
+    },
+    {
+     "start": "2020-07",
+     "end": "2022-07",
+     "picks": 0.3904,
+     "average_stock": 0.4328,
+     "sp500": 0.2988,
+     "pick_wins": 47,
+     "pick_count": 88
+    },
+    {
+     "start": "2020-10",
+     "end": "2022-10",
+     "picks": 0.3128,
+     "average_stock": 0.4143,
+     "sp500": 0.2175,
+     "pick_wins": 44,
+     "pick_count": 88
+    },
+    {
+     "start": "2021-01",
+     "end": "2023-01",
+     "picks": 0.206,
+     "average_stock": 0.2585,
+     "sp500": 0.1311,
+     "pick_wins": 49,
+     "pick_count": 88
+    }
+   ],
+   "calibration": [
+    {
+     "bucket": "Bottom 20%",
+     "hit_rate": 0.503,
+     "n": 1721
+    },
+    {
+     "bucket": "20-40%",
+     "hit_rate": 0.494,
+     "n": 1730
+    },
+    {
+     "bucket": "40-60%",
+     "hit_rate": 0.48,
+     "n": 1728
+    },
+    {
+     "bucket": "60-80%",
+     "hit_rate": 0.479,
+     "n": 1734
+    },
+    {
+     "bucket": "Top 20%",
+     "hit_rate": 0.54,
+     "n": 1732
+    }
+   ],
+   "picks": [
+    {
+     "rank": 1,
+     "ticker": "LYV",
+     "name": "Live Nation Entertainment, Inc.",
+     "probability": 0.627,
+     "percentile": 1.0,
+     "price": 177.32,
+     "traits": [
+      "Expensive vs. book value",
+      "Heavy debt load"
+     ],
+     "volatility": 0.272,
+     "range_low": -0.335,
+     "range_high": 0.785,
+     "chance_of_loss": 0.412,
+     "hist_chance_of_loss": 0.196
+    },
+    {
+     "rank": 2,
+     "ticker": "MCO",
+     "name": "Moodys Corp /De/",
+     "probability": 0.615,
+     "percentile": 0.998,
+     "price": 504.83,
+     "traits": [
+      "Expensive vs. book value",
+      "Strong return on assets"
+     ],
+     "volatility": 0.192,
+     "range_low": -0.201,
+     "range_high": 0.601,
+     "chance_of_loss": 0.325,
+     "hist_chance_of_loss": 0.067
+    },
+    {
+     "rank": 3,
+     "ticker": "TPR",
+     "name": "Tapestry, Inc.",
+     "probability": 0.611,
+     "percentile": 0.996,
+     "price": 119.91,
+     "traits": [
+      "Expensive vs. book value",
+      "Highly profitable business",
+      "Strong return on assets",
+      "Heavy debt load"
+     ],
+     "volatility": 0.404,
+     "range_low": -0.52,
+     "range_high": 1.072,
+     "chance_of_loss": 0.502,
+     "hist_chance_of_loss": 0.391
+    },
+    {
+     "rank": 4,
+     "ticker": "MSI",
+     "name": "Motorola Solutions, Inc.",
+     "probability": 0.603,
+     "percentile": 0.994,
+     "price": 487.62,
+     "traits": [
+      "Expensive vs. book value"
+     ],
+     "volatility": 0.243,
+     "range_low": -0.288,
+     "range_high": 0.719,
+     "chance_of_loss": 0.385,
+     "hist_chance_of_loss": 0.006
+    },
+    {
+     "rank": 5,
+     "ticker": "AMGN",
+     "name": "Amgen Inc",
+     "probability": 0.599,
+     "percentile": 0.992,
+     "price": 467.91,
+     "traits": [
+      "Expensive vs. book value"
+     ],
+     "volatility": 0.251,
+     "range_low": -0.3,
+     "range_high": 0.736,
+     "chance_of_loss": 0.392,
+     "hist_chance_of_loss": 0.045
+    },
+    {
+     "rank": 6,
+     "ticker": "EXPE",
+     "name": "Expedia Group, Inc.",
+     "probability": 0.595,
+     "percentile": 0.99,
+     "price": 296.44,
+     "traits": [
+      "Expensive vs. book value",
+      "Heavy debt load"
+     ],
+     "volatility": 0.355,
+     "range_low": -0.456,
+     "range_high": 0.969,
+     "chance_of_loss": 0.473,
+     "hist_chance_of_loss": 0.251
+    },
+    {
+     "rank": 7,
+     "ticker": "KLAC",
+     "name": "Kla Corp",
+     "probability": 0.592,
+     "percentile": 0.988,
+     "price": 154.68,
+     "traits": [
+      "Expensive vs. book value",
+      "Strong return on assets",
+      "Fast revenue growth"
+     ],
+     "volatility": 0.514,
+     "range_low": -0.645,
+     "range_high": 1.288,
+     "chance_of_loss": 0.557,
+     "hist_chance_of_loss": 0.0
+    },
+    {
+     "rank": 8,
+     "ticker": "GDDY",
+     "name": "Godaddy Inc.",
+     "probability": 0.589,
+     "percentile": 0.986,
+     "price": 117.43,
+     "traits": [
+      "Expensive vs. book value",
+      "Heavy debt load"
+     ],
+     "volatility": 0.321,
+     "range_low": -0.408,
+     "range_high": 0.894,
+     "chance_of_loss": 0.45,
+     "hist_chance_of_loss": 0.231
+    },
+    {
+     "rank": 9,
+     "ticker": "AMT",
+     "name": "American Tower Corp /Ma/",
+     "probability": 0.587,
+     "percentile": 0.984,
+     "price": 188.27,
+     "traits": [
+      "Expensive vs. book value",
+      "Fast revenue growth"
+     ],
+     "volatility": 0.249,
+     "range_low": -0.298,
+     "range_high": 0.733,
+     "chance_of_loss": 0.391,
+     "hist_chance_of_loss": 0.196
+    },
+    {
+     "rank": 10,
+     "ticker": "FTNT",
+     "name": "Fortinet, Inc.",
+     "probability": 0.581,
+     "percentile": 0.982,
+     "price": 127.41,
+     "traits": [
+      "Expensive vs. book value",
+      "Highly profitable business",
+      "Strong return on assets"
+     ],
+     "volatility": 0.498,
+     "range_low": -0.629,
+     "range_high": 1.258,
+     "chance_of_loss": 0.55,
+     "hist_chance_of_loss": 0.128
+    },
+    {
+     "rank": 11,
+     "ticker": "LVS",
+     "name": "Las Vegas Sands Corp",
+     "probability": 0.581,
+     "percentile": 0.98,
+     "price": 38.1,
+     "traits": [
+      "Cheap vs. earnings",
+      "Expensive vs. book value",
+      "Heavy debt load"
+     ],
+     "volatility": 0.36,
+     "range_low": -0.463,
+     "range_high": 0.979,
+     "chance_of_loss": 0.476,
+     "hist_chance_of_loss": 0.358
+    },
+    {
+     "rank": 12,
+     "ticker": "MA",
+     "name": "Mastercard Inc",
+     "probability": 0.577,
+     "percentile": 0.978,
+     "price": 658.33,
+     "traits": [
+      "Expensive vs. book value",
+      "Strong return on assets",
+      "Heavy debt load"
+     ],
+     "volatility": 0.172,
+     "range_low": -0.166,
+     "range_high": 0.556,
+     "chance_of_loss": 0.296,
+     "hist_chance_of_loss": 0.017
+    },
+    {
+     "rank": 13,
+     "ticker": "LRCX",
+     "name": "Lam Research Corp",
+     "probability": 0.567,
+     "percentile": 0.976,
+     "price": 226.99,
+     "traits": [
+      "Expensive vs. book value",
+      "Highly profitable business",
+      "Strong return on assets",
+      "Fast revenue growth"
+     ],
+     "volatility": 0.533,
+     "range_low": -0.663,
+     "range_high": 1.32,
+     "chance_of_loss": 0.565,
+     "hist_chance_of_loss": 0.101
+    },
+    {
+     "rank": 14,
+     "ticker": "IDXX",
+     "name": "Idexx Laboratories Inc /De",
+     "probability": 0.565,
+     "percentile": 0.974,
+     "price": 669.29,
+     "traits": [
+      "Expensive vs. book value",
+      "Highly profitable business",
+      "Strong return on assets"
+     ],
+     "volatility": 0.331,
+     "range_low": -0.423,
+     "range_high": 0.916,
+     "chance_of_loss": 0.457,
+     "hist_chance_of_loss": 0.123
+    },
+    {
+     "rank": 15,
+     "ticker": "APP",
+     "name": "Applovin Corp",
+     "probability": 0.563,
+     "percentile": 0.972,
+     "price": 229.3,
+     "traits": [
+      "Expensive vs. book value",
+      "Highly profitable business",
+      "Strong return on assets",
+      "Fast revenue growth"
+     ],
+     "volatility": 0.904,
+     "range_low": -0.899,
+     "range_high": 1.668,
+     "chance_of_loss": 0.696,
+     "hist_chance_of_loss": 0.25
+    }
+   ],
+   "importance": [
+    {
+     "feature": "gross_prof",
+     "importance": 0.23
+    },
+    {
+     "feature": "leverage",
+     "importance": 0.197
+    },
+    {
+     "feature": "rev_growth",
+     "importance": 0.17
+    },
+    {
+     "feature": "book_to_market",
+     "importance": 0.159
+    },
+    {
+     "feature": "roa",
+     "importance": 0.136
+    },
+    {
+     "feature": "earnings_yield",
+     "importance": 0.109
+    }
+   ]
+  }
+ ]
+}

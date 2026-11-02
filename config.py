@@ -11,6 +11,8 @@ HORIZON_MONTHS = 12            # how far ahead the model predicts
 REBALANCE_MONTH = 1            # 1 = rebalance each January
 TOP_FRACTION = 0.20            # hold the top 20% of stocks the model likes
 COST_PER_REBALANCE = 0.002     # 0.2% yearly trading-cost assumption
+PICK_HORIZONS = [6, 12, 24]    # forecast.py / website: holding periods (months) to make picks for
+N_PICKS = 15                   # how many top picks the website lists per holding period
 
 MODEL_PARAMS = dict(
     n_estimators=300,

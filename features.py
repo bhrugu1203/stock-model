@@ -27,7 +27,8 @@ FEATURE_BUILDERS = {
 
 # f is the dict from fundamentals.build(): tables of what each company had reported by each date
 def _earnings_yield(m, f):   return f["net_income"] / f["market_cap"]               # cheap vs profits (E/P)
-def _book_to_market(m, f):   return f["equity"] / f["market_cap"]                   # cheap vs net worth
+def _book_to_market(m, f):   return f["equity"].where(f["equity"] > 0) / f["market_cap"]  # cheap vs net worth
+                                                     # (negative equity, e.g. from big buybacks, means nothing here)
 def _gross_prof(m, f):       return f["gross_profit"] / f["assets"]                 # quality: gross profit per $ of assets
 def _roa(m, f):              return f["net_income"] / f["assets"]                   # return on assets
 def _rev_growth(m, f):       return f["revenue_growth"]                             # sales growth vs prior year

@@ -1,4 +1,4 @@
-# Stock Picker: Long-Term Model
+# Bhrugu's Stock Model
 
 A beginner-friendly, tweakable stock-picking project. It predicts which S&P 500 stocks are likely to beat the typical stock over the next 12 months, then honestly backtests that idea against the S&P 500.
 
@@ -27,25 +27,40 @@ python run.py --final            # also score the held-out years (2023+); do thi
 
 Results print to the terminal and save to `outputs/` (growth chart, yearly returns, current picks).
 
+## Website: today's picks, track record, news
+
+```bash
+python forecast.py      # picks for 6 months, 1 year and 2 years, each with a walk-forward track record
+python dashboard.py     # rebuild the website in outputs/site/index.html
+```
+
+Live at https://bhrugu1203.github.io/stock-model/, rebuilt by GitHub automatically (see below). Tabs:
+- **Today's picks**: the top stocks for each holding period, with the model's score, conviction, an 80% likely
+  range and chance of loss (from the stock's recent volatility), and what stands out in its financials.
+- **Track record**: what would have happened if you had bought the picks every quarter since 2016 and held them,
+  compared with just buying the S&P 500 on the same day; and whether higher-rated stocks really won more often.
+- **Market news** and **How it works**.
+
+Holding periods and number of picks are `PICK_HORIZONS` and `N_PICKS` in `config.py`.
+
 ## Market news
 
 ```bash
-python news.py          # collect today's headlines and rebuild the news page
-python news.py --open   # same, then open the page in your browser
+python news.py          # collect today's headlines and rebuild the website
+python news.py --open   # same, then open the news tab in your browser
 ```
 
 Pulls headlines from MarketWatch, WSJ, CNBC, Bloomberg, FT, Seeking Alpha, Investing.com,
 Google News, the Federal Reserve, the SEC, and Yahoo headlines for the tickers in `WATCHLIST`.
-- `outputs/news.html`: one page with the last few days of headlines, with search and source filters.
 - `data/news/headlines.csv`: every headline ever collected. Nothing is deleted, so this becomes the
   news history to test a news feature on later. Feeds only keep a few days, so run it daily.
 
 Change sources, the watchlist and how many days the page shows in `config.py`.
 
-**Runs automatically in the cloud.** GitHub runs `news.py` every morning (11:00 UTC) using
-`.github/workflows/news.yml`, saves the new headlines to this repo, and publishes the page at
-https://bhrugu1203.github.io/stock-model/. Your Mac doesn't need to be on.
-- Run it now: on GitHub, open **Actions → Daily market news → Run workflow**.
+**Runs automatically in the cloud** (`.github/workflows/update.yml`). Every morning (11:00 UTC) GitHub collects
+headlines; every weekday evening (22:30 UTC, after the US close) it also downloads fresh prices and remakes the picks.
+Then it publishes the website. Your Mac doesn't need to be on.
+- Run it now: on GitHub, open **Actions → Daily update → Run workflow**.
 - Get the latest headlines onto your Mac before working with them: `git pull`.
 - Don't commit a `news.py` run made on your Mac; it would clash with the cloud's copy of `headlines.csv`.
   If you ran it locally, throw that away with `git checkout data/news outputs/news.html` before `git pull`.
@@ -60,21 +75,24 @@ https://bhrugu1203.github.io/stock-model/. Your Mac doesn't need to be on.
 | `backtest.py` | walk-forward training and the scorecard |
 | `picks.py` | today's top picks and the fundamentals shown |
 | `data.py` | downloading and caching prices and past S&P 500 membership |
-| `news.py` | the news collector and news page |
+| `news.py` | the news collector |
+| `forecast.py` | today's picks per holding period, risk estimates and track record |
+| `dashboard.py` | the website |
 
 ## Ideas to try next
 1. Change `TOP_FRACTION` (0.1, 0.3) and `HORIZON_MONTHS` (6, 24, 36).
 2. Add features in `features.py` (e.g. 3-month momentum, price vs 200-day average).
 3. Swap the model in `backtest.make_model()` (try `GradientBoostingClassifier`).
 4. Set `UNIVERSE = "today"` and compare with `"historical"` to see how much survivorship bias inflates results.
-5. Add more financials in `fundamentals.py` (`ITEMS`) and new ratios in `features.py`. Companies with negative
-   shareholder equity (big buybacks, e.g. McDonald's) get a meaningless book-to-market; handling that is a good next fix.
+5. Add more financials in `fundamentals.py` (`ITEMS`) and new ratios in `features.py`.
 
 ## Limitations (read these)
 - **Survivorship bias (reduced, not gone):** by default the backtest uses the S&P 500 as it actually was on each date
   (membership history from github.com/fja05680/sp500), so stocks later dropped from the index are included.
   But Yahoo Finance has no prices for many companies that went bust, were bought out or changed ticker.
   The run prints how many real members are covered. The missing ones are mostly not random, so results can still be off.
+- **Negative equity:** companies whose buybacks pushed book value below zero (e.g. McDonald's) get a neutral
+  book-to-market instead of a misleading one, and are flagged on the website.
 - **Reused tickers:** if a ticker was later given to a different company, Yahoo returns the new company's prices.
 - **Held-out years:** 2023 onward is skipped unless you pass `--final`. Tune on 2016-2022 only; every look at
   the held-out years makes them a little less honest.

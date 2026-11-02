@@ -71,20 +71,35 @@ def download(items=None):
     return df
 
 
-def ticker_to_cik():
+def ticker_table():
+    """Today's ticker -> SEC company number (cik) and company name."""
     import requests
     data = requests.get(TICKERS_URL, headers={"User-Agent": config.SEC_USER_AGENT}, timeout=60).json()
-    return {v["ticker"].replace(".", "-"): v["cik_str"] for v in data.values()}
+    rows = [(v["ticker"].replace(".", "-"), v["cik_str"], v["title"]) for v in data.values()]
+    return pd.DataFrame(rows, columns=["ticker", "cik", "name"]).drop_duplicates("ticker").set_index("ticker")
+
+
+def _ticker_map(refresh=False):
+    path = os.path.join(SEC_DIR, "ticker_cik.csv")
+    if not refresh and os.path.exists(path):
+        table = pd.read_csv(path, index_col="ticker")
+        if "name" in table.columns:
+            return table
+    table = ticker_table()
+    table.to_csv(path)
+    return table
+
+
+def company_names():
+    return _ticker_map()["name"]
 
 
 def load_raw(refresh=False):
     os.makedirs(SEC_DIR, exist_ok=True)
     facts_path = os.path.join(SEC_DIR, "facts.csv")
-    map_path = os.path.join(SEC_DIR, "ticker_cik.csv")
     if refresh or not os.path.exists(facts_path):
         print("Downloading company financials from the SEC (a few minutes)...")
         download().to_csv(facts_path, index=False)
-        pd.Series(ticker_to_cik(), name="cik").rename_axis("ticker").to_csv(map_path)
     facts = pd.read_csv(facts_path, parse_dates=["end"])
     missing = [name for name in ITEMS if name not in set(facts["item"])]
     if missing:   # an item was added to ITEMS since the last download
@@ -94,8 +109,7 @@ def load_raw(refresh=False):
         facts = pd.concat([facts, new], ignore_index=True)
         facts.to_csv(facts_path, index=False)
     facts = _add_gross_profit(facts)
-    cik = pd.read_csv(map_path, index_col="ticker")["cik"]
-    return facts, cik
+    return facts, _ticker_map(refresh)["cik"]
 
 
 def _add_gross_profit(facts):
