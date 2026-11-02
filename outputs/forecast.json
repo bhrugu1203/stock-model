@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-02T20:58:50+00:00",
+ "generated": "2026-11-02T21:10:56+00:00",
  "data_through": "2026-11-02",
  "demo": false,
  "holdout_from": 2023,
@@ -118,7 +118,7 @@
      "end": "2019-01",
      "picks": -0.0091,
      "average_stock": -0.0354,
-     "sp500": -0.0306,
+     "sp500": -0.0305,
      "pick_wins": 46,
      "pick_count": 82
     },
@@ -299,9 +299,9 @@
      "rank": 1,
      "ticker": "TPR",
      "name": "Tapestry, Inc.",
-     "probability": 0.566,
+     "probability": 0.567,
      "percentile": 1.0,
-     "price": 120.36,
+     "price": 120.78,
      "traits": [
       "Expensive vs. book value",
       "Highly profitable business",
@@ -310,7 +310,7 @@
      ],
      "volatility": 0.404,
      "range_low": -0.307,
-     "range_high": 0.441,
+     "range_high": 0.44,
      "chance_of_loss": 0.501,
      "hist_chance_of_loss": 0.457
     },
@@ -318,9 +318,9 @@
      "rank": 2,
      "ticker": "HBAN",
      "name": "Huntington Bancshares Inc /Md/",
-     "probability": 0.56,
+     "probability": 0.559,
      "percentile": 0.998,
-     "price": 16.02,
+     "price": 16.01,
      "traits": [
       "Cheap vs. earnings",
       "Cheap vs. book value",
@@ -334,98 +334,11 @@
     },
     {
      "rank": 3,
-     "ticker": "FITB",
-     "name": "Fifth Third Bancorp",
-     "probability": 0.552,
-     "percentile": 0.996,
-     "price": 54.89,
-     "traits": [
-      "Cheap vs. earnings",
-      "Cheap vs. book value",
-      "Weak return on assets"
-     ],
-     "volatility": 0.248,
-     "range_low": -0.182,
-     "range_high": 0.284,
-     "chance_of_loss": 0.444,
-     "hist_chance_of_loss": 0.365
-    },
-    {
-     "rank": 4,
-     "ticker": "GDDY",
-     "name": "Godaddy Inc.",
-     "probability": 0.549,
-     "percentile": 0.994,
-     "price": 117.36,
-     "traits": [
-      "Expensive vs. book value",
-      "Heavy debt load"
-     ],
-     "volatility": 0.321,
-     "range_low": -0.242,
-     "range_high": 0.357,
-     "chance_of_loss": 0.475,
-     "hist_chance_of_loss": 0.356
-    },
-    {
-     "rank": 5,
-     "ticker": "LVS",
-     "name": "Las Vegas Sands Corp",
-     "probability": 0.546,
-     "percentile": 0.992,
-     "price": 38.12,
-     "traits": [
-      "Cheap vs. earnings",
-      "Expensive vs. book value",
-      "Heavy debt load"
-     ],
-     "volatility": 0.36,
-     "range_low": -0.273,
-     "range_high": 0.396,
-     "chance_of_loss": 0.488,
-     "hist_chance_of_loss": 0.442
-    },
-    {
-     "rank": 6,
-     "ticker": "L",
-     "name": "Loews Corp",
-     "probability": 0.546,
-     "percentile": 0.99,
-     "price": 111.57,
-     "traits": [
-      "Cheap vs. earnings",
-      "Cheap vs. book value"
-     ],
-     "volatility": 0.157,
-     "range_low": -0.103,
-     "range_high": 0.193,
-     "chance_of_loss": 0.38,
-     "hist_chance_of_loss": 0.33
-    },
-    {
-     "rank": 7,
-     "ticker": "LYV",
-     "name": "Live Nation Entertainment, Inc.",
-     "probability": 0.545,
-     "percentile": 0.988,
-     "price": 176.41,
-     "traits": [
-      "Expensive vs. book value",
-      "Heavy debt load"
-     ],
-     "volatility": 0.272,
-     "range_low": -0.202,
-     "range_high": 0.308,
-     "chance_of_loss": 0.456,
-     "hist_chance_of_loss": 0.294
-    },
-    {
-     "rank": 8,
      "ticker": "DDOG",
      "name": "Datadog, Inc.",
-     "probability": 0.543,
-     "percentile": 0.986,
-     "price": 216.72,
+     "probability": 0.557,
+     "percentile": 0.996,
+     "price": 216.1,
      "traits": [
       "Expensive vs. earnings",
       "Expensive vs. book value",
@@ -439,12 +352,99 @@
      "hist_chance_of_loss": 0.383
     },
     {
+     "rank": 4,
+     "ticker": "FITB",
+     "name": "Fifth Third Bancorp",
+     "probability": 0.552,
+     "percentile": 0.994,
+     "price": 54.97,
+     "traits": [
+      "Cheap vs. earnings",
+      "Cheap vs. book value",
+      "Weak return on assets"
+     ],
+     "volatility": 0.248,
+     "range_low": -0.182,
+     "range_high": 0.284,
+     "chance_of_loss": 0.444,
+     "hist_chance_of_loss": 0.365
+    },
+    {
+     "rank": 5,
+     "ticker": "GDDY",
+     "name": "Godaddy Inc.",
+     "probability": 0.55,
+     "percentile": 0.992,
+     "price": 116.68,
+     "traits": [
+      "Expensive vs. book value",
+      "Heavy debt load"
+     ],
+     "volatility": 0.321,
+     "range_low": -0.242,
+     "range_high": 0.357,
+     "chance_of_loss": 0.475,
+     "hist_chance_of_loss": 0.356
+    },
+    {
+     "rank": 6,
+     "ticker": "L",
+     "name": "Loews Corp",
+     "probability": 0.548,
+     "percentile": 0.99,
+     "price": 111.43,
+     "traits": [
+      "Cheap vs. earnings",
+      "Cheap vs. book value"
+     ],
+     "volatility": 0.157,
+     "range_low": -0.103,
+     "range_high": 0.193,
+     "chance_of_loss": 0.38,
+     "hist_chance_of_loss": 0.33
+    },
+    {
+     "rank": 7,
+     "ticker": "LVS",
+     "name": "Las Vegas Sands Corp",
+     "probability": 0.546,
+     "percentile": 0.988,
+     "price": 38.19,
+     "traits": [
+      "Cheap vs. earnings",
+      "Expensive vs. book value",
+      "Heavy debt load"
+     ],
+     "volatility": 0.36,
+     "range_low": -0.273,
+     "range_high": 0.396,
+     "chance_of_loss": 0.488,
+     "hist_chance_of_loss": 0.442
+    },
+    {
+     "rank": 8,
+     "ticker": "LYV",
+     "name": "Live Nation Entertainment, Inc.",
+     "probability": 0.544,
+     "percentile": 0.986,
+     "price": 177.1,
+     "traits": [
+      "Expensive vs. book value",
+      "Heavy debt load"
+     ],
+     "volatility": 0.272,
+     "range_low": -0.202,
+     "range_high": 0.308,
+     "chance_of_loss": 0.456,
+     "hist_chance_of_loss": 0.294
+    },
+    {
      "rank": 9,
      "ticker": "EXPE",
      "name": "Expedia Group, Inc.",
      "probability": 0.542,
      "percentile": 0.984,
-     "price": 297.46,
+     "price": 298.99,
      "traits": [
       "Expensive vs. book value",
       "Heavy debt load"
@@ -461,7 +461,7 @@
      "name": "M&T Bank Corp",
      "probability": 0.54,
      "percentile": 0.982,
-     "price": 224.73,
+     "price": 224.53,
      "traits": [
       "Cheap vs. earnings",
       "Cheap vs. book value",
@@ -479,7 +479,7 @@
      "name": "Chipotle Mexican Grill Inc",
      "probability": 0.539,
      "percentile": 0.98,
-     "price": 32.88,
+     "price": 32.92,
      "traits": [
       "Expensive vs. book value",
       "Strong return on assets"
@@ -492,30 +492,11 @@
     },
     {
      "rank": 12,
-     "ticker": "ARES",
-     "name": "Ares Management Corp",
-     "probability": 0.538,
-     "percentile": 0.978,
-     "price": 132.59,
-     "traits": [
-      "Cheap vs. earnings",
-      "Cheap vs. book value",
-      "Weak return on assets",
-      "Fast revenue growth"
-     ],
-     "volatility": 0.331,
-     "range_low": -0.25,
-     "range_high": 0.367,
-     "chance_of_loss": 0.479,
-     "hist_chance_of_loss": 0.276
-    },
-    {
-     "rank": 13,
      "ticker": "KEY",
      "name": "Keycorp /New/",
      "probability": 0.538,
-     "percentile": 0.976,
-     "price": 21.51,
+     "percentile": 0.978,
+     "price": 21.5,
      "traits": [
       "Cheap vs. earnings",
       "Cheap vs. book value",
@@ -529,12 +510,50 @@
      "hist_chance_of_loss": 0.33
     },
     {
+     "rank": 13,
+     "ticker": "CHTR",
+     "name": "Charter Communications, Inc. /Mo/",
+     "probability": 0.537,
+     "percentile": 0.976,
+     "price": 115.54,
+     "traits": [
+      "Cheap vs. earnings",
+      "Cheap vs. book value",
+      "Shrinking or slow revenue",
+      "Heavy debt load"
+     ],
+     "volatility": 0.434,
+     "range_low": -0.33,
+     "range_high": 0.471,
+     "chance_of_loss": 0.509,
+     "hist_chance_of_loss": 0.34
+    },
+    {
      "rank": 14,
+     "ticker": "ARES",
+     "name": "Ares Management Corp",
+     "probability": 0.536,
+     "percentile": 0.974,
+     "price": 132.94,
+     "traits": [
+      "Cheap vs. earnings",
+      "Cheap vs. book value",
+      "Weak return on assets",
+      "Fast revenue growth"
+     ],
+     "volatility": 0.332,
+     "range_low": -0.25,
+     "range_high": 0.368,
+     "chance_of_loss": 0.479,
+     "hist_chance_of_loss": 0.276
+    },
+    {
+     "rank": 15,
      "ticker": "BAC",
      "name": "Bank Of America Corp /De/",
      "probability": 0.535,
-     "percentile": 0.974,
-     "price": 49.63,
+     "percentile": 0.972,
+     "price": 49.56,
      "traits": [
       "Cheap vs. earnings",
       "Cheap vs. book value",
@@ -546,31 +565,12 @@
      "range_high": 0.253,
      "chance_of_loss": 0.428,
      "hist_chance_of_loss": 0.391
-    },
-    {
-     "rank": 15,
-     "ticker": "CHTR",
-     "name": "Charter Communications, Inc. /Mo/",
-     "probability": 0.534,
-     "percentile": 0.972,
-     "price": 115.21,
-     "traits": [
-      "Cheap vs. earnings",
-      "Cheap vs. book value",
-      "Shrinking or slow revenue",
-      "Heavy debt load"
-     ],
-     "volatility": 0.433,
-     "range_low": -0.33,
-     "range_high": 0.471,
-     "chance_of_loss": 0.509,
-     "hist_chance_of_loss": 0.34
     }
    ],
    "importance": [
     {
      "feature": "gross_prof",
-     "importance": 0.217
+     "importance": 0.216
     },
     {
      "feature": "rev_growth",
@@ -578,7 +578,7 @@
     },
     {
      "feature": "book_to_market",
-     "importance": 0.158
+     "importance": 0.159
     },
     {
      "feature": "leverage",
@@ -869,9 +869,9 @@
      "rank": 1,
      "ticker": "CRWD",
      "name": "Crowdstrike Holdings, Inc.",
-     "probability": 0.581,
+     "probability": 0.582,
      "percentile": 1.0,
-     "price": 241.73,
+     "price": 241.81,
      "traits": [
       "Expensive vs. earnings",
       "Expensive vs. book value",
@@ -879,7 +879,7 @@
      ],
      "volatility": 0.562,
      "range_low": -0.55,
-     "range_high": 0.902,
+     "range_high": 0.901,
      "chance_of_loss": 0.555,
      "hist_chance_of_loss": 0.256
     },
@@ -889,7 +889,7 @@
      "name": "Datadog, Inc.",
      "probability": 0.578,
      "percentile": 0.998,
-     "price": 216.72,
+     "price": 216.1,
      "traits": [
       "Expensive vs. earnings",
       "Expensive vs. book value",
@@ -908,7 +908,7 @@
      "name": "Live Nation Entertainment, Inc.",
      "probability": 0.565,
      "percentile": 0.996,
-     "price": 176.41,
+     "price": 177.1,
      "traits": [
       "Expensive vs. book value",
       "Heavy debt load"
@@ -925,7 +925,7 @@
      "name": "Cencora, Inc.",
      "probability": 0.559,
      "percentile": 0.994,
-     "price": 337.03,
+     "price": 337.85,
      "traits": [
       "Expensive vs. book value",
       "Heavy debt load"
@@ -940,9 +940,9 @@
      "rank": 5,
      "ticker": "TPR",
      "name": "Tapestry, Inc.",
-     "probability": 0.558,
+     "probability": 0.559,
      "percentile": 0.992,
-     "price": 120.36,
+     "price": 120.78,
      "traits": [
       "Expensive vs. book value",
       "Highly profitable business",
@@ -961,7 +961,7 @@
      "name": "Loews Corp",
      "probability": 0.557,
      "percentile": 0.99,
-     "price": 111.57,
+     "price": 111.43,
      "traits": [
       "Cheap vs. earnings",
       "Cheap vs. book value"
@@ -978,7 +978,7 @@
      "name": "Ciena Corp",
      "probability": 0.557,
      "percentile": 0.988,
-     "price": 284.29,
+     "price": 284.22,
      "traits": [
       "Expensive vs. earnings",
       "Expensive vs. book value",
@@ -996,7 +996,7 @@
      "name": "Mastercard Inc",
      "probability": 0.555,
      "percentile": 0.986,
-     "price": 658.0,
+     "price": 658.39,
      "traits": [
       "Expensive vs. book value",
       "Strong return on assets",
@@ -1014,7 +1014,7 @@
      "name": "Amgen Inc",
      "probability": 0.554,
      "percentile": 0.984,
-     "price": 467.55,
+     "price": 465.45,
      "traits": [
       "Expensive vs. book value"
      ],
@@ -1026,28 +1026,11 @@
     },
     {
      "rank": 10,
-     "ticker": "MCO",
-     "name": "Moodys Corp /De/",
-     "probability": 0.554,
-     "percentile": 0.982,
-     "price": 504.88,
-     "traits": [
-      "Expensive vs. book value",
-      "Strong return on assets"
-     ],
-     "volatility": 0.192,
-     "range_low": -0.168,
-     "range_high": 0.36,
-     "chance_of_loss": 0.374,
-     "hist_chance_of_loss": 0.183
-    },
-    {
-     "rank": 11,
      "ticker": "FITB",
      "name": "Fifth Third Bancorp",
      "probability": 0.554,
-     "percentile": 0.98,
-     "price": 54.89,
+     "percentile": 0.982,
+     "price": 54.97,
      "traits": [
       "Cheap vs. earnings",
       "Cheap vs. book value",
@@ -1060,12 +1043,29 @@
      "hist_chance_of_loss": 0.34
     },
     {
+     "rank": 11,
+     "ticker": "MCO",
+     "name": "Moodys Corp /De/",
+     "probability": 0.554,
+     "percentile": 0.98,
+     "price": 505.57,
+     "traits": [
+      "Expensive vs. book value",
+      "Strong return on assets"
+     ],
+     "volatility": 0.192,
+     "range_low": -0.168,
+     "range_high": 0.36,
+     "chance_of_loss": 0.374,
+     "hist_chance_of_loss": 0.183
+    },
+    {
      "rank": 12,
      "ticker": "EXPE",
      "name": "Expedia Group, Inc.",
      "probability": 0.551,
      "percentile": 0.978,
-     "price": 297.46,
+     "price": 298.99,
      "traits": [
       "Expensive vs. book value",
       "Heavy debt load"
@@ -1078,27 +1078,11 @@
     },
     {
      "rank": 13,
-     "ticker": "MSI",
-     "name": "Motorola Solutions, Inc.",
-     "probability": 0.55,
-     "percentile": 0.976,
-     "price": 487.88,
-     "traits": [
-      "Expensive vs. book value"
-     ],
-     "volatility": 0.243,
-     "range_low": -0.23,
-     "range_high": 0.436,
-     "chance_of_loss": 0.418,
-     "hist_chance_of_loss": 0.12
-    },
-    {
-     "rank": 14,
      "ticker": "HBAN",
      "name": "Huntington Bancshares Inc /Md/",
-     "probability": 0.55,
-     "percentile": 0.974,
-     "price": 16.02,
+     "probability": 0.551,
+     "percentile": 0.976,
+     "price": 16.01,
      "traits": [
       "Cheap vs. earnings",
       "Cheap vs. book value",
@@ -1111,12 +1095,28 @@
      "hist_chance_of_loss": 0.325
     },
     {
+     "rank": 14,
+     "ticker": "MSI",
+     "name": "Motorola Solutions, Inc.",
+     "probability": 0.551,
+     "percentile": 0.974,
+     "price": 487.23,
+     "traits": [
+      "Expensive vs. book value"
+     ],
+     "volatility": 0.243,
+     "range_low": -0.23,
+     "range_high": 0.436,
+     "chance_of_loss": 0.418,
+     "hist_chance_of_loss": 0.12
+    },
+    {
      "rank": 15,
      "ticker": "CNC",
      "name": "Centene Corp",
      "probability": 0.55,
      "percentile": 0.972,
-     "price": 66.39,
+     "price": 66.53,
      "traits": [
       "Expensive vs. earnings",
       "Cheap vs. book value",
@@ -1153,7 +1153,7 @@
     },
     {
      "feature": "earnings_yield",
-     "importance": 0.109
+     "importance": 0.108
     }
    ]
   },
@@ -1398,7 +1398,7 @@
      "name": "Live Nation Entertainment, Inc.",
      "probability": 0.626,
      "percentile": 1.0,
-     "price": 176.41,
+     "price": 177.1,
      "traits": [
       "Expensive vs. book value",
       "Heavy debt load"
@@ -1415,7 +1415,7 @@
      "name": "Moodys Corp /De/",
      "probability": 0.615,
      "percentile": 0.998,
-     "price": 504.88,
+     "price": 505.57,
      "traits": [
       "Expensive vs. book value",
       "Strong return on assets"
@@ -1430,9 +1430,9 @@
      "rank": 3,
      "ticker": "TPR",
      "name": "Tapestry, Inc.",
-     "probability": 0.608,
+     "probability": 0.609,
      "percentile": 0.996,
-     "price": 120.36,
+     "price": 120.78,
      "traits": [
       "Expensive vs. book value",
       "Highly profitable business",
@@ -1451,7 +1451,7 @@
      "name": "Motorola Solutions, Inc.",
      "probability": 0.603,
      "percentile": 0.994,
-     "price": 487.88,
+     "price": 487.23,
      "traits": [
       "Expensive vs. book value"
      ],
@@ -1467,12 +1467,12 @@
      "name": "Amgen Inc",
      "probability": 0.598,
      "percentile": 0.992,
-     "price": 467.55,
+     "price": 465.45,
      "traits": [
       "Expensive vs. book value"
      ],
      "volatility": 0.251,
-     "range_low": -0.3,
+     "range_low": -0.301,
      "range_high": 0.736,
      "chance_of_loss": 0.392,
      "hist_chance_of_loss": 0.045
@@ -1483,7 +1483,7 @@
      "name": "Expedia Group, Inc.",
      "probability": 0.594,
      "percentile": 0.99,
-     "price": 297.46,
+     "price": 298.99,
      "traits": [
       "Expensive vs. book value",
       "Heavy debt load"
@@ -1500,14 +1500,14 @@
      "name": "Kla Corp",
      "probability": 0.592,
      "percentile": 0.988,
-     "price": 154.07,
+     "price": 153.11,
      "traits": [
       "Expensive vs. book value",
       "Strong return on assets",
       "Fast revenue growth"
      ],
-     "volatility": 0.514,
-     "range_low": -0.645,
+     "volatility": 0.515,
+     "range_low": -0.646,
      "range_high": 1.288,
      "chance_of_loss": 0.557,
      "hist_chance_of_loss": 0.0
@@ -1516,15 +1516,15 @@
      "rank": 8,
      "ticker": "GDDY",
      "name": "Godaddy Inc.",
-     "probability": 0.589,
+     "probability": 0.588,
      "percentile": 0.986,
-     "price": 117.36,
+     "price": 116.68,
      "traits": [
       "Expensive vs. book value",
       "Heavy debt load"
      ],
      "volatility": 0.321,
-     "range_low": -0.408,
+     "range_low": -0.409,
      "range_high": 0.894,
      "chance_of_loss": 0.45,
      "hist_chance_of_loss": 0.231
@@ -1535,7 +1535,7 @@
      "name": "American Tower Corp /Ma/",
      "probability": 0.586,
      "percentile": 0.984,
-     "price": 188.1,
+     "price": 188.4,
      "traits": [
       "Expensive vs. book value",
       "Fast revenue growth"
@@ -1552,7 +1552,7 @@
      "name": "Fortinet, Inc.",
      "probability": 0.582,
      "percentile": 0.982,
-     "price": 126.17,
+     "price": 126.21,
      "traits": [
       "Expensive vs. book value",
       "Highly profitable business",
@@ -1570,7 +1570,7 @@
      "name": "Las Vegas Sands Corp",
      "probability": 0.581,
      "percentile": 0.98,
-     "price": 38.12,
+     "price": 38.19,
      "traits": [
       "Cheap vs. earnings",
       "Expensive vs. book value",
@@ -1588,7 +1588,7 @@
      "name": "Mastercard Inc",
      "probability": 0.577,
      "percentile": 0.978,
-     "price": 658.0,
+     "price": 658.39,
      "traits": [
       "Expensive vs. book value",
       "Strong return on assets",
@@ -1606,14 +1606,14 @@
      "name": "Lam Research Corp",
      "probability": 0.566,
      "percentile": 0.976,
-     "price": 227.54,
+     "price": 227.56,
      "traits": [
       "Expensive vs. book value",
       "Highly profitable business",
       "Strong return on assets",
       "Fast revenue growth"
      ],
-     "volatility": 0.533,
+     "volatility": 0.532,
      "range_low": -0.663,
      "range_high": 1.32,
      "chance_of_loss": 0.565,
@@ -1625,16 +1625,16 @@
      "name": "Idexx Laboratories Inc /De",
      "probability": 0.565,
      "percentile": 0.974,
-     "price": 670.61,
+     "price": 671.64,
      "traits": [
       "Expensive vs. book value",
       "Highly profitable business",
       "Strong return on assets"
      ],
      "volatility": 0.332,
-     "range_low": -0.423,
-     "range_high": 0.917,
-     "chance_of_loss": 0.457,
+     "range_low": -0.424,
+     "range_high": 0.918,
+     "chance_of_loss": 0.458,
      "hist_chance_of_loss": 0.123
     },
     {
@@ -1643,7 +1643,7 @@
      "name": "Applovin Corp",
      "probability": 0.563,
      "percentile": 0.972,
-     "price": 228.68,
+     "price": 228.85,
      "traits": [
       "Expensive vs. book value",
       "Highly profitable business",
