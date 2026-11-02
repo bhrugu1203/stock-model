@@ -5,6 +5,7 @@ For every holding period in config.PICK_HORIZONS (e.g. 6, 12, 24 months) this:
      following its picks would have beaten simply buying the S&P 500;
   2. checks how often stocks the model rated highly actually beat the typical stock;
   3. trains on all history and lists today's top picks, with a risk estimate for each.
+  4. adds today's picks to the live record (live.py) and scores every earlier pick.
 Results go to outputs/forecast.json, which dashboard.py turns into the website.
 """
 import argparse
@@ -19,6 +20,7 @@ import pandas as pd
 import config
 import data
 import fundamentals
+import live
 from backtest import make_model
 from features import build_panel
 
@@ -143,6 +145,8 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--demo", action="store_true", help="fake data, offline (results meaningless)")
     ap.add_argument("--refresh-prices", action="store_true", help="re-download prices (the daily cloud run does this)")
+    ap.add_argument("--no-record", action="store_true",
+                    help="don't add today's picks to the live record (the cloud run keeps the official record)")
     args = ap.parse_args()
 
     if args.demo:
@@ -169,6 +173,11 @@ def main():
         if s:
             print(f"  beat S&P 500 in {s['beat_sp500']}/{s['periods']} periods; "
                   f"avg {s['avg_picks']:.1%} vs S&P {s['avg_sp500']:.1%}; top pick {picks[0]['ticker']}")
+
+    result["live"] = None
+    if not args.demo and not args.no_record:
+        ledger = live.record(monthly.index[-1], result["horizons"], monthly, spy)
+        result["live"] = live.scoreboard(ledger, monthly, spy, result["horizons"])
 
     os.makedirs(config.OUTPUT_DIR, exist_ok=True)
     with open(OUT, "w") as f:

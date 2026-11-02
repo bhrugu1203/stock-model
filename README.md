@@ -30,16 +30,19 @@ Results print to the terminal and save to `outputs/` (growth chart, yearly retur
 ## Website: today's picks, track record, news
 
 ```bash
-python forecast.py      # picks for 6 months, 1 year and 2 years, each with a walk-forward track record
+python forecast.py --no-record   # picks for 6 months, 1 year and 2 years, each with a walk-forward track record
+                                 # (--no-record: leave the official live record to the cloud run)
 python dashboard.py     # rebuild the website in outputs/site/index.html
 ```
 
 Live at https://bhrugu1203.github.io/stock-model/, rebuilt by GitHub every morning (see below). Tabs:
 - **Today's picks**: the top stocks for each holding period, with the model's score, conviction, an 80% likely
   range and chance of loss (from the stock's recent volatility), and what stands out in its financials.
-- **Track record**: what would have happened if you had bought the picks every quarter since 2016 and held them,
+- **Backtest**: what would have happened if you had bought the picks every quarter since 2016 and held them,
   compared with just buying the S&P 500 on the same day; and whether higher-rated stocks really won more often.
-- **Market news** and **How it works**.
+- **Live record**: every morning's picks, saved permanently in `data/live/picks.csv` and scored against the S&P 500
+  from the day they were made. Unlike the backtest, this can't be tuned after the fact: it is the real test.
+- **Backtest**, **Market news** and **How it works**.
 
 Holding periods and number of picks are `PICK_HORIZONS` and `N_PICKS` in `config.py`.
 

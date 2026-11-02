@@ -141,7 +141,7 @@ footer { max-width:1180px; margin:0 auto; padding:0 16px 40px; color:var(--muted
 <header><div class="bar">
   <div class="logo"><svg viewBox="0 0 26 26" fill="none"><rect width="26" height="26" rx="6" fill="var(--logo)"/><path d="M5 18l5-6 4 3 7-9" stroke="#1c1917" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Bhrugu&rsquo;s Stock Model</div>
   <nav id="nav">
-    <button data-tab="picks">Today's picks</button><button data-tab="record">Track record</button>
+    <button data-tab="picks">Today's picks</button><button data-tab="live">Live record</button><button data-tab="record">Backtest</button>
     <button data-tab="news">Market news</button><button data-tab="method">How it works</button>
   </nav>
   <div class="stamp" id="stamp"></div>
@@ -161,8 +161,21 @@ footer { max-width:1180px; margin:0 auto; padding:0 16px 40px; color:var(--muted
   <b>Chance of loss</b>: probability of ending the period below today's price, from the same assumption; in brackets, how often this stock actually lost money over periods this long since 2010.</p>
 </section>
 
+<section id="tab-live" class="hidden">
+  <h1>Live record</h1>
+  <p class="lede" id="live-lede"></p>
+  <div class="seg" id="seg-live"></div>
+  <div class="cards" id="live-cards"></div>
+  <h2 id="first-title"></h2>
+  <div class="panel scroll"><table id="first-table"></table></div>
+  <h2>Every day's picks</h2>
+  <div class="panel scroll"><table id="cohort-table"></table></div>
+  <p class="note">Each row is one morning's picks for this holding period, scored from that day's closing price. A pick stays <b>open</b>
+  until its holding period ends; then its result is <b>final</b> and never changes. The record is saved on GitHub, where every change is dated.</p>
+</section>
+
 <section id="tab-record" class="hidden">
-  <h1>Track record</h1>
+  <h1>Backtest</h1>
   <p class="lede" id="record-lede"></p>
   <div class="seg" id="seg-record"></div>
   <div class="cards" id="record-cards"></div>
@@ -233,7 +246,7 @@ function show(tab) {
   try { history.replaceState(null, "", "#" + tab); } catch (e) {}
 }
 document.querySelectorAll("#nav button").forEach(b => b.onclick = () => show(b.dataset.tab));
-show(["picks","record","news","method"].includes(location.hash.slice(1)) ? location.hash.slice(1) : "picks");
+show(["picks","live","record","news","method"].includes(location.hash.slice(1)) ? location.hash.slice(1) : "picks");
 
 // ---------- horizon switch ----------
 let H = 1;
@@ -251,7 +264,7 @@ function renderPicks() {
   $("picks-lede").textContent = `The ${h.picks.length} stocks the model rates most likely to beat the typical S&P 500 stock over the next ${h.label}, `
     + `out of ${h.universe} current members. Prices as of ${F.data_through}.`;
   $("pick-cards").innerHTML = s.periods ? [
-    card("Past record vs S&P 500", `${s.beat_sp500}–${s.periods - s.beat_sp500}`, `Pick sets that beat / trailed the index, ${s.first} to ${s.last}`),
+    card("Backtest record vs S&P 500", `${s.beat_sp500}–${s.periods - s.beat_sp500}`, `Pick sets that beat / trailed the index, ${s.first} to ${s.last}`),
     card("Avg return per period", pct(s.avg_picks), `vs ${pct(s.avg_sp500)} for the S&P 500 and ${pct(s.avg_average_stock)} for the average stock`),
     card("Individual picks", `${s.pick_wins.toLocaleString()}–${s.pick_losses.toLocaleString()}`, `${pct(s.pick_wins / (s.pick_wins + s.pick_losses))} of single picks beat the S&P 500`),
     top ? card("Top-rated hit rate", pct(top.hit_rate), `of top-20% rated stocks beat the typical stock (coin flip = 50%)`) : ""
@@ -313,12 +326,40 @@ function renderRecord() {
       <td class="num">${pct(p.average_stock)}</td><td class="num"><span class="pill ${e >= 0 ? "up" : "down"}">${signed(e)}</span></td><td class="num">${p.pick_wins} / ${p.pick_count}</td></tr>`; }).join("") + "</tbody>";
 }
 
-function renderAll() { markSegs(); renderPicks(); renderRecord(); }
+function renderLive() {
+  const L = F.live, h = L && L.horizons.find(x => x.months === F.horizons[H].months);
+  if (!h) {
+    $("live-lede").textContent = "The live record starts with the next morning update: from then on, every day's picks are saved and scored here.";
+    ["live-cards", "first-table", "cohort-table"].forEach(id => $(id).innerHTML = ""); $("first-title").textContent = "";
+    return;
+  }
+  const start = new Date(L.started + "T12:00:00"), firstClose = new Date(start); firstClose.setMonth(firstClose.getMonth() + h.months);
+  const fmt = d => d.toLocaleDateString(undefined, {month:"short", day:"numeric", year:"numeric"});
+  $("live-lede").textContent = `Real picks, made before the results were known. Started ${fmt(start)}: every morning's top ${F.horizons[H].picks.length} `
+    + `${h.label} picks are saved permanently and compared with buying the S&P 500 on the same day.`;
+  const edge = h.avg_ret - h.avg_sp_ret;
+  $("live-cards").innerHTML = [
+    card("Finished picks vs S&P 500", h.closed ? `${h.closed_wins}–${h.closed_losses}` : "None yet",
+         h.closed ? `${pct(h.closed_wins / h.closed, 0)} beat the index over the full ${h.label}` : `first ${h.label} picks finish ${fmt(firstClose)}`),
+    card("Open picks beating the S&P now", `${h.open_beating} of ${h.open}`, "since the day each was picked"),
+    card("Average return since picked", pct(h.avg_ret), `vs ${pct(h.avg_sp_ret)} for the S&P 500 over the same days`),
+    card("Edge so far", `<span class="pill ${edge >= 0 ? "up" : "down"}">${signed(edge)}</span>`, `across ${h.picks.toLocaleString()} recorded picks (repeats count each day)`)
+  ].join("");
+  $("first-title").textContent = `The first ${h.label} picks (${fmt(start)})`;
+  $("first-table").innerHTML = `<thead><tr><th>Stock</th><th class="num">Price then</th><th class="num">Price now</th><th class="num">Return</th><th class="num">S&amp;P 500</th><th class="num">vs S&amp;P</th></tr></thead><tbody>`
+    + h.first_picks.map(p => { const e = p.ret - p.sp_ret; return `<tr><td class="tk">${esc(p.ticker)}</td><td class="num">$${p.price.toFixed(2)}</td><td class="num">$${p.now.toFixed(2)}</td>
+      <td class="num">${signed(p.ret)}</td><td class="num">${signed(p.sp_ret)}</td><td class="num"><span class="pill ${e >= 0 ? "up" : "down"}">${signed(e)}</span></td></tr>`; }).join("") + "</tbody>";
+  $("cohort-table").innerHTML = `<thead><tr><th>Picked</th><th>Top picks</th><th class="num">Return</th><th class="num">S&amp;P 500</th><th class="num">Edge</th><th class="num">Beating S&amp;P</th><th>Status</th></tr></thead><tbody>`
+    + h.cohorts.map(c => { const e = c.ret - c.sp_ret; return `<tr><td style="white-space:nowrap">${c.date}</td><td class="nm">${esc(c.tickers)}</td><td class="num">${signed(c.ret)}</td><td class="num">${signed(c.sp_ret)}</td>
+      <td class="num"><span class="pill ${e >= 0 ? "up" : "down"}">${signed(e)}</span></td><td class="num">${c.beat} / ${c.n}</td><td>${c.closed ? "Final" : "Open"}</td></tr>`; }).join("") + "</tbody>";
+}
+
+function renderAll() { markSegs(); renderPicks(); renderLive(); renderRecord(); }
 
 if (F) {
   if (F.demo) $("picks-warn").innerHTML = '<div class="warn">Demo data: these picks and results are made up for testing.</div>';
   H = Math.max(0, F.horizons.findIndex(h => h.months === 12));
-  segs("seg-picks"); segs("seg-record"); renderAll();
+  segs("seg-picks"); segs("seg-live"); segs("seg-record"); renderAll();
 } else {
   $("picks-lede").textContent = "No picks yet. Run python forecast.py, then python dashboard.py.";
 }

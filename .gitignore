@@ -7,3 +7,4 @@ data/*
 data/news/collector.log
 outputs/*.log
 outputs/site/
+!data/live/
