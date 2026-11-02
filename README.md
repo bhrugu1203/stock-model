@@ -39,6 +39,14 @@ Google News, the Federal Reserve, the SEC, and Yahoo headlines for the tickers i
 
 Change sources, the watchlist and how many days the page shows in `config.py`.
 
+**Runs automatically in the cloud.** GitHub runs `news.py` every morning (11:00 UTC) using
+`.github/workflows/news.yml`, saves the new headlines to this repo, and publishes the page at
+https://bhrugu1203.github.io/stock-model/. Your Mac doesn't need to be on.
+- Run it now: on GitHub, open **Actions → Daily market news → Run workflow**.
+- Get the latest headlines onto your Mac before working with them: `git pull`.
+- Don't commit a `news.py` run made on your Mac; it would clash with the cloud's copy of `headlines.csv`.
+  If you ran it locally, throw that away with `git checkout data/news outputs/news.html` before `git pull`.
+
 ## Where to tweak
 
 | File | What it controls |
