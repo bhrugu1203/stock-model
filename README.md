@@ -67,8 +67,8 @@ https://bhrugu1203.github.io/stock-model/. Your Mac doesn't need to be on.
 2. Add features in `features.py` (e.g. 3-month momentum, price vs 200-day average).
 3. Swap the model in `backtest.make_model()` (try `GradientBoostingClassifier`).
 4. Set `UNIVERSE = "today"` and compare with `"historical"` to see how much survivorship bias inflates results.
-5. Add more financials in `fundamentals.py` (`ITEMS`) and new ratios in `features.py`. Gross profit is only
-   reported under that name by ~40% of companies; adding revenue minus `CostOfRevenue` would fill many gaps.
+5. Add more financials in `fundamentals.py` (`ITEMS`) and new ratios in `features.py`. Companies with negative
+   shareholder equity (big buybacks, e.g. McDonald's) get a meaningless book-to-market; handling that is a good next fix.
 
 ## Limitations (read these)
 - **Survivorship bias (reduced, not gone):** by default the backtest uses the S&P 500 as it actually was on each date

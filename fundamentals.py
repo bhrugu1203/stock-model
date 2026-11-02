@@ -22,6 +22,9 @@ ITEMS = {
                                  "SalesRevenueNet"], "annual", 4),
     "net_income":   ("us-gaap", ["NetIncomeLoss"], "annual", 4),
     "gross_profit": ("us-gaap", ["GrossProfit"], "annual", 4),
+    # many companies never report a gross profit line; revenue minus this fills the gap
+    "cost_of_revenue": ("us-gaap", ["CostOfRevenue", "CostOfGoodsAndServicesSold", "CostOfGoodsSold"],
+                        "annual", 4),
     "assets":       ("us-gaap", ["Assets"], "instant", 3),
     "equity":       ("us-gaap", ["StockholdersEquity"], "instant", 3),
     "liabilities":  ("us-gaap", ["Liabilities"], "instant", 3),
@@ -50,10 +53,11 @@ def _periods(kind):
     return [f"CY{y}Q{q}I" for y in range(first, last + 1) for q in range(1, 5)]
 
 
-def download():
-    """Fetch every item for every company and save one long table: item, cik, end, value."""
+def download(items=None):
+    """Fetch the given items (default: all) for every company as one long table: item, cik, end, value."""
     rows = []
-    for name, (tax, tags, kind, _) in ITEMS.items():
+    for name in items or ITEMS:
+        tax, tags, kind, _ = ITEMS[name]
         print(f"  SEC: {name}")
         for rank, tag in enumerate(tags):
             for period in _periods(kind):
@@ -82,8 +86,29 @@ def load_raw(refresh=False):
         download().to_csv(facts_path, index=False)
         pd.Series(ticker_to_cik(), name="cik").rename_axis("ticker").to_csv(map_path)
     facts = pd.read_csv(facts_path, parse_dates=["end"])
+    missing = [name for name in ITEMS if name not in set(facts["item"])]
+    if missing:   # an item was added to ITEMS since the last download
+        print(f"Downloading new SEC items: {', '.join(missing)}...")
+        new = download(missing)
+        new["end"] = pd.to_datetime(new["end"])
+        facts = pd.concat([facts, new], ignore_index=True)
+        facts.to_csv(facts_path, index=False)
+    facts = _add_gross_profit(facts)
     cik = pd.read_csv(map_path, index_col="ticker")["cik"]
     return facts, cik
+
+
+def _add_gross_profit(facts):
+    """Where a company reported no gross profit, use revenue minus cost of revenue for the same period."""
+    key = ["cik", "end"]
+    rev = facts[facts["item"] == "revenue"][key + ["value"]]
+    cost = facts[facts["item"] == "cost_of_revenue"][key + ["value"]]
+    derived = rev.merge(cost, on=key, suffixes=("_rev", "_cost"))
+    derived = derived.assign(item="gross_profit", value=derived["value_rev"] - derived["value_cost"])[
+        ["item"] + key + ["value"]]
+    reported = facts[facts["item"] == "gross_profit"].set_index(key).index
+    derived = derived[~derived.set_index(key).index.isin(reported)]
+    return pd.concat([facts, derived], ignore_index=True)
 
 
 def _known_on(dates, ends, values, lag):
