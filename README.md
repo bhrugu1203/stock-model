@@ -34,7 +34,7 @@ python forecast.py      # picks for 6 months, 1 year and 2 years, each with a wa
 python dashboard.py     # rebuild the website in outputs/site/index.html
 ```
 
-Live at https://bhrugu1203.github.io/stock-model/, rebuilt by GitHub automatically (see below). Tabs:
+Live at https://bhrugu1203.github.io/stock-model/, rebuilt by GitHub every morning (see below). Tabs:
 - **Today's picks**: the top stocks for each holding period, with the model's score, conviction, an 80% likely
   range and chance of loss (from the stock's recent volatility), and what stands out in its financials.
 - **Track record**: what would have happened if you had bought the picks every quarter since 2016 and held them,
@@ -57,9 +57,9 @@ Google News, the Federal Reserve, the SEC, and Yahoo headlines for the tickers i
 
 Change sources, the watchlist and how many days the page shows in `config.py`.
 
-**Runs automatically in the cloud** (`.github/workflows/update.yml`). Every morning (11:00 UTC) GitHub collects
-headlines; every weekday evening (22:30 UTC, after the US close) it also downloads fresh prices and remakes the picks.
-Then it publishes the website. Your Mac doesn't need to be on.
+**Runs automatically in the cloud** (`.github/workflows/update.yml`). Every morning at 11:00 UTC (6-7 AM New York,
+before the market opens) GitHub collects headlines, downloads the latest closing prices, retrains the model on
+everything up to then, remakes the picks and publishes the website. Your Mac doesn't need to be on.
 - Run it now: on GitHub, open **Actions → Daily update → Run workflow**.
 - Get the latest headlines onto your Mac before working with them: `git pull`.
 - Don't commit a `news.py` run made on your Mac; it would clash with the cloud's copy of `headlines.csv`.
