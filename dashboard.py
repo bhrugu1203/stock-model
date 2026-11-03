@@ -418,7 +418,7 @@ const list = a => a.length < 2 ? a.join("") : a.slice(0, -1).join(", ") + " and 
 
 function openStock(t) {
   const st = S.find(s => s.ticker === t); if (!st) return;
-  $("lq").value = st.ticker; industry = "";
+  $("lq").value = ""; industry = "";
   $("lookup-filters").querySelectorAll(".fchip").forEach(x => x.classList.remove("on"));
   openRows.add(st.ticker); show("lookup", "lookup:" + st.ticker); renderLookup();
   const row = document.querySelector(`tr[data-t="${st.ticker}"]`); if (row) row.scrollIntoView({behavior: "smooth", block: "start"});
@@ -509,7 +509,8 @@ if (S.length) {
   $("lq").oninput = renderLookup;
   $("lq").onkeydown = e => { if (e.key === "Enter") { const q = $("lq").value.trim().toUpperCase(),
     hit = S.find(s => s.ticker === q) || S.find(s => s.ticker.startsWith(q) || s.name.toUpperCase().includes(q)); if (hit) openStock(hit.ticker); } };
-  if (START[0] === "lookup" && START[1]) { const t = START[1].toUpperCase(); if (S.some(s => s.ticker === t)) { $("lq").value = t; openRows.add(t); } }
+  if (START[0] === "lookup" && START[1]) { const t = START[1].toUpperCase(); if (S.some(s => s.ticker === t)) { openRows.add(t);
+    setTimeout(() => document.querySelector(`tr[data-t="${t}"]`)?.scrollIntoView({block: "start"}), 50); } }
 }
 window.addEventListener("hashchange", () => { const [tab, t] = location.hash.slice(1).split(":");
   if (tab === "lookup" && t) openStock(t.toUpperCase()); });
