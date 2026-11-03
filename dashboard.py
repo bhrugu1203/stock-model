@@ -47,7 +47,7 @@ TEMPLATE = r"""<!doctype html>
 <title>Bhrugu's Stock Model</title>
 <meta name="description" content="Daily S&amp;P 500 stock picks from company financials, with an honest backtest, a live track record, stock lookup and market news.">
 <meta name="theme-color" content="#0f2a1f">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 26 26'%3E%3Crect width='26' height='26' rx='6' fill='%230f2a1f'/%3E%3Cpath d='M5 18l5-6 4 3 7-9' stroke='%23b08d57' stroke-width='2.4' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 34 34'%3E%3Ccircle cx='17' cy='17' r='16.5' fill='%230f2a1f'/%3E%3Ccircle cx='17' cy='17' r='14' fill='none' stroke='%23b08d57' stroke-width='1.6'/%3E%3Ctext x='17' y='24' text-anchor='middle' font-family='Georgia,serif' font-size='19' font-weight='700' fill='%23b08d57'%3EB%3C/text%3E%3C/svg%3E">
 <script>try { const t = localStorage.getItem("theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -193,7 +193,7 @@ tr.drop .detail { margin:0; position:sticky; left:12px; box-sizing:border-box; }
 </style></head>
 <body>
 <header><div class="bar">
-  <div class="logo"><svg viewBox="0 0 26 26" fill="none"><rect width="26" height="26" rx="6" fill="var(--logo)"/><path d="M5 18l5-6 4 3 7-9" stroke="var(--logo-ink)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span><span class="wm">Bhrugu&rsquo;s Stock Model</span><span class="sub">S&amp;P 500 research</span></span></div>
+  <div class="logo"><svg viewBox="0 0 34 34" fill="none" aria-hidden="true"><circle cx="17" cy="17" r="15.6" stroke="var(--logo)" stroke-width="1.5"/><circle cx="17" cy="17" r="12.6" stroke="var(--logo)" stroke-width=".7"/><text x="17" y="23.6" text-anchor="middle" font-family="'Source Serif 4', Georgia, serif" font-size="18" font-weight="700" fill="var(--logo)">B</text></svg><span><span class="wm">Bhrugu&rsquo;s Stock Model</span><span class="sub">S&amp;P 500 research</span></span></div>
   <nav id="nav">
     <button data-tab="picks">Today's picks</button><button data-tab="live">Live record</button><button data-tab="record">Backtest</button>
     <button data-tab="lookup">Stock lookup</button>    <button data-tab="news">Market news</button><button data-tab="method">How it works</button>
@@ -300,7 +300,7 @@ tr.drop .detail { margin:0; position:sticky; left:12px; box-sizing:border-box; }
 </div></section>
 </main>
 <footer><div class="foot">
-  <div><div class="wm">Bhrugu&rsquo;s Stock Model</div><p>An educational research project. Nothing here is investment advice, and past results do not predict future returns.
+  <div><div class="wm"><svg viewBox="0 0 34 34" width="20" height="20" fill="none" aria-hidden="true" style="vertical-align:-4px;margin-right:6px"><circle cx="17" cy="17" r="15.6" stroke="var(--gold)" stroke-width="1.8"/><text x="17" y="23.6" text-anchor="middle" font-family="'Source Serif 4', Georgia, serif" font-size="18" font-weight="700" fill="var(--gold)">B</text></svg>Bhrugu&rsquo;s Stock Model</div><p>An educational research project. Nothing here is investment advice, and past results do not predict future returns.
   Picks are not recommendations to buy or sell any security.</p></div>
   <div><h4>Data</h4><p>Company financials: SEC EDGAR</p><p>Prices: Yahoo Finance</p><p>News: public RSS feeds</p></div>
   <div><h4>Updates</h4><p>Picks: every weekday morning</p><p>News: hourly, 7 AM–8 PM ET</p><p><a href="https://github.com/bhrugu1203/stock-model" target="_blank" rel="noopener">Source code on GitHub</a></p></div>
