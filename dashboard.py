@@ -155,7 +155,7 @@ footer { max-width:1180px; margin:0 auto; padding:0 16px 40px; color:var(--muted
   <div class="seg" id="seg-picks"></div>
   <div class="cards" id="pick-cards"></div>
   <div class="panel scroll"><table id="pick-table"></table></div>
-  <p class="note"><b>Model score</b>: the model's estimated chance this stock beats the typical S&amp;P 500 stock over the period.
+  <p class="note"><b>Model score</b>: <span id="score-note"></span>
   <b>Conviction</b>: how far the score stands out from the other ~500 stocks today.
   <b>Likely range</b>: where 8 out of 10 outcomes would land if the stock moves as much as it has over the last 3 years (assumes the market's long-run ~8% yearly return).
   <b>Chance of loss</b>: probability of ending the period below today's price, from the same assumption; in brackets, how often this stock actually lost money over periods this long since 2010.</p>
@@ -185,7 +185,7 @@ footer { max-width:1180px; margin:0 auto; padding:0 16px 40px; color:var(--muted
     <div class="panel chart"><h2 style="margin:0 0 4px">Does a higher score mean more winners?</h2>
       <p class="note" style="margin:0 0 8px">Share of stocks that beat the typical stock, grouped by how the model ranked them. 50% = coin flip.</p><div id="calib"></div></div>
     <div class="panel chart"><h2 style="margin:0 0 4px">What the model pays attention to</h2>
-      <p class="note" style="margin:0 0 8px">Share of the model's decisions driven by each input.</p><div id="importance"></div></div>
+      <p class="note" style="margin:0 0 8px" id="importance-note">Share of the model's decisions driven by each input.</p><div id="importance"></div></div>
   </div>
   <h2>Every period</h2>
   <div class="panel scroll"><table id="period-table"></table></div>
@@ -259,10 +259,18 @@ function markSegs() { document.querySelectorAll(".seg").forEach(s => s.querySele
 function card(k, v, s) { return `<div class="card"><div class="k">${k}</div><div class="v">${v}</div><div class="s">${s}</div></div>`; }
 function stars(p) { const n = p >= .995 ? 3 : p >= .98 ? 2 : 1; return `<span class="stars">${"★".repeat(n)}<span class="off">${"★".repeat(3-n)}</span></span>`; }
 
+const SIMPLE = F && F.model === "simple";
+if (F) $("score-note").textContent = SIMPLE
+  ? "how strong the stock's financials are overall: the average of its rank on six measures (cheapness vs earnings and book value, gross profitability, return on assets, revenue growth, low debt) against the other ~500 stocks. 100 = best on everything."
+  : "the model's estimated chance this stock beats the typical S&P 500 stock over the period.";
+
 function renderPicks() {
   const h = F.horizons[H], s = h.summary, top = (h.calibration || []).find(c => c.bucket === "Top 20%");
-  $("picks-lede").textContent = `The ${h.picks.length} stocks the model rates most likely to beat the typical S&P 500 stock over the next ${h.label}, `
-    + `out of ${h.universe} current members. Prices as of ${F.data_through}.`;
+  $("picks-lede").textContent = SIMPLE
+    ? `The ${h.picks.length} S&P 500 stocks with the strongest combination of value, profitability, growth and low debt, out of ${h.universe} current members. `
+      + `The list is the same for every holding period; the track record and risk numbers change with the period. Prices as of ${F.data_through}.`
+    : `The ${h.picks.length} stocks the model rates most likely to beat the typical S&P 500 stock over the next ${h.label}, `
+      + `out of ${h.universe} current members. Prices as of ${F.data_through}.`;
   $("pick-cards").innerHTML = s.periods ? [
     card("Backtest record vs S&P 500", `${s.beat_sp500}–${s.periods - s.beat_sp500}`, `Pick sets that beat / trailed the index, ${s.first} to ${s.last}`),
     card("Avg return per period", pct(s.avg_picks), `vs ${pct(s.avg_sp500)} for the S&P 500 and ${pct(s.avg_average_stock)} for the average stock`),
@@ -275,7 +283,7 @@ function renderPicks() {
     <th class="num">Chance of loss</th><th>What stands out</th><th class="num">Price</th></tr></thead><tbody>` +
     h.picks.map(p => `<tr><td>${p.rank}</td>
       <td><div class="tk">${esc(p.ticker)}</div><div class="nm" title="${esc(p.name)}">${esc(p.name)}</div></td>
-      <td><div class="prob"><div class="track"><div class="fill" style="width:${(p.probability*100).toFixed(0)}%"></div></div><b>${pct(p.probability, 0)}</b></div></td>
+      <td><div class="prob"><div class="track"><div class="fill" style="width:${(p.probability*100).toFixed(0)}%"></div></div><b>${SIMPLE ? Math.round(p.probability * 100) : pct(p.probability, 0)}</b></div></td>
       <td>${stars(p.percentile)}</td>
       <td><div class="range"><div class="axis"></div><div class="span" style="left:${X(p.range_low)}%;width:${X(p.range_high)-X(p.range_low)}%"></div><div class="zero" style="left:${X(0)}%"></div></div>
           <div class="range-txt">${signed(p.range_low,0)} to ${signed(p.range_high,0)}</div></td>
@@ -353,6 +361,8 @@ function renderLive() {
     + h.cohorts.map(c => { const e = c.ret - c.sp_ret; return `<tr><td style="white-space:nowrap">${c.date}</td><td class="nm">${esc(c.tickers)}</td><td class="num">${signed(c.ret)}</td><td class="num">${signed(c.sp_ret)}</td>
       <td class="num"><span class="pill ${e >= 0 ? "up" : "down"}">${signed(e)}</span></td><td class="num">${c.beat} / ${c.n}</td><td>${c.closed ? "Final" : "Open"}</td></tr>`; }).join("") + "</tbody>";
 }
+
+if (SIMPLE) $("importance-note").textContent = "The simple score weighs all six measures equally.";
 
 function renderAll() { markSegs(); renderPicks(); renderLive(); renderRecord(); }
 

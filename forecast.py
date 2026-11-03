@@ -159,7 +159,7 @@ def main():
     result = {"generated": datetime.now(timezone.utc).isoformat(timespec="seconds"),
               "data_through": monthly.index[-1].strftime("%Y-%m-%d"), "demo": args.demo,
               "holdout_from": config.HOLDOUT_FROM_YEAR, "top_fraction": config.TOP_FRACTION,
-              "market_drift": MARKET_DRIFT, "horizons": []}
+              "market_drift": MARKET_DRIFT, "model": config.MODEL_TYPE, "horizons": []}
     for h in config.PICK_HORIZONS:
         print(f"Horizon {horizon_label(h)}...")
         config.HORIZON_MONTHS = h
