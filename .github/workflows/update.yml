@@ -36,7 +36,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-          cache: pip
+          cache: ${{ env.PICKS == 'true' && 'pip' || '' }}   # news-only runs install nothing, so nothing to cache
       - name: Week number (SEC data is re-downloaded once a week)
         id: week
         run: echo "week=$(date +%G-%V)" >> "$GITHUB_OUTPUT"
