@@ -56,14 +56,17 @@ def _risk(prices, h):
             "hist_chance_of_loss": round(float((past < 0).mean()), 3) if len(past) >= 12 else None}
 
 
-def track_record(monthly, spy, panel, names, h):
+def track_record(monthly, spy, panel, names, h, holdout=False):
     """Walk-forward replay. Refit each January on outcomes already known, pick every quarter,
-    and only use outcomes that ended before the held-out years."""
+    and only use outcomes that ended before the held-out years. holdout=True instead replays
+    only picks made in the held-out years (holdout.py, run once)."""
     dates, prices = monthly.index, monthly.ffill()
     date_level = panel.index.get_level_values("date")
     holdout_start = pd.Timestamp(f"{config.HOLDOUT_FROM_YEAR}-02-01")
     periods, calib = [], []
-    for year in range(config.FIRST_TEST_YEAR, config.HOLDOUT_FROM_YEAR):
+    years = range(config.HOLDOUT_FROM_YEAR, dates[-1].year + 1) if holdout else \
+        range(config.FIRST_TEST_YEAR, config.HOLDOUT_FROM_YEAR)
+    for year in years:
         jan = [i for i, d in enumerate(dates) if d.year == year and d.month == 1]
         if not jan or jan[0] < h:
             continue
@@ -75,7 +78,7 @@ def track_record(monthly, spy, panel, names, h):
         for i, d in enumerate(dates):
             if d.year != year or d.month not in START_MONTHS or i + h >= len(dates):
                 continue
-            if dates[i + h] >= holdout_start:
+            if dates[i + h] >= holdout_start and not holdout:
                 continue
             test = panel[date_level == d].droplevel("date")
             if len(test) < 20:
