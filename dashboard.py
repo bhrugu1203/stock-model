@@ -135,6 +135,17 @@ tr:last-child td { border-bottom:0; }
 .warn { background:var(--down-bg); color:var(--down); border-radius:8px; padding:10px 14px; font-size:13px; margin-bottom:16px; }
 footer { max-width:1180px; margin:0 auto; padding:0 16px 40px; color:var(--muted); font-size:12px; }
 .hidden { display:none !important; }
+.clickable { cursor:pointer; }
+.clickable:hover td { background:var(--soft); }
+a.tk { color:inherit; text-decoration:none; } a.tk:hover { color:var(--brand-2); text-decoration:underline; }
+.detail { background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:18px 20px; margin:16px 0 20px; box-shadow:var(--shadow); }
+.detail-head { display:flex; flex-wrap:wrap; align-items:baseline; gap:6px 14px; margin-bottom:4px; }
+.detail-head .big { font-size:26px; font-weight:700; letter-spacing:-.02em; }
+.detail-head .co { font-size:16px; font-weight:600; }
+.detail-head .x { margin-left:auto; background:none; border:1px solid var(--line); border-radius:6px; color:var(--muted); font:inherit; padding:3px 10px; cursor:pointer; }
+.badge { display:inline-block; font-size:12px; font-weight:600; padding:3px 10px; border-radius:999px; background:var(--brand); color:var(--brand-text); }
+.detail .cards { margin:14px 0 6px; }
+.detail h3 { font-size:13px; text-transform:uppercase; letter-spacing:.05em; color:var(--muted); margin:16px 0 6px; }
 @media (max-width:640px) { .stamp { margin-left:0; width:100%; padding-bottom:8px; } .bar { gap:10px; padding-top:8px; } .hbar { grid-template-columns:110px 1fr 46px; } }
 </style></head>
 <body>
@@ -142,7 +153,7 @@ footer { max-width:1180px; margin:0 auto; padding:0 16px 40px; color:var(--muted
   <div class="logo"><svg viewBox="0 0 26 26" fill="none"><rect width="26" height="26" rx="6" fill="var(--logo)"/><path d="M5 18l5-6 4 3 7-9" stroke="#1c1917" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Bhrugu&rsquo;s Stock Model</div>
   <nav id="nav">
     <button data-tab="picks">Today's picks</button><button data-tab="live">Live record</button><button data-tab="record">Backtest</button>
-    <button data-tab="news">Market news</button><button data-tab="method">How it works</button>
+    <button data-tab="lookup">Stock lookup</button>    <button data-tab="news">Market news</button><button data-tab="method">How it works</button>
   </nav>
   <div class="stamp" id="stamp"></div>
 </div></header>
@@ -172,6 +183,17 @@ footer { max-width:1180px; margin:0 auto; padding:0 16px 40px; color:var(--muted
   <div class="panel scroll"><table id="cohort-table"></table></div>
   <p class="note">Each row is one morning's picks for this holding period, scored from that day's closing price. A pick stays <b>open</b>
   until its holding period ends; then its result is <b>final</b> and never changes. The record is saved on GitHub, where every change is dated.</p>
+</section>
+
+<section id="tab-lookup" class="hidden">
+  <h1>Stock lookup</h1>
+  <p class="lede" id="lookup-lede"></p>
+  <input id="lq" class="search" type="search" placeholder="Search by ticker or company: AAPL, Nvidia, bank..." autocomplete="off">
+  <div id="stock-detail"></div>
+  <div class="chips" id="lookup-filters"></div>
+  <div class="seg" id="seg-lookup"></div>
+  <div class="panel scroll"><table id="stock-table"></table></div>
+  <p class="note" id="stock-count"></p>
 </section>
 
 <section id="tab-record" class="hidden">
@@ -240,13 +262,14 @@ $("stamp").textContent = "Updated " + when(D.built);
 document.querySelectorAll(".holdout").forEach(e => e.textContent = F ? F.holdout_from : "");
 
 // ---------- tabs ----------
-function show(tab) {
+function show(tab, hash) {
   document.querySelectorAll("main > section").forEach(s => s.classList.toggle("hidden", s.id !== "tab-" + tab));
   document.querySelectorAll("#nav button").forEach(b => b.classList.toggle("on", b.dataset.tab === tab));
-  try { history.replaceState(null, "", "#" + tab); } catch (e) {}
+  try { history.replaceState(null, "", "#" + (hash || tab)); } catch (e) {}
 }
 document.querySelectorAll("#nav button").forEach(b => b.onclick = () => show(b.dataset.tab));
-show(["picks","live","record","news","method"].includes(location.hash.slice(1)) ? location.hash.slice(1) : "picks");
+const START = location.hash.slice(1).split(":");
+show(["picks","live","record","lookup","news","method"].includes(START[0]) ? START[0] : "picks");
 
 // ---------- horizon switch ----------
 let H = 1;
@@ -282,7 +305,7 @@ function renderPicks() {
   $("pick-table").innerHTML = `<thead><tr><th>#</th><th>Stock</th><th>Model score</th><th>Conviction</th><th>Likely range (80%)</th>
     <th class="num">Chance of loss</th><th>What stands out</th><th class="num">Price</th></tr></thead><tbody>` +
     h.picks.map(p => `<tr><td>${p.rank}</td>
-      <td><div class="tk">${esc(p.ticker)}</div><div class="nm" title="${esc(p.name)}">${esc(p.name)}</div></td>
+      <td><a class="tk" href="#lookup:${esc(p.ticker)}" onclick="openStock('${esc(p.ticker)}'); return false;">${esc(p.ticker)}</a><div class="nm" title="${esc(p.name)}">${esc(p.name)}</div></td>
       <td><div class="prob"><div class="track"><div class="fill" style="width:${(p.probability*100).toFixed(0)}%"></div></div><b>${SIMPLE ? Math.round(p.probability * 100) : pct(p.probability, 0)}</b></div></td>
       <td>${stars(p.percentile)}</td>
       <td><div class="range"><div class="axis"></div><div class="span" style="left:${X(p.range_low)}%;width:${X(p.range_high)-X(p.range_low)}%"></div><div class="zero" style="left:${X(0)}%"></div></div>
@@ -364,12 +387,80 @@ function renderLive() {
 
 if (SIMPLE) $("importance-note").textContent = "The simple score weighs all six measures equally.";
 
-function renderAll() { markSegs(); renderPicks(); renderLive(); renderRecord(); }
+// ---------- stock lookup ----------
+const S = (F && F.stocks) || [], MEASURES = [
+  ["earnings_yield", "Cheap vs. earnings"], ["book_to_market", "Cheap vs. book value"], ["gross_prof", "Gross profitability"],
+  ["roa", "Return on assets"], ["rev_growth", "Revenue growth"], ["leverage", "Low debt"]];
+let picked = null, industry = "";
+const hz = st => st.horizons.find(x => x.months === F.horizons[H].months) || st.horizons[0];
+const scoreTxt = v => SIMPLE ? String(Math.round(v * 100)) : pct(v, 0);
+const topTxt = p => p >= .5 ? `Top ${Math.max(1, Math.round((1 - p) * 100))}%` : `Bottom ${Math.max(1, Math.round(p * 100))}%`;
+
+function openStock(t) {
+  picked = S.find(s => s.ticker === t) || null; show("lookup", picked ? "lookup:" + t : "lookup");
+  renderLookup(); window.scrollTo({top: 0, behavior: "smooth"});
+}
+function renderDetail() {
+  const st = picked;
+  if (!st) { $("stock-detail").innerHTML = ""; return; }
+  const h = hz(st), n = S.length, inPicks = h.rank <= F.horizons[H].picks.length;
+  $("stock-detail").innerHTML = `<div class="detail">
+    <div class="detail-head"><span class="big">${esc(st.ticker)}</span><span class="co">${esc(st.name)}</span>
+      ${inPicks ? `<span class="badge">In today's top ${F.horizons[H].picks.length}</span>` : ""}
+      <button class="x" onclick="picked=null; show('lookup'); renderLookup()">Close</button></div>
+    <div class="nm" style="max-width:none">${esc(st.industry)} · $${st.price.toFixed(2)} · ${st.ret_1y == null ? "" : signed(st.ret_1y) + " over the past year"}</div>
+    <div class="cards">
+      ${card("Rank today", `#${h.rank} <span style="font-size:14px;color:var(--muted);font-weight:500">of ${n}</span>`, `${topTxt(h.percentile)} of current S&P 500 members`)}
+      ${card("Model score", scoreTxt(h.score), SIMPLE ? "0–100, average rank on the six measures" : `chance of beating the typical stock over ${F.horizons[H].label}`)}
+      ${card(`Likely range, ${F.horizons[H].label}`, `${signed(h.range_low, 0)} to ${signed(h.range_high, 0)}`, "8 in 10 outcomes, from its last 3 years of swings")}
+      ${card("Chance of loss", pct(h.chance_of_loss, 0), h.hist_chance_of_loss == null ? "not enough history" : `${pct(h.hist_chance_of_loss, 0)} of past ${F.horizons[H].label} periods lost money`)}
+    </div>
+    <h3>How it compares on each measure</h3>
+    ${MEASURES.map(([k, label]) => { const v = st.measures[k]; return `<div class="hbar"><span>${label}</span>
+      <div class="t">${v == null ? "" : `<div class="f" style="width:${(v*100).toFixed(0)}%"></div>`}<div class="mid"></div></div>
+      <b class="num">${v == null ? "n/a" : topTxt(v)}</b></div>`; }).join("")}
+    <p class="note" style="margin-top:4px">The middle line is the typical S&P 500 stock. n/a = not reported in its SEC filings.</p>
+    ${st.traits.length ? `<h3>What stands out</h3>${st.traits.map(t => `<span class="chip">${esc(t)}</span>`).join("")}` : ""}
+  </div>`;
+}
+function renderLookup() {
+  if (!S.length) { $("lookup-lede").textContent = "The stock list appears after the next morning update."; return; }
+  $("lookup-lede").textContent = `Every current S&P 500 member, ranked by today's model score for the chosen holding period. `
+    + `Search for a stock or click any row to see why it ranks where it does.`;
+  renderDetail();
+  const q = $("lq").value.trim().toLowerCase();
+  const rows = S.filter(st => (!industry || st.industry === industry)
+    && (!q || st.ticker.toLowerCase().startsWith(q) || st.name.toLowerCase().includes(q) || st.industry.toLowerCase().includes(q)))
+    .map(st => [st, hz(st)]).sort((a, b) => a[1].rank - b[1].rank);
+  $("stock-table").innerHTML = `<thead><tr><th class="num">Rank</th><th>Stock</th><th>Industry</th><th>Model score</th><th class="num">Chance of loss</th>
+    <th class="num">Past year</th><th class="num">Price</th></tr></thead><tbody>` + rows.slice(0, 600).map(([st, h]) =>
+    `<tr class="clickable" onclick="openStock('${esc(st.ticker)}')"><td class="num">${h.rank}</td>
+      <td><div class="tk">${esc(st.ticker)}</div><div class="nm" title="${esc(st.name)}">${esc(st.name)}</div></td>
+      <td class="nm">${esc(st.industry)}</td>
+      <td><div class="prob"><div class="track"><div class="fill" style="width:${(h.score*100).toFixed(0)}%"></div></div><b>${scoreTxt(h.score)}</b></div></td>
+      <td class="num">${pct(h.chance_of_loss, 0)}</td><td class="num">${signed(st.ret_1y, 0)}</td><td class="num">$${st.price.toFixed(2)}</td></tr>`).join("") + "</tbody>";
+  $("stock-count").textContent = rows.length ? `${rows.length} of ${S.length} stocks shown.` : "No stocks match.";
+}
+if (S.length) {
+  const inds = [...new Set(S.map(s => s.industry))].sort();
+  $("lookup-filters").innerHTML = inds.map(i => `<button class="fchip" data-i="${esc(i)}">${esc(i)}</button>`).join("");
+  $("lookup-filters").querySelectorAll(".fchip").forEach(c => c.onclick = () => {
+    industry = industry === c.dataset.i ? "" : c.dataset.i;
+    $("lookup-filters").querySelectorAll(".fchip").forEach(x => x.classList.toggle("on", x.dataset.i === industry)); renderLookup(); });
+  $("lq").oninput = renderLookup;
+  $("lq").onkeydown = e => { if (e.key === "Enter") { const q = $("lq").value.trim().toUpperCase(),
+    hit = S.find(s => s.ticker === q) || S.find(s => s.ticker.startsWith(q) || s.name.toUpperCase().includes(q)); if (hit) openStock(hit.ticker); } };
+  if (START[0] === "lookup" && START[1]) picked = S.find(s => s.ticker === START[1].toUpperCase()) || null;
+}
+window.addEventListener("hashchange", () => { const [tab, t] = location.hash.slice(1).split(":");
+  if (tab === "lookup" && t) openStock(t.toUpperCase()); });
+
+function renderAll() { markSegs(); renderPicks(); renderLive(); renderRecord(); renderLookup(); }
 
 if (F) {
   if (F.demo) $("picks-warn").innerHTML = '<div class="warn">Demo data: these picks and results are made up for testing.</div>';
   H = Math.max(0, F.horizons.findIndex(h => h.months === 12));
-  segs("seg-picks"); segs("seg-live"); segs("seg-record"); renderAll();
+  segs("seg-picks"); segs("seg-live"); segs("seg-record"); segs("seg-lookup"); renderAll();
 } else {
   $("picks-lede").textContent = "No picks yet. Run python forecast.py, then python dashboard.py.";
 }

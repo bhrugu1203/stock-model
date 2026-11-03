@@ -21,7 +21,7 @@ import config
 import data
 import fundamentals
 import live
-from backtest import make_model
+from backtest import SIMPLE_DIRECTIONS, make_model
 from features import build_panel
 
 OUT = os.path.join(config.OUTPUT_DIR, "forecast.json")
@@ -114,7 +114,21 @@ def summarize(periods):
     }
 
 
+def _traits(now, fund, t):
+    traits = []
+    for k, (hi, lo) in TRAITS.items():
+        if k in now.columns and now.at[t, k] != 0.5:      # 0.5 = not reported
+            if now.at[t, k] >= 0.85:
+                traits.append(hi)
+            elif now.at[t, k] <= 0.15:
+                traits.append(lo)
+    if fund["equity"][t].iloc[-1] <= 0:
+        traits.append("Negative book value")
+    return traits
+
+
 def todays_picks(monthly, fund, panel, names, h, n_picks):
+    """Top picks, plus today's score for every current member (for the stock lookup)."""
     train = panel[panel["fwd_rel"].notna()]
     model = make_model().fit(train[names], (train["fwd_rel"] > 0).astype(int))
     latest = monthly.index[-1]
@@ -124,21 +138,36 @@ def todays_picks(monthly, fund, panel, names, h, n_picks):
     company = fundamentals.company_names()
     picks = []
     for rank, t in enumerate(prob.nlargest(n_picks).index, 1):
-        traits = []
-        for k, (hi, lo) in TRAITS.items():
-            if k in now.columns and now.at[t, k] != 0.5:      # 0.5 = not reported
-                if now.at[t, k] >= 0.85:
-                    traits.append(hi)
-                elif now.at[t, k] <= 0.15:
-                    traits.append(lo)
-        if fund["equity"][t].iloc[-1] <= 0:
-            traits.append("Negative book value")
         picks.append({"rank": rank, "ticker": t, "name": str(company.get(t, "")).title(),
                       "probability": round(float(prob[t]), 3), "percentile": round(float(pct[t]), 3),
                       "price": round(float(monthly[t].dropna().iloc[-1]), 2),
-                      "traits": traits, **_risk(monthly[t], h)})
+                      "traits": _traits(now, fund, t), **_risk(monthly[t], h)})
     importance = sorted(zip(names, model.feature_importances_), key=lambda x: -x[1])
-    return picks, [{"feature": k, "importance": round(float(v), 3)} for k, v in importance], len(prob)
+    return picks, [{"feature": k, "importance": round(float(v), 3)} for k, v in importance], prob, now
+
+
+def all_stocks(monthly, fund, now, names, scores):
+    """One row per current S&P 500 member: its score, rank and risk for every holding period,
+    and where it stands on each measure (0-1, higher = better; leverage is flipped so low debt scores high)."""
+    company = fundamentals.company_names()
+    industry = fundamentals.sectors(now.index)
+    ranks = {h: (prob.rank(ascending=False, method="min"), prob.rank(pct=True)) for h, prob in scores.items()}
+    rows = []
+    for t in now.index:
+        p = monthly[t].dropna()
+        year_ago = p[p.index <= p.index[-1] - pd.DateOffset(months=12)]
+        measures = {k: (None if now.at[t, k] == 0.5 else
+                        round(float(now.at[t, k] if SIMPLE_DIRECTIONS.get(k, 1) > 0 else 1 - now.at[t, k]), 3))
+                    for k in names}
+        horizons = []
+        for h, prob in scores.items():
+            horizons.append({"months": h, "rank": int(ranks[h][0][t]), "score": round(float(prob[t]), 3),
+                             "percentile": round(float(ranks[h][1][t]), 3), **_risk(monthly[t], h)})
+        rows.append({"ticker": t, "name": str(company.get(t, "")).title(), "industry": industry.get(t, "Unknown"),
+                     "price": round(float(p.iloc[-1]), 2),
+                     "ret_1y": round(float(p.iloc[-1] / year_ago.iloc[-1] - 1), 4) if len(year_ago) else None,
+                     "measures": measures, "traits": _traits(now, fund, t), "horizons": horizons})
+    return sorted(rows, key=lambda r: r["horizons"][0]["rank"])
 
 
 def main():
@@ -160,12 +189,14 @@ def main():
               "data_through": monthly.index[-1].strftime("%Y-%m-%d"), "demo": args.demo,
               "holdout_from": config.HOLDOUT_FROM_YEAR, "top_fraction": config.TOP_FRACTION,
               "market_drift": MARKET_DRIFT, "model": config.MODEL_TYPE, "horizons": []}
+    scores = {}
     for h in config.PICK_HORIZONS:
         print(f"Horizon {horizon_label(h)}...")
         config.HORIZON_MONTHS = h
         panel, names = build_panel(monthly, members, fund)
         periods, calibration = track_record(monthly, spy, panel, names, h)
-        picks, importance, universe = todays_picks(monthly, fund, panel, names, h, config.N_PICKS)
+        picks, importance, scores[h], now = todays_picks(monthly, fund, panel, names, h, config.N_PICKS)
+        universe = len(scores[h])
         result["horizons"].append({"months": h, "label": horizon_label(h), "universe": universe,
                                    "summary": summarize(periods), "periods": periods,
                                    "calibration": calibration, "picks": picks, "importance": importance})
@@ -173,6 +204,8 @@ def main():
         if s:
             print(f"  beat S&P 500 in {s['beat_sp500']}/{s['periods']} periods; "
                   f"avg {s['avg_picks']:.1%} vs S&P {s['avg_sp500']:.1%}; top pick {picks[0]['ticker']}")
+
+    result["stocks"] = all_stocks(monthly, fund, now, names, scores)
 
     result["live"] = None
     if not args.demo and not args.no_record:

@@ -42,7 +42,9 @@ Live at https://bhrugu1203.github.io/stock-model/, rebuilt by GitHub every morni
   compared with just buying the S&P 500 on the same day; and whether higher-rated stocks really won more often.
 - **Live record**: every morning's picks, saved permanently in `data/live/picks.csv` and scored against the S&P 500
   from the day they were made. Unlike the backtest, this can't be tuned after the fact: it is the real test.
-- **Backtest**, **Market news** and **How it works**.
+- **Stock lookup**: every current S&P 500 member ranked by today's score. Search a ticker or company (or open
+  `#lookup:AAPL`) to see its rank, risk, where it stands on each of the six measures and what stands out.
+- **Market news** and **How it works**.
 
 Holding periods and number of picks are `PICK_HORIZONS` and `N_PICKS` in `config.py`.
 
