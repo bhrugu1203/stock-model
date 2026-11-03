@@ -62,7 +62,8 @@ Change sources, the watchlist and how many days the page shows in `config.py`.
 
 **Runs automatically in the cloud** (`.github/workflows/update.yml`). Every morning at 11:00 UTC (6-7 AM New York,
 before the market opens) GitHub collects headlines, downloads the latest closing prices, retrains the model on
-everything up to then, remakes the picks and publishes the website. Your Mac doesn't need to be on.
+everything up to then, remakes the picks and publishes the website. Then, every hour until about 8 PM New York time,
+it collects new headlines and republishes. Your Mac doesn't need to be on.
 - Run it now: on GitHub, open **Actions → Daily update → Run workflow**.
 - Get the latest headlines onto your Mac before working with them: `git pull`.
 - Don't commit a `news.py` run made on your Mac; it would clash with the cloud's copy of `headlines.csv`.
