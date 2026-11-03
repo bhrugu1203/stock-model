@@ -45,9 +45,13 @@ TEMPLATE = r"""<!doctype html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Bhrugu's Stock Model</title>
+<meta name="description" content="Daily S&amp;P 500 stock picks from company financials, with an honest backtest, a live track record, stock lookup and market news.">
+<meta name="theme-color" content="#0f2a1f">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 26 26'%3E%3Crect width='26' height='26' rx='6' fill='%230f2a1f'/%3E%3Cpath d='M5 18l5-6 4 3 7-9' stroke='%23b08d57' stroke-width='2.4' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<script>try { const t = localStorage.getItem("theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap" rel="stylesheet">
 <style>
 :root {
   --bg:#f8f6f0; --panel:#fffdf8; --text:#14231b; --muted:#5d6a61; --line:#e3ddcf; --soft:#f1ede2;
@@ -59,31 +63,52 @@ TEMPLATE = r"""<!doctype html>
   --bg:#0b1510; --panel:#122019; --text:#e8eee9; --muted:#9aa99f; --line:#1f3429; --soft:#0f1c15;
   --brand:#c9a46a; --brand-text:#0b1510; --brand-2:#d6b781; --up:#5fcf8a; --up-bg:#0d2b1a; --down:#f08a80; --down-bg:#3a1512;
   --gold:#c9a46a; --bar:#c9a46a; --bar-2:#3d4f44; --head:#071009; --head-text:#cfdcd3; --logo:#c9a46a; --logo-ink:#071009; --shadow:none; } }
+:root[data-theme="dark"] {
+  --bg:#0b1510; --panel:#122019; --text:#e8eee9; --muted:#9aa99f; --line:#1f3429; --soft:#0f1c15;
+  --brand:#c9a46a; --brand-text:#0b1510; --brand-2:#d6b781; --up:#5fcf8a; --up-bg:#0d2b1a; --down:#f08a80; --down-bg:#3a1512;
+  --gold:#c9a46a; --bar:#c9a46a; --bar-2:#3d4f44; --head:#071009; --head-text:#cfdcd3; --logo:#c9a46a; --logo-ink:#071009; --shadow:none; }
 * { box-sizing:border-box; }
 html { -webkit-text-size-adjust:100%; }
 body { margin:0; background:var(--bg); color:var(--text);
   font:14px/1.5 Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-feature-settings:"tnum"; }
 a { color:var(--brand-2); }
 header { background:var(--head); color:var(--head-text); position:sticky; top:0; z-index:5; }
-.bar { max-width:1180px; margin:0 auto; padding:0 16px; display:flex; align-items:center; gap:24px; min-height:58px; flex-wrap:wrap; }
-.logo { display:flex; align-items:center; gap:10px; font-weight:700; font-size:16px; color:#fff; letter-spacing:-.01em; }
-.logo svg { width:26px; height:26px; }
-nav { display:flex; gap:4px; flex-wrap:wrap; }
-nav button { background:none; border:0; color:var(--head-text); font:inherit; font-weight:500; padding:8px 12px; border-radius:6px; cursor:pointer; opacity:.75; }
-nav button:hover { opacity:1; background:rgba(255,255,255,.06); }
-nav button.on { opacity:1; background:rgba(255,255,255,.12); color:#fff; }
-.stamp { margin-left:auto; font-size:12px; opacity:.7; }
+.bar { max-width:1180px; margin:0 auto; padding:0 16px; display:flex; align-items:center; gap:28px; min-height:64px; flex-wrap:wrap; }
+header { border-bottom:1px solid rgba(176,141,87,.45); }
+.logo { display:flex; align-items:center; gap:11px; color:#fff; }
+.logo svg { width:30px; height:30px; flex:none; }
+.logo .wm { font-family:"Source Serif 4", Georgia, serif; font-weight:700; font-size:18px; letter-spacing:-.01em; line-height:1.1; display:block; }
+.logo .sub { display:block; font-size:10px; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:var(--logo); margin-top:2px; }
+nav { display:flex; gap:2px; flex-wrap:wrap; align-self:stretch; }
+nav button { background:none; border:0; color:var(--head-text); font:inherit; font-weight:500; padding:0 12px; min-height:64px; cursor:pointer; opacity:.72; box-shadow:inset 0 -2px 0 transparent; transition:opacity .15s, box-shadow .15s; }
+nav button:hover { opacity:1; }
+nav button.on { opacity:1; color:#fff; box-shadow:inset 0 -2px 0 var(--logo); }
+.hright { margin-left:auto; display:flex; align-items:center; gap:14px; }
+.stamp { font-size:12px; opacity:.7; white-space:nowrap; }
+.theme { background:none; border:1px solid rgba(255,255,255,.18); color:var(--head-text); border-radius:6px; width:32px; height:30px; cursor:pointer; font-size:14px; line-height:1; }
+.theme:hover { border-color:var(--logo); }
+.eyebrow { font-size:11px; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:var(--brand-2); margin:6px 0; }
+.strip { display:grid; grid-template-columns:repeat(auto-fit, minmax(128px, 1fr)); background:var(--panel); border:1px solid var(--line); border-radius:10px; box-shadow:var(--shadow); margin:0 0 18px; overflow:hidden; }
+.strip > div { padding:12px 16px; border-left:1px solid var(--line); margin-left:-1px; }
+.strip .k { font-size:11px; color:var(--muted); font-weight:600; text-transform:uppercase; letter-spacing:.06em; }
+.strip .v { font-size:17px; font-weight:600; margin-top:2px; }
+tbody tr:hover td { background:var(--soft); }
+.more-chip { color:var(--muted); font-size:11px; white-space:nowrap; }
+.foot { display:grid; grid-template-columns:2fr 1fr 1fr; gap:24px; border-top:1px solid var(--line); padding-top:22px; }
+.foot h4 { margin:0 0 6px; font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--text); }
+.foot p { margin:0 0 4px; } .foot a { color:var(--muted); }
+.foot .wm { font-family:"Source Serif 4", Georgia, serif; font-weight:700; font-size:15px; color:var(--text); margin-bottom:6px; }
 main { max-width:1180px; margin:0 auto; padding:24px 16px 64px; }
-h1 { font-size:24px; letter-spacing:-.02em; margin:0 0 4px; }
-h2 { font-size:16px; margin:28px 0 10px; }
+h1 { font-family:"Source Serif 4", Georgia, serif; font-size:32px; font-weight:700; letter-spacing:-.015em; line-height:1.15; margin:0 0 8px; }
+h2 { font-family:"Source Serif 4", Georgia, serif; font-size:19px; font-weight:600; margin:30px 0 10px; }
 .lede { color:var(--muted); margin:0 0 20px; max-width:760px; }
 .seg { display:inline-flex; background:var(--panel); border:1px solid var(--line); border-radius:8px; padding:3px; margin-bottom:18px; box-shadow:var(--shadow); }
 .seg button { border:0; background:none; font:inherit; font-weight:600; color:var(--muted); padding:7px 16px; border-radius:6px; cursor:pointer; }
 .seg button.on { background:var(--brand); color:var(--brand-text); }
-.cards { display:grid; grid-template-columns:repeat(auto-fit, minmax(210px, 1fr)); gap:12px; margin-bottom:20px; }
-.card { background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:14px 16px; box-shadow:var(--shadow); }
+.cards { display:grid; grid-template-columns:repeat(auto-fit, minmax(175px, 1fr)); gap:12px; margin-bottom:20px; }
+.card { background:var(--panel); border:1px solid var(--line); border-top:2px solid var(--gold); border-radius:10px; padding:14px 16px; box-shadow:var(--shadow); }
 .card .k { font-size:12px; color:var(--muted); font-weight:500; text-transform:uppercase; letter-spacing:.04em; }
-.card .v { font-size:24px; font-weight:700; letter-spacing:-.02em; margin:4px 0 2px; }
+.card .v { font-size:26px; font-weight:700; letter-spacing:-.02em; margin:4px 0 2px; }
 .card .s { font-size:12px; color:var(--muted); }
 .panel { background:var(--panel); border:1px solid var(--line); border-radius:10px; box-shadow:var(--shadow); overflow:hidden; }
 .scroll { overflow-x:auto; }
@@ -93,7 +118,7 @@ td { padding:11px 12px; border-bottom:1px solid var(--line); vertical-align:midd
 #period-table td { white-space:nowrap; }
 tr:last-child td { border-bottom:0; }
 .num { text-align:right; white-space:nowrap; }
-.tk { font-weight:700; }
+.tk { font-weight:700; letter-spacing:.02em; }
 .nm { color:var(--muted); font-size:12px; max-width:220px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 .prob { display:flex; align-items:center; gap:8px; min-width:130px; }
 .prob .track { flex:1; height:6px; background:var(--soft); border-radius:3px; overflow:hidden; border:1px solid var(--line); }
@@ -133,7 +158,7 @@ tr:last-child td { border-bottom:0; }
 .prose p, .prose li { color:var(--text); }
 .prose h2 { margin-top:26px; }
 .warn { background:var(--down-bg); color:var(--down); border-radius:8px; padding:10px 14px; font-size:13px; margin-bottom:16px; }
-footer { max-width:1180px; margin:0 auto; padding:0 16px 40px; color:var(--muted); font-size:12px; }
+footer { max-width:1180px; margin:0 auto; padding:0 16px 40px; color:var(--muted); font-size:12px; line-height:1.6; }
 .hidden { display:none !important; }
 .clickable { cursor:pointer; }
 .share { display:flex; align-items:center; gap:8px; justify-content:flex-end; min-width:110px; }
@@ -162,23 +187,27 @@ tr.drop .detail { margin:0; position:sticky; left:12px; box-sizing:border-box; }
 .detail .grid2 { gap:8px 28px; }
 .detail ul { margin:6px 0 0; padding-left:18px; } .detail li { margin:3px 0; }
 .detail h3 { font-size:13px; text-transform:uppercase; letter-spacing:.05em; color:var(--muted); margin:16px 0 6px; }
-@media (max-width:640px) { .stamp { margin-left:0; width:100%; padding-bottom:8px; } .bar { gap:10px; padding-top:8px; } .hbar { grid-template-columns:110px 1fr 46px; } }
+@media (max-width:1060px) { .bar { padding-top:10px; gap:0 20px; } nav { order:3; width:100%; margin:0 -12px; } nav button { min-height:44px; } .hright { order:2; } }
+@media (max-width:640px) { .hright { position:absolute; top:14px; right:16px; } .stamp { display:none; } .bar { gap:4px; padding-top:10px; position:relative; }
+  nav button { min-height:44px; padding:0 10px; } h1 { font-size:26px; } .foot { grid-template-columns:1fr; } .hbar { grid-template-columns:110px 1fr 46px; } }
 </style></head>
 <body>
 <header><div class="bar">
-  <div class="logo"><svg viewBox="0 0 26 26" fill="none"><rect width="26" height="26" rx="6" fill="var(--logo)"/><path d="M5 18l5-6 4 3 7-9" stroke="var(--logo-ink)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Bhrugu&rsquo;s Stock Model</div>
+  <div class="logo"><svg viewBox="0 0 26 26" fill="none"><rect width="26" height="26" rx="6" fill="var(--logo)"/><path d="M5 18l5-6 4 3 7-9" stroke="var(--logo-ink)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span><span class="wm">Bhrugu&rsquo;s Stock Model</span><span class="sub">S&amp;P 500 research</span></span></div>
   <nav id="nav">
     <button data-tab="picks">Today's picks</button><button data-tab="live">Live record</button><button data-tab="record">Backtest</button>
     <button data-tab="lookup">Stock lookup</button>    <button data-tab="news">Market news</button><button data-tab="method">How it works</button>
   </nav>
-  <div class="stamp" id="stamp"></div>
+  <div class="hright"><div class="stamp" id="stamp"></div><button class="theme" id="theme" title="Switch light / dark" aria-label="Switch light or dark theme">◐</button></div>
 </div></header>
 
 <main>
 <section id="tab-picks">
+  <div class="eyebrow">Portfolio · updated every morning</div>
   <h1>Today's picks</h1>
   <p class="lede" id="picks-lede"></p>
   <div id="picks-warn"></div>
+  <div class="strip" id="pick-strip"></div>
   <div class="seg" id="seg-picks"></div>
   <div class="cards" id="pick-cards"></div>
   <div class="panel scroll"><table id="pick-table"></table></div>
@@ -190,6 +219,7 @@ tr.drop .detail { margin:0; position:sticky; left:12px; box-sizing:border-box; }
 </section>
 
 <section id="tab-live" class="hidden">
+  <div class="eyebrow">Real-time track record</div>
   <h1>Live record</h1>
   <p class="lede" id="live-lede"></p>
   <div class="seg" id="seg-live"></div>
@@ -203,6 +233,7 @@ tr.drop .detail { margin:0; position:sticky; left:12px; box-sizing:border-box; }
 </section>
 
 <section id="tab-lookup" class="hidden">
+  <div class="eyebrow">Research every S&amp;P 500 stock</div>
   <h1>Stock lookup</h1>
   <p class="lede" id="lookup-lede"></p>
   <input id="lq" class="search" type="search" placeholder="Search by ticker or company: AAPL, Nvidia, bank..." autocomplete="off">
@@ -213,6 +244,7 @@ tr.drop .detail { margin:0; position:sticky; left:12px; box-sizing:border-box; }
 </section>
 
 <section id="tab-record" class="hidden">
+  <div class="eyebrow">Historical replay, 2016–2022</div>
   <h1>Backtest</h1>
   <p class="lede" id="record-lede"></p>
   <div class="seg" id="seg-record"></div>
@@ -230,6 +262,7 @@ tr.drop .detail { margin:0; position:sticky; left:12px; box-sizing:border-box; }
 </section>
 
 <section id="tab-news" class="hidden">
+  <div class="eyebrow">Updated every hour</div>
   <h1>Market news</h1>
   <p class="lede" id="news-lede"></p>
   <input id="q" class="search" type="search" placeholder="Search headlines: Nvidia, Fed, earnings...">
@@ -238,6 +271,7 @@ tr.drop .detail { margin:0; position:sticky; left:12px; box-sizing:border-box; }
 </section>
 
 <section id="tab-method" class="hidden"><div class="prose">
+  <div class="eyebrow">Methodology</div>
   <h1>How it works</h1>
   <p class="lede">A research project, not investment advice. Here is exactly what the numbers mean and where they can mislead.</p>
   <h2>What the model looks at</h2>
@@ -265,7 +299,12 @@ tr.drop .detail { margin:0; position:sticky; left:12px; box-sizing:border-box; }
   </ul>
 </div></section>
 </main>
-<footer>Educational project. Nothing here is investment advice. Past results do not predict future returns. Data: SEC EDGAR, Yahoo Finance, public RSS feeds.</footer>
+<footer><div class="foot">
+  <div><div class="wm">Bhrugu&rsquo;s Stock Model</div><p>An educational research project. Nothing here is investment advice, and past results do not predict future returns.
+  Picks are not recommendations to buy or sell any security.</p></div>
+  <div><h4>Data</h4><p>Company financials: SEC EDGAR</p><p>Prices: Yahoo Finance</p><p>News: public RSS feeds</p></div>
+  <div><h4>Updates</h4><p>Picks: every weekday morning</p><p>News: hourly, 7 AM–8 PM ET</p><p><a href="https://github.com/bhrugu1203/stock-model" target="_blank" rel="noopener">Source code on GitHub</a></p></div>
+</div></footer>
 
 <script id="data" type="application/json">__DATA__</script>
 <script>
@@ -278,6 +317,11 @@ const signed = (x, d=1) => x == null ? "–" : (x >= 0 ? "+" : "") + (x * 100).t
 const when = s => new Date(s).toLocaleString(undefined, {month:"short", day:"numeric", hour:"numeric", minute:"2-digit"});
 
 $("stamp").textContent = "Updated " + when(D.built);
+$("theme").onclick = () => {
+  const dark = document.documentElement.dataset.theme ? document.documentElement.dataset.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+  document.documentElement.dataset.theme = dark ? "light" : "dark";
+  try { localStorage.setItem("theme", document.documentElement.dataset.theme); } catch (e) {}
+};
 document.querySelectorAll(".holdout").forEach(e => e.textContent = F ? F.holdout_from : "");
 
 // ---------- tabs ----------
@@ -325,6 +369,14 @@ function renderPicks() {
   ].join("") : "";
   const lo = Math.min(...h.picks.map(p => p.range_low), -0.2), hi = Math.max(...h.picks.map(p => p.range_high), 0.3);
   const X = v => ((v - lo) / (hi - lo) * 100).toFixed(1);
+  const P = h.picks, top10 = P.slice(0, 10).reduce((a, p) => a + (p.weight || 0), 0), edge = s.periods ? s.avg_picks - s.avg_sp500 : null;
+  $("pick-strip").innerHTML = [
+    ["Holdings", `${P.length} stocks`],
+    SIZED ? ["Largest holding", `${esc(P[0].ticker)} ${pct(P[0].weight)}`] : ["Top pick", esc(P[0].ticker)],
+    SIZED ? ["Top 10 share", pct(top10, 0)] : null,
+    ["Edge per period", edge == null ? "–" : `<span style="color:var(${edge >= 0 ? "--up" : "--down"})">${signed(edge)}</span>`],
+    ["Prices as of", new Date(F.data_through + "T12:00:00").toLocaleDateString(undefined, {month:"short", day:"numeric", year:"numeric"})]
+  ].filter(Boolean).map(([k, v]) => `<div><div class="k">${k}</div><div class="v">${v}</div></div>`).join("");
   const n = F.n_show || 15, shown = showAll ? h.picks : h.picks.slice(0, n);
   $("pick-more").classList.toggle("hidden", h.picks.length <= n);
   $("pick-more").textContent = showAll ? `Show the top ${n} only` : `Show all ${h.picks.length} holdings`;
@@ -339,7 +391,7 @@ function renderPicks() {
       <td><div class="range"><div class="axis"></div><div class="span" style="left:${X(p.range_low)}%;width:${X(p.range_high)-X(p.range_low)}%"></div><div class="zero" style="left:${X(0)}%"></div></div>
           <div class="range-txt">${signed(p.range_low,0)} to ${signed(p.range_high,0)}</div></td>
       <td class="num">${pct(p.chance_of_loss,0)}<div class="range-txt">(${p.hist_chance_of_loss == null ? "–" : pct(p.hist_chance_of_loss,0)} in history)</div></td>
-      <td>${p.traits.length ? p.traits.map(t => `<span class="chip">${esc(t)}</span>`).join("") : '<span class="nm">Balanced profile</span>'}</td>
+      <td>${p.traits.length ? p.traits.slice(0, 2).map(t => `<span class="chip">${esc(t)}</span>`).join("") + (p.traits.length > 2 ? `<span class="more-chip">+${p.traits.length - 2} more</span>` : "") : '<span class="nm">Balanced profile</span>'}</td>
       <td class="num">$${p.price.toFixed(2)}</td></tr>`).join("") + "</tbody>";
 }
 
