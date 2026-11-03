@@ -145,6 +145,17 @@ a.tk { color:inherit; text-decoration:none; } a.tk:hover { color:var(--brand-2);
 .detail-head .x { margin-left:auto; background:none; border:1px solid var(--line); border-radius:6px; color:var(--muted); font:inherit; padding:3px 10px; cursor:pointer; }
 .badge { display:inline-block; font-size:12px; font-weight:600; padding:3px 10px; border-radius:999px; background:var(--brand); color:var(--brand-text); }
 .detail .cards { margin:14px 0 6px; }
+.chev { color:var(--muted); width:28px; text-align:center; font-size:12px; transition:transform .15s; display:inline-block; }
+tr.open .chev { transform:rotate(90deg); color:var(--brand-2); }
+tr.open td { background:var(--soft); border-bottom-color:transparent; }
+tr.drop > td { padding:0 12px 14px; background:var(--soft); white-space:normal; }
+tr.drop .detail { margin:0; position:sticky; left:12px; box-sizing:border-box; }
+.why { font-size:15px; line-height:1.6; margin:10px 0 4px; max-width:820px; }
+.why b { color:var(--text); }
+.mdesc { font-size:12px; color:var(--muted); margin:-4px 0 8px 0; }
+.hbar.big { grid-template-columns:170px 1fr 92px; }
+.detail .grid2 { gap:8px 28px; }
+.detail ul { margin:6px 0 0; padding-left:18px; } .detail li { margin:3px 0; }
 .detail h3 { font-size:13px; text-transform:uppercase; letter-spacing:.05em; color:var(--muted); margin:16px 0 6px; }
 @media (max-width:640px) { .stamp { margin-left:0; width:100%; padding-bottom:8px; } .bar { gap:10px; padding-top:8px; } .hbar { grid-template-columns:110px 1fr 46px; } }
 </style></head>
@@ -189,7 +200,6 @@ a.tk { color:inherit; text-decoration:none; } a.tk:hover { color:var(--brand-2);
   <h1>Stock lookup</h1>
   <p class="lede" id="lookup-lede"></p>
   <input id="lq" class="search" type="search" placeholder="Search by ticker or company: AAPL, Nvidia, bank..." autocomplete="off">
-  <div id="stock-detail"></div>
   <div class="chips" id="lookup-filters"></div>
   <div class="seg" id="seg-lookup"></div>
   <div class="panel scroll"><table id="stock-table"></table></div>
@@ -389,58 +399,107 @@ if (SIMPLE) $("importance-note").textContent = "The simple score weighs all six 
 
 // ---------- stock lookup ----------
 const S = (F && F.stocks) || [], MEASURES = [
-  ["earnings_yield", "Cheap vs. earnings"], ["book_to_market", "Cheap vs. book value"], ["gross_prof", "Gross profitability"],
-  ["roa", "Return on assets"], ["rev_growth", "Revenue growth"], ["leverage", "Low debt"]];
-let picked = null, industry = "";
+  ["earnings_yield", "Cheap vs. earnings", "Yearly profit compared with the company's market value (the inverse of the P/E ratio). Higher = you pay less for each dollar of profit."],
+  ["book_to_market", "Cheap vs. book value", "What the company owns minus what it owes, compared with its market value. Higher = cheaper."],
+  ["gross_prof", "Gross profitability", "Gross profit for every dollar of assets: how much money the core business makes."],
+  ["roa", "Return on assets", "Net income for every dollar of assets, after all costs and taxes."],
+  ["rev_growth", "Revenue growth", "How fast sales grew compared with a year earlier."],
+  ["leverage", "Low debt", "Total liabilities compared with total assets. Companies that owe less rank higher."]];
+const PLAIN = {earnings_yield: "a low price compared with its profits", book_to_market: "a low price compared with its net worth",
+  gross_prof: "a very profitable core business", roa: "a strong return on its assets", rev_growth: "fast-growing sales", leverage: "little debt"};
+const WEAK = {earnings_yield: "a high price compared with its profits", book_to_market: "a high price compared with its net worth",
+  gross_prof: "weak gross profitability", roa: "a weak return on its assets", rev_growth: "slow or shrinking sales", leverage: "a heavy debt load"};
+const openRows = new Set();
+let industry = "";
 const hz = st => st.horizons.find(x => x.months === F.horizons[H].months) || st.horizons[0];
 const scoreTxt = v => SIMPLE ? String(Math.round(v * 100)) : pct(v, 0);
 const topTxt = p => p >= .5 ? `Top ${Math.max(1, Math.round((1 - p) * 100))}%` : `Bottom ${Math.max(1, Math.round(p * 100))}%`;
+const list = a => a.length < 2 ? a.join("") : a.slice(0, -1).join(", ") + " and " + a[a.length - 1];
 
 function openStock(t) {
-  picked = S.find(s => s.ticker === t) || null; show("lookup", picked ? "lookup:" + t : "lookup");
-  renderLookup(); window.scrollTo({top: 0, behavior: "smooth"});
+  const st = S.find(s => s.ticker === t); if (!st) return;
+  $("lq").value = st.ticker; industry = "";
+  $("lookup-filters").querySelectorAll(".fchip").forEach(x => x.classList.remove("on"));
+  openRows.add(st.ticker); show("lookup", "lookup:" + st.ticker); renderLookup();
+  const row = document.querySelector(`tr[data-t="${st.ticker}"]`); if (row) row.scrollIntoView({behavior: "smooth", block: "start"});
 }
-function renderDetail() {
-  const st = picked;
-  if (!st) { $("stock-detail").innerHTML = ""; return; }
+function toggleRow(t) { openRows.has(t) ? openRows.delete(t) : openRows.add(t); renderLookup(); }
+
+function whyText(st, h) {
+  const n = S.length, have = MEASURES.filter(([k]) => st.measures[k] != null);
+  const strong = have.filter(([k]) => st.measures[k] >= .7).sort((a, b) => st.measures[b[0]] - st.measures[a[0]]);
+  const weak = have.filter(([k]) => st.measures[k] <= .3).sort((a, b) => st.measures[a[0]] - st.measures[b[0]]);
+  const missing = MEASURES.filter(([k]) => st.measures[k] == null).map(m => m[1].toLowerCase());
+  const tone = h.percentile >= .9 ? "one of the model's favorites" : h.percentile >= .7 ? "rated well above average"
+    : h.percentile >= .4 ? "rated about average" : h.percentile >= .15 ? "rated below average" : "near the bottom of the list";
+  let out = `<b>${esc(st.ticker)} ranks #${h.rank} of ${n}: ${tone}.</b> `;
+  out += SIMPLE ? `Its score of ${scoreTxt(h.score)} is the average of where it ranks on six measures of value, profitability, growth and debt. `
+                : `The model gives it a ${pct(h.score, 0)} chance of beating the typical S&P 500 stock over ${F.horizons[H].label}. `;
+  if (strong.length) out += `It is helped by ${list(strong.map(([k]) => `${PLAIN[k]} (${topTxt(st.measures[k]).toLowerCase()})`))}. `;
+  if (weak.length) out += `${strong.length ? "Holding it back" : "It is held back by"}: ${list(weak.map(([k]) => `${WEAK[k]} (${topTxt(st.measures[k]).toLowerCase()})`))}. `;
+  if (!strong.length && !weak.length) out += "It is close to the middle on every measure, with nothing that stands out either way. ";
+  if (missing.length) out += `Not reported in its SEC filings, so counted as average: ${list(missing)}.`;
+  return out;
+}
+function cautions(st, h) {
+  const c = [], vols = S.map(s => hz(s).volatility).sort((a, b) => a - b), med = vols[Math.floor(vols.length / 2)];
+  if (h.volatility > med * 1.5) c.push(`Its price swings about ${(h.volatility / med).toFixed(1)}× as much as the typical S&P 500 stock, so the range of outcomes is wide.`);
+  if (st.traits.includes("Negative book value")) c.push("It owes more than it owns on paper (negative book value), often from large share buybacks, so the cheap-vs-book measure is left out.");
+  if (st.ret_1y != null && st.ret_1y > .6) c.push(`The stock is up ${signed(st.ret_1y, 0)} in a year; the measures use the latest price, so some of the good news may already be priced in.`);
+  if (st.ret_1y != null && st.ret_1y < -.3) c.push(`The stock is down ${signed(st.ret_1y, 0)} in a year. It can look cheap because the market expects trouble the financials don't show yet.`);
+  if (st.industry === "Finance") c.push("Banks and insurers carry large liabilities by design, so they tend to rank poorly on debt and gross profitability.");
+  c.push("The measures come from the company's last SEC filings, which can be a few months old.");
+  return c;
+}
+function detailHtml(st) {
   const h = hz(st), n = S.length, inPicks = h.rank <= F.horizons[H].picks.length;
-  $("stock-detail").innerHTML = `<div class="detail">
+  return `<div class="detail">
     <div class="detail-head"><span class="big">${esc(st.ticker)}</span><span class="co">${esc(st.name)}</span>
-      ${inPicks ? `<span class="badge">In today's top ${F.horizons[H].picks.length}</span>` : ""}
-      <button class="x" onclick="picked=null; show('lookup'); renderLookup()">Close</button></div>
-    <div class="nm" style="max-width:none">${esc(st.industry)} · $${st.price.toFixed(2)} · ${st.ret_1y == null ? "" : signed(st.ret_1y) + " over the past year"}</div>
+      ${inPicks ? `<span class="badge">In today's top ${F.horizons[H].picks.length}</span>` : ""}</div>
+    <div class="nm" style="max-width:none;white-space:normal">${esc(st.industry)} · $${st.price.toFixed(2)}${st.ret_1y == null ? "" : " · " + signed(st.ret_1y) + " over the past year"}</div>
+    <h3>Why the model rates it this way</h3>
+    <p class="why">${whyText(st, h)}</p>
     <div class="cards">
       ${card("Rank today", `#${h.rank} <span style="font-size:14px;color:var(--muted);font-weight:500">of ${n}</span>`, `${topTxt(h.percentile)} of current S&P 500 members`)}
       ${card("Model score", scoreTxt(h.score), SIMPLE ? "0–100, average rank on the six measures" : `chance of beating the typical stock over ${F.horizons[H].label}`)}
       ${card(`Likely range, ${F.horizons[H].label}`, `${signed(h.range_low, 0)} to ${signed(h.range_high, 0)}`, "8 in 10 outcomes, from its last 3 years of swings")}
       ${card("Chance of loss", pct(h.chance_of_loss, 0), h.hist_chance_of_loss == null ? "not enough history" : `${pct(h.hist_chance_of_loss, 0)} of past ${F.horizons[H].label} periods lost money`)}
     </div>
-    <h3>How it compares on each measure</h3>
-    ${MEASURES.map(([k, label]) => { const v = st.measures[k]; return `<div class="hbar"><span>${label}</span>
+    <h3>The six measures behind the score</h3>
+    <div class="grid2">${MEASURES.map(([k, label, desc]) => { const v = st.measures[k]; return `<div><div class="hbar big"><span><b>${label}</b></span>
       <div class="t">${v == null ? "" : `<div class="f" style="width:${(v*100).toFixed(0)}%"></div>`}<div class="mid"></div></div>
-      <b class="num">${v == null ? "n/a" : topTxt(v)}</b></div>`; }).join("")}
-    <p class="note" style="margin-top:4px">The middle line is the typical S&P 500 stock. n/a = not reported in its SEC filings.</p>
-    ${st.traits.length ? `<h3>What stands out</h3>${st.traits.map(t => `<span class="chip">${esc(t)}</span>`).join("")}` : ""}
+      <b class="num">${v == null ? "n/a" : topTxt(v)}</b></div><div class="mdesc">${desc}</div></div>`; }).join("")}</div>
+    <p class="note" style="margin-top:0">Bars show where it ranks against the other S&P 500 stocks; the middle line is the typical stock. n/a = not reported.</p>
+    <h3>Keep in mind</h3>
+    <ul class="note" style="margin-top:0">${cautions(st, h).map(c => `<li>${esc(c)}</li>`).join("")}</ul>
   </div>`;
 }
 function renderLookup() {
   if (!S.length) { $("lookup-lede").textContent = "The stock list appears after the next morning update."; return; }
   $("lookup-lede").textContent = `Every current S&P 500 member, ranked by today's model score for the chosen holding period. `
-    + `Search for a stock or click any row to see why it ranks where it does.`;
-  renderDetail();
+    + `Click any stock to open it and see why the model rates it the way it does.`;
   const q = $("lq").value.trim().toLowerCase();
   const rows = S.filter(st => (!industry || st.industry === industry)
     && (!q || st.ticker.toLowerCase().startsWith(q) || st.name.toLowerCase().includes(q) || st.industry.toLowerCase().includes(q)))
     .map(st => [st, hz(st)]).sort((a, b) => a[1].rank - b[1].rank);
-  $("stock-table").innerHTML = `<thead><tr><th class="num">Rank</th><th>Stock</th><th>Industry</th><th>Model score</th><th class="num">Chance of loss</th>
-    <th class="num">Past year</th><th class="num">Price</th></tr></thead><tbody>` + rows.slice(0, 600).map(([st, h]) =>
-    `<tr class="clickable" onclick="openStock('${esc(st.ticker)}')"><td class="num">${h.rank}</td>
+  $("stock-table").innerHTML = `<thead><tr><th></th><th class="num">Rank</th><th>Stock</th><th>Industry</th><th>Model score</th><th class="num">Chance of loss</th>
+    <th class="num">Past year</th><th class="num">Price</th></tr></thead><tbody>` + rows.slice(0, 600).map(([st, h]) => {
+    const open = openRows.has(st.ticker);
+    return `<tr class="clickable${open ? " open" : ""}" data-t="${esc(st.ticker)}" onclick="toggleRow('${esc(st.ticker)}')" aria-expanded="${open}">
+      <td><span class="chev">▶</span></td><td class="num">${h.rank}</td>
       <td><div class="tk">${esc(st.ticker)}</div><div class="nm" title="${esc(st.name)}">${esc(st.name)}</div></td>
       <td class="nm">${esc(st.industry)}</td>
       <td><div class="prob"><div class="track"><div class="fill" style="width:${(h.score*100).toFixed(0)}%"></div></div><b>${scoreTxt(h.score)}</b></div></td>
-      <td class="num">${pct(h.chance_of_loss, 0)}</td><td class="num">${signed(st.ret_1y, 0)}</td><td class="num">$${st.price.toFixed(2)}</td></tr>`).join("") + "</tbody>";
+      <td class="num">${pct(h.chance_of_loss, 0)}</td><td class="num">${signed(st.ret_1y, 0)}</td><td class="num">$${st.price.toFixed(2)}</td></tr>`
+      + (open ? `<tr class="drop"><td colspan="8">${detailHtml(st)}</td></tr>` : ""); }).join("") + "</tbody>";
   $("stock-count").textContent = rows.length ? `${rows.length} of ${S.length} stocks shown.` : "No stocks match.";
+  fitDrops();
 }
+function fitDrops() {   // keep the open panel as wide as the visible table, even when the table scrolls sideways
+  const w = $("stock-table").parentElement.clientWidth - 24;
+  document.querySelectorAll("tr.drop .detail").forEach(d => d.style.width = w + "px");
+}
+window.addEventListener("resize", fitDrops);
 if (S.length) {
   const inds = [...new Set(S.map(s => s.industry))].sort();
   $("lookup-filters").innerHTML = inds.map(i => `<button class="fchip" data-i="${esc(i)}">${esc(i)}</button>`).join("");
@@ -450,7 +509,7 @@ if (S.length) {
   $("lq").oninput = renderLookup;
   $("lq").onkeydown = e => { if (e.key === "Enter") { const q = $("lq").value.trim().toUpperCase(),
     hit = S.find(s => s.ticker === q) || S.find(s => s.ticker.startsWith(q) || s.name.toUpperCase().includes(q)); if (hit) openStock(hit.ticker); } };
-  if (START[0] === "lookup" && START[1]) picked = S.find(s => s.ticker === START[1].toUpperCase()) || null;
+  if (START[0] === "lookup" && START[1]) { const t = START[1].toUpperCase(); if (S.some(s => s.ticker === t)) { $("lq").value = t; openRows.add(t); } }
 }
 window.addEventListener("hashchange", () => { const [tab, t] = location.hash.slice(1).split(":");
   if (tab === "lookup" && t) openStock(t.toUpperCase()); });
