@@ -1,11 +1,33 @@
 """Walk-forward backtest: train only on outcomes already known, then trade."""
+import numpy as np
 import pandas as pd
 from sklearn.ensemble import RandomForestClassifier
 
 import config
 
+# Direction of each input for the simple score, set by finance theory (not fitted to data):
+# +1 = higher is better, -1 = lower is better. Inputs not listed count as +1.
+SIMPLE_DIRECTIONS = {"leverage": -1, "vol_12": -1, "mom_1": -1}
+
+
+class SimpleScore:
+    """No machine learning: average each stock's (already 0-1 ranked) inputs, flipping the ones
+    where lower is better. Has the same fit / predict_proba interface as the random forest."""
+
+    def fit(self, X, y=None):
+        self.signs = np.array([SIMPLE_DIRECTIONS.get(c, 1) for c in X.columns])
+        self.feature_importances_ = np.full(len(self.signs), 1 / len(self.signs))
+        return self
+
+    def predict_proba(self, X):
+        ranks = X.to_numpy(dtype=float)
+        score = np.where(self.signs > 0, ranks, 1 - ranks).mean(axis=1)
+        return np.column_stack([1 - score, score])
+
 
 def make_model():
+    if config.MODEL_TYPE == "simple":
+        return SimpleScore()
     return RandomForestClassifier(**config.MODEL_PARAMS)
 
 

@@ -2,7 +2,7 @@
 
 A beginner-friendly, tweakable stock-picking project. It predicts which S&P 500 stocks are likely to beat the typical stock over the next 12 months, then honestly backtests that idea against the S&P 500.
 
-By default the model uses only company financials from SEC filings (value, profitability, growth, debt). Price patterns are switched off because they made 2016-2022 results worse; set `USE_PRICE_FEATURES = True` to compare.
+By default the model is a simple score: the average of each stock's rank on six company financials from SEC filings (value, profitability, growth, debt). Price patterns are switched off because they made 2016-2022 results worse; set `USE_PRICE_FEATURES = True` to compare.
 
 **Educational project, not financial advice.**
 
@@ -80,6 +80,11 @@ Candidate signals live in `CANDIDATE_BUILDERS` in `features.py`. Each one is add
 on 2016-2022 for every holding period and quarterly start month (12 results). It only **passes** if it beats the
 current model in at least 9 of the 12 and by at least 0.2 points per period on average. Only passing signals should be
 moved into `FUNDAMENTAL_BUILDERS`. Don't lower the bar after seeing results: that is how backtests end up fitting noise.
+
+**Machine learning vs a simple score (Nov 2026):** a plain average of the six ranked financial measures beat the
+random forest by 0.76 points per holding period (ahead in 7 of 12 results), so `MODEL_TYPE = "simple"` is now the
+default; the rule, set before the test, was that ties go to the simpler method. The live record notes which model
+made each pick (`model` column; picks from Nov 2, 2026 came from the random forest).
 
 First round (Nov 2026): asset growth, profitability change, margin change, share buybacks, accruals, cash
 profitability, earnings momentum and ranking within industry. **None passed**; results in `outputs/experiments.csv`.

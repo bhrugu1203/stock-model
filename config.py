@@ -14,6 +14,8 @@ COST_PER_REBALANCE = 0.002     # 0.2% yearly trading-cost assumption
 PICK_HORIZONS = [6, 12, 24]    # forecast.py / website: holding periods (months) to make picks for
 N_PICKS = 15                   # how many top picks the website lists per holding period
 
+MODEL_TYPE = "simple"          # "simple" = average of the ranked inputs; "forest" = random forest (machine learning)
+                               # simple won the Nov 2026 comparison (python experiments.py --simple)
 MODEL_PARAMS = dict(
     n_estimators=300,
     max_depth=5,

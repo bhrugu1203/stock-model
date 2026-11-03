@@ -8,6 +8,7 @@ those 12 and by a meaningful average margin. The held-out years are never touche
   python experiments.py                                  # test every candidate one at a time
   python experiments.py --combo accruals,asset_growth    # test several together
   python experiments.py --combo accruals --industry      # ...ranked within each industry
+  python experiments.py --simple                         # machine learning vs a plain average of the inputs
 """
 import argparse
 import os
@@ -36,16 +37,20 @@ def cells(periods):
 
 
 def evaluate(variants, monthly, spy, members, fund, groups):
-    """variants: {label: (feature names, industry-relative?)}. Returns one row per variant x horizon x month."""
+    """variants: {label: (feature names, industry-relative?[, model type])}.
+    Returns one row per variant x horizon x month."""
     rows = []
     every = {**FUNDAMENTAL_BUILDERS, **CANDIDATE_BUILDERS}
     for h in config.PICK_HORIZONS:
         config.HORIZON_MONTHS = h
         panels = {False: build_panel(monthly, members, fund, builders=every)[0]}
-        if any(ind for _, ind in variants.values()):
+        if any(v[1] for v in variants.values()):
             panels[True] = build_panel(monthly, members, fund, builders=every, groups=groups)[0]
-        for label, (names, industry) in variants.items():
+        for label, (names, industry, *model_type) in variants.items():
+            default_type = config.MODEL_TYPE
+            config.MODEL_TYPE = model_type[0] if model_type else default_type
             periods, _ = track_record(monthly, spy, panels[industry], names, h)
+            config.MODEL_TYPE = default_type
             for month, r in cells(periods).iterrows():
                 rows.append({"variant": label, "horizon": horizon_label(h), "month": month,
                              "vs_avg": r["vs_avg"], "vs_sp500": r["vs_sp500"]})
@@ -71,6 +76,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--combo", help="comma-separated candidates to test together")
     ap.add_argument("--industry", action="store_true", help="rank the financials within each industry")
+    ap.add_argument("--simple", action="store_true", help="compare with a plain average of the ranked inputs")
     args = ap.parse_args()
     warnings.filterwarnings("ignore")
 
@@ -80,7 +86,10 @@ def main():
     base = list(FUNDAMENTAL_BUILDERS)
 
     variants = {"Current model": (base, False)}
-    if args.combo or args.industry:
+    if args.simple:
+        other = "simple" if config.MODEL_TYPE == "forest" else "forest"
+        variants["Simple score" if other == "simple" else "Random forest"] = (base, False, other)
+    elif args.combo or args.industry:
         extra = [c.strip() for c in (args.combo or "").split(",") if c.strip()]
         label = " + ".join(extra) if extra else "Current model"
         variants[label + (" (within industry)" if args.industry else "")] = (base + extra, args.industry)

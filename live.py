@@ -13,13 +13,16 @@ import config
 
 LEDGER = os.path.join(config.CACHE_DIR, "live", "picks.csv")
 COLUMNS = ["date", "months", "rank", "ticker", "price", "sp500", "probability",
-           "exit_date", "exit_price", "exit_sp500"]
+           "exit_date", "exit_price", "exit_sp500", "model"]
 
 
 def load():
     if not os.path.exists(LEDGER):
         return pd.DataFrame(columns=COLUMNS)
-    return pd.read_csv(LEDGER, dtype={"ticker": str})
+    ledger = pd.read_csv(LEDGER, dtype={"ticker": str})
+    if "model" not in ledger.columns:            # picks before Nov 3, 2026 came from the random forest
+        ledger["model"] = "forest"
+    return ledger
 
 
 def record(date, horizons, monthly, spy):
@@ -29,7 +32,7 @@ def record(date, horizons, monthly, spy):
     spy_now = float(spy.dropna().iloc[-1])
     prices = monthly.ffill().iloc[-1]
     new = [{"date": day, "months": h["months"], "rank": p["rank"], "ticker": p["ticker"], "price": p["price"],
-            "sp500": round(spy_now, 2), "probability": p["probability"]}
+            "sp500": round(spy_now, 2), "probability": p["probability"], "model": config.MODEL_TYPE}
            for h in horizons for p in h["picks"]
            if not ((ledger["date"] == day) & (ledger["months"] == h["months"])).any()]
     if new:
