@@ -49,7 +49,7 @@ def evaluate(variants, monthly, spy, members, fund, groups):
         for label, (names, industry, *model_type) in variants.items():
             default_type = config.MODEL_TYPE
             config.MODEL_TYPE = model_type[0] if model_type else default_type
-            periods, _ = track_record(monthly, spy, panels[industry], names, h)
+            periods, _ = track_record(monthly, spy, panels[industry], names, h, size=fund["size"])
             config.MODEL_TYPE = default_type
             for month, r in cells(periods).iterrows():
                 rows.append({"variant": label, "horizon": horizon_label(h), "month": month,
@@ -82,6 +82,7 @@ def main():
 
     monthly, spy, members = data.load_prices()
     fund = fundamentals.build(monthly)
+    fund["size"] = fundamentals.company_size(monthly, fund)
     groups = fundamentals.sectors(monthly.columns)
     base = list(FUNDAMENTAL_BUILDERS)
 

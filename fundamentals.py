@@ -228,6 +228,15 @@ def build(monthly, refresh=False):
     return out
 
 
+def company_size(monthly, fund):
+    """Estimated market value per ticker, for size weighting. A company with several share classes
+    in the data (GOOG and GOOGL) reports one company-wide float, so it is split evenly between them."""
+    cik = _ticker_map()["cik"].reindex(monthly.columns)
+    company = cik.astype(object).where(cik.notna(), pd.Series(monthly.columns, index=monthly.columns))
+    classes = monthly.notna().T.groupby(company.to_numpy()).transform("sum").T
+    return fund["market_cap"] / classes.where(classes > 0)
+
+
 def synthetic(monthly, seed=2):
     """Random fake financials for the offline demo and smoke test."""
     rng = np.random.RandomState(seed)

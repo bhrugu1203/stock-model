@@ -4,6 +4,11 @@ A beginner-friendly, tweakable stock-picking project. It predicts which S&P 500 
 
 By default the model is a simple score: the average of each stock's rank on six company financials from SEC filings (value, profitability, growth, debt). Price patterns are switched off because they made 2016-2022 results worse; set `USE_PRICE_FEATURES = True` to compare.
 
+The portfolio is the top 20% of stocks by score (about 100), each held in proportion to its company's market value,
+like the S&P 500 itself (`WEIGHTING = "size"` in `config.py`; `"equal"` for the same amount in each). Equal weighting
+lost badly to the index in 2023-2026 because a few giant companies drove the market; size weighting beat it in both
+2016-2022 and 2023-2026. The catch: the biggest handful of holdings make up most of the portfolio.
+
 **Educational project, not financial advice.**
 
 ## Setup (one time, in Terminal)
@@ -122,8 +127,9 @@ profitability, earnings momentum and ranking within industry. **None passed**; r
 - **Negative equity:** companies whose buybacks pushed book value below zero (e.g. McDonald's) get a neutral
   book-to-market instead of a misleading one, and are flagged on the website.
 - **Reused tickers:** if a ticker was later given to a different company, Yahoo returns the new company's prices.
-- **Held-out years:** 2023 onward is skipped unless you pass `--final`. Tune on 2016-2022 only; every look at
-  the held-out years makes them a little less honest.
+- **No untouched years left:** 2023 onward was held out, scored once with `python holdout.py` (Nov 3, 2026), and
+  size weighting was adopted after studying it. Every past year has now shaped the model, so the live record
+  is the only honest test from here on.
 - **SEC financials are approximate:** the SEC's frames data holds each company's latest reported figure, so a
   later restatement can leak in. Numbers count as published 3-4 months after the period ends (a safe guess,
   not the real filing date). Market value is estimated from the public float, which leaves out insiders' shares.

@@ -7,13 +7,16 @@ UNIVERSE = "historical"        # "historical" = S&P 500 members as they were on 
 N_STOCKS = 150                 # "today" only: how many of today's S&P 500 to sample
 SAMPLE_SEED = 42               # "today" only: change to test a different random sample of stocks
 HOLDOUT_FROM_YEAR = 2023       # years from here on are kept for one final check (python holdout.py)
-# Model locked Nov 3, 2026 (git tag model-locked-2026-11-03) before the one-time holdout test was run.
+# The 2023+ years were scored once (Nov 3, 2026) and size weighting was then adopted after studying them,
+# so they are no longer an untouched test. The live record (data/live/picks.csv) is the real test now.
 HORIZON_MONTHS = 12            # how far ahead the model predicts
 REBALANCE_MONTH = 1            # 1 = rebalance each January
 TOP_FRACTION = 0.20            # hold the top 20% of stocks the model likes
 COST_PER_REBALANCE = 0.002     # 0.2% yearly trading-cost assumption
 PICK_HORIZONS = [6, 12, 24]    # forecast.py / website: holding periods (months) to make picks for
-N_PICKS = 15                   # how many top picks the website lists per holding period
+N_PICKS = 15                   # how many holdings the website lists before "show all"
+WEIGHTING = "size"             # "size" = hold the top 20% in proportion to company value, like the S&P 500;
+                               # "equal" = same amount in each. Size won in both 2016-22 and 2023-26 (Nov 2026 review)
 
 MODEL_TYPE = "simple"          # "simple" = average of the ranked inputs; "forest" = random forest (machine learning)
                                # simple won the Nov 2026 comparison (python experiments.py --simple)

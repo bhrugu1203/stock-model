@@ -56,7 +56,17 @@ def _risk(prices, h):
             "hist_chance_of_loss": round(float((past < 0).mean()), 3) if len(past) >= 12 else None}
 
 
-def track_record(monthly, spy, panel, names, h, holdout=False):
+def weights(size, date, tickers):
+    """How much of the portfolio goes in each stock: by company value (config.WEIGHTING = "size")
+    or the same for each. A company with no size estimate gets the median size of the others."""
+    if config.WEIGHTING != "size" or size is None:
+        return pd.Series(1 / len(tickers), index=tickers)
+    w = size.loc[date].reindex(tickers)
+    w = w.where(w > 0).fillna(w[w > 0].median() if (w > 0).any() else 1.0)
+    return w / w.sum()
+
+
+def track_record(monthly, spy, panel, names, h, holdout=False, size=None):
     """Walk-forward replay. Refit each January on outcomes already known, pick every quarter,
     and only use outcomes that ended before the held-out years. holdout=True instead replays
     only picks made in the held-out years (holdout.py, run once)."""
@@ -87,7 +97,8 @@ def track_record(monthly, spy, panel, names, h, holdout=False):
             realized = (prices.iloc[i + h] / monthly.iloc[i] - 1)[test.index]
             spy_ret = float(spy.iloc[i + h] / spy.iloc[i] - 1)
             picks = prob.nlargest(max(1, int(len(prob) * config.TOP_FRACTION))).index
-            pick_ret = float(realized[picks].mean() - config.COST_PER_REBALANCE)
+            w = weights(size, d, picks)[realized[picks].notna()]
+            pick_ret = float((realized[w.index] * w).sum() / w.sum() - config.COST_PER_REBALANCE)
             periods.append({"start": d.strftime("%Y-%m"), "end": dates[i + h].strftime("%Y-%m"),
                             "picks": round(pick_ret, 4), "average_stock": round(float(realized.mean()), 4),
                             "sp500": round(spy_ret, 4),
@@ -130,8 +141,9 @@ def _traits(now, fund, t):
     return traits
 
 
-def todays_picks(monthly, fund, panel, names, h, n_picks):
-    """Top picks, plus today's score for every current member (for the stock lookup)."""
+def todays_picks(monthly, fund, panel, names, h):
+    """Today's portfolio (the top 20% by score, biggest holdings first), plus today's score for
+    every current member (for the stock lookup)."""
     train = panel[panel["fwd_rel"].notna()]
     model = make_model().fit(train[names], (train["fwd_rel"] > 0).astype(int))
     latest = monthly.index[-1]
@@ -139,9 +151,13 @@ def todays_picks(monthly, fund, panel, names, h, n_picks):
     prob = pd.Series(model.predict_proba(now[names])[:, 1], index=now.index)
     pct = prob.rank(pct=True)
     company = fundamentals.company_names()
+    held = prob.nlargest(max(1, int(len(prob) * config.TOP_FRACTION))).index
+    w = weights(fund.get("size"), latest, held).sort_values(ascending=False, kind="stable")
+    order = prob.rank(ascending=False, method="min")
     picks = []
-    for rank, t in enumerate(prob.nlargest(n_picks).index, 1):
+    for rank, t in enumerate(w.index, 1):
         picks.append({"rank": rank, "ticker": t, "name": str(company.get(t, "")).title(),
+                      "weight": round(float(w[t]), 4), "score_rank": int(order[t]),
                       "probability": round(float(prob[t]), 3), "percentile": round(float(pct[t]), 3),
                       "price": round(float(monthly[t].dropna().iloc[-1]), 2),
                       "traits": _traits(now, fund, t), **_risk(monthly[t], h)})
@@ -149,7 +165,7 @@ def todays_picks(monthly, fund, panel, names, h, n_picks):
     return picks, [{"feature": k, "importance": round(float(v), 3)} for k, v in importance], prob, now
 
 
-def all_stocks(monthly, fund, now, names, scores):
+def all_stocks(monthly, fund, now, names, scores, held):
     """One row per current S&P 500 member: its score, rank and risk for every holding period,
     and where it stands on each measure (0-1, higher = better; leverage is flipped so low debt scores high)."""
     company = fundamentals.company_names()
@@ -169,7 +185,8 @@ def all_stocks(monthly, fund, now, names, scores):
         rows.append({"ticker": t, "name": str(company.get(t, "")).title(), "industry": industry.get(t, "Unknown"),
                      "price": round(float(p.iloc[-1]), 2),
                      "ret_1y": round(float(p.iloc[-1] / year_ago.iloc[-1] - 1), 4) if len(year_ago) else None,
-                     "measures": measures, "traits": _traits(now, fund, t), "horizons": horizons})
+                     "measures": measures, "traits": _traits(now, fund, t), "horizons": horizons,
+                     "weight": held.get(t)})
     return sorted(rows, key=lambda r: r["horizons"][0]["rank"])
 
 
@@ -187,18 +204,20 @@ def main():
     else:
         monthly, spy, members = data.load_prices(refresh=args.refresh_prices)
         fund = fundamentals.build(monthly)
+    fund["size"] = fundamentals.company_size(monthly, fund)
 
     result = {"generated": datetime.now(timezone.utc).isoformat(timespec="seconds"),
               "data_through": monthly.index[-1].strftime("%Y-%m-%d"), "demo": args.demo,
               "holdout_from": config.HOLDOUT_FROM_YEAR, "top_fraction": config.TOP_FRACTION,
-              "market_drift": MARKET_DRIFT, "model": config.MODEL_TYPE, "horizons": []}
+              "market_drift": MARKET_DRIFT, "model": config.MODEL_TYPE, "weighting": config.WEIGHTING,
+              "n_show": config.N_PICKS, "horizons": []}
     scores = {}
     for h in config.PICK_HORIZONS:
         print(f"Horizon {horizon_label(h)}...")
         config.HORIZON_MONTHS = h
         panel, names = build_panel(monthly, members, fund)
-        periods, calibration = track_record(monthly, spy, panel, names, h)
-        picks, importance, scores[h], now = todays_picks(monthly, fund, panel, names, h, config.N_PICKS)
+        periods, calibration = track_record(monthly, spy, panel, names, h, size=fund["size"])
+        picks, importance, scores[h], now = todays_picks(monthly, fund, panel, names, h)
         universe = len(scores[h])
         result["horizons"].append({"months": h, "label": horizon_label(h), "universe": universe,
                                    "summary": summarize(periods), "periods": periods,
@@ -208,7 +227,8 @@ def main():
             print(f"  beat S&P 500 in {s['beat_sp500']}/{s['periods']} periods; "
                   f"avg {s['avg_picks']:.1%} vs S&P {s['avg_sp500']:.1%}; top pick {picks[0]['ticker']}")
 
-    result["stocks"] = all_stocks(monthly, fund, now, names, scores)
+    held = {p["ticker"]: p["weight"] for p in result["horizons"][0]["picks"]}
+    result["stocks"] = all_stocks(monthly, fund, now, names, scores, held)
 
     result["live"] = None
     if not args.demo and not args.no_record:

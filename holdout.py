@@ -30,14 +30,15 @@ def main():
 
     monthly, spy, members = data.load_prices()
     fund = fundamentals.build(monthly)
+    fund["size"] = fundamentals.company_size(monthly, fund)
     result = {"run": datetime.now(timezone.utc).isoformat(timespec="seconds"),
               "model": config.MODEL_TYPE, "from_year": config.HOLDOUT_FROM_YEAR,
               "data_through": monthly.index[-1].strftime("%Y-%m-%d"), "horizons": []}
     for h in config.PICK_HORIZONS:
         config.HORIZON_MONTHS = h
         panel, names = build_panel(monthly, members, fund)
-        before, _ = track_record(monthly, spy, panel, names, h)
-        after, calibration = track_record(monthly, spy, panel, names, h, holdout=True)
+        before, _ = track_record(monthly, spy, panel, names, h, size=fund["size"])
+        after, calibration = track_record(monthly, spy, panel, names, h, holdout=True, size=fund["size"])
         b, a = summarize(before), summarize(after)
         result["horizons"].append({"months": h, "label": horizon_label(h), "backtest": b, "holdout": a,
                                    "periods": after, "calibration": calibration})

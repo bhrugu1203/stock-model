@@ -50,15 +50,15 @@ TEMPLATE = r"""<!doctype html>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg:#f7f6f3; --panel:#ffffff; --text:#1c1917; --muted:#6b6560; --line:#e7e3da; --soft:#f3f1ec;
-  --brand:#1c1917; --brand-text:#ffffff; --brand-2:#b45309; --up:#15803d; --up-bg:#dcfce7; --down:#b91c1c; --down-bg:#fee2e2;
-  --gold:#d97706; --bar:#d97706; --bar-2:#a8a29e; --head:#1c1917; --head-text:#e7e5e4; --logo:#d97706;
-  --shadow:0 1px 2px rgba(28,25,23,.05), 0 1px 3px rgba(28,25,23,.08);
+  --bg:#f8f6f0; --panel:#fffdf8; --text:#14231b; --muted:#5d6a61; --line:#e3ddcf; --soft:#f1ede2;
+  --brand:#0f2a1f; --brand-text:#f8f6f0; --brand-2:#8a6a35; --up:#1f7a45; --up-bg:#e0f0e4; --down:#a8322d; --down-bg:#f8e3df;
+  --gold:#b08d57; --bar:#b08d57; --bar-2:#b9b3a3; --head:#0f2a1f; --head-text:#d5e0d8; --logo:#b08d57; --logo-ink:#0f2a1f;
+  --shadow:0 1px 2px rgba(15,42,31,.05), 0 1px 3px rgba(15,42,31,.08);
 }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
-  --bg:#12110f; --panel:#1c1a17; --text:#ede9e3; --muted:#a39e96; --line:#2e2a25; --soft:#171512;
-  --brand:#f59e0b; --brand-text:#1c1917; --brand-2:#fbbf24; --up:#4ade80; --up-bg:#052e16; --down:#f87171; --down-bg:#450a0a;
-  --gold:#fbbf24; --bar:#f59e0b; --bar-2:#57534e; --head:#0d0c0a; --head-text:#d6d3d1; --logo:#f59e0b; --shadow:none; } }
+  --bg:#0b1510; --panel:#122019; --text:#e8eee9; --muted:#9aa99f; --line:#1f3429; --soft:#0f1c15;
+  --brand:#c9a46a; --brand-text:#0b1510; --brand-2:#d6b781; --up:#5fcf8a; --up-bg:#0d2b1a; --down:#f08a80; --down-bg:#3a1512;
+  --gold:#c9a46a; --bar:#c9a46a; --bar-2:#3d4f44; --head:#071009; --head-text:#cfdcd3; --logo:#c9a46a; --logo-ink:#071009; --shadow:none; } }
 * { box-sizing:border-box; }
 html { -webkit-text-size-adjust:100%; }
 body { margin:0; background:var(--bg); color:var(--text);
@@ -136,6 +136,11 @@ tr:last-child td { border-bottom:0; }
 footer { max-width:1180px; margin:0 auto; padding:0 16px 40px; color:var(--muted); font-size:12px; }
 .hidden { display:none !important; }
 .clickable { cursor:pointer; }
+.share { display:flex; align-items:center; gap:8px; justify-content:flex-end; min-width:110px; }
+.share .track { width:60px; height:6px; background:var(--soft); border-radius:3px; overflow:hidden; border:1px solid var(--line); }
+.share .fill { height:100%; background:var(--brand); }
+.more { margin:12px 0 0; border:1px solid var(--line); background:var(--panel); color:var(--text); font:inherit; font-weight:600; padding:8px 16px; border-radius:8px; cursor:pointer; box-shadow:var(--shadow); }
+.more:hover { border-color:var(--gold); }
 .clickable:hover td { background:var(--soft); }
 a.tk { color:inherit; text-decoration:none; } a.tk:hover { color:var(--brand-2); text-decoration:underline; }
 .detail { background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:18px 20px; margin:16px 0 20px; box-shadow:var(--shadow); }
@@ -161,7 +166,7 @@ tr.drop .detail { margin:0; position:sticky; left:12px; box-sizing:border-box; }
 </style></head>
 <body>
 <header><div class="bar">
-  <div class="logo"><svg viewBox="0 0 26 26" fill="none"><rect width="26" height="26" rx="6" fill="var(--logo)"/><path d="M5 18l5-6 4 3 7-9" stroke="#1c1917" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Bhrugu&rsquo;s Stock Model</div>
+  <div class="logo"><svg viewBox="0 0 26 26" fill="none"><rect width="26" height="26" rx="6" fill="var(--logo)"/><path d="M5 18l5-6 4 3 7-9" stroke="var(--logo-ink)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Bhrugu&rsquo;s Stock Model</div>
   <nav id="nav">
     <button data-tab="picks">Today's picks</button><button data-tab="live">Live record</button><button data-tab="record">Backtest</button>
     <button data-tab="lookup">Stock lookup</button>    <button data-tab="news">Market news</button><button data-tab="method">How it works</button>
@@ -177,8 +182,9 @@ tr.drop .detail { margin:0; position:sticky; left:12px; box-sizing:border-box; }
   <div class="seg" id="seg-picks"></div>
   <div class="cards" id="pick-cards"></div>
   <div class="panel scroll"><table id="pick-table"></table></div>
-  <p class="note"><b>Model score</b>: <span id="score-note"></span>
-  <b>Conviction</b>: how far the score stands out from the other ~500 stocks today.
+  <button class="more" id="pick-more"></button>
+  <p class="note"><b>Share</b>: how much of the portfolio goes in each stock. The model holds the top 20% of stocks by score, each in proportion to its company's market value, the same way the S&amp;P 500 is built; so the biggest companies get the biggest share.
+  <b>Model score</b>: <span id="score-note"></span>
   <b>Likely range</b>: where 8 out of 10 outcomes would land if the stock moves as much as it has over the last 3 years (assumes the market's long-run ~8% yearly return).
   <b>Chance of loss</b>: probability of ending the period below today's price, from the same assumption; in brackets, how often this stock actually lost money over periods this long since 2010.</p>
 </section>
@@ -238,18 +244,21 @@ tr.drop .detail { margin:0; position:sticky; left:12px; box-sizing:border-box; }
   <p>Company financials from SEC filings: how cheap the stock is versus its earnings and book value, gross profitability, return on assets,
   revenue growth and debt. Each number only becomes visible to the model a few months after the period it covers, roughly when it was filed,
   so the model never uses information investors didn't have yet.</p>
-  <h2>What it predicts</h2>
-  <p>For each holding period, the chance that a stock beats the median S&amp;P 500 stock. Today's picks are the stocks with the highest chance,
-  using a model trained on everything up to today.</p>
+  <h2>How the picks are made</h2>
+  <p>Each stock gets a score: the average of its rank on the six measures. The portfolio is the top 20% of stocks by score, about 100 companies,
+  each held in proportion to its market value, like the S&amp;P 500 itself. So the model is the S&amp;P 500 with its weaker-scoring 80% removed.
+  This means a few giant companies make up most of the money: check the Share column.</p>
   <h2>How the track record is made</h2>
   <p>The model is replayed on past dates: each January it is retrained using only outcomes already known, then it makes picks every quarter that year.
   Those picks are compared with buying the S&amp;P 500 on the same day. The stock list on each date is the S&amp;P 500 as it actually was, including
   companies later removed, so failed companies are not quietly left out.</p>
-  <p>Results from <span class="holdout"></span> on are deliberately hidden. They are kept for one final, honest check: once a period has been used
-  to tune the model, it can no longer tell you whether the model really works.</p>
+  <p>The backtest covers picks made up to <span class="holdout"></span>. Weighting by company value was adopted in November 2026 after reviewing
+  results through 2026, so every past year has now been used to shape the model. That is why the live record matters most: it is the only
+  test of picks made before anyone knew the results.</p>
   <h2>Limits</h2>
   <ul>
     <li>A few hundred past picks is a small sample. A small edge can easily be luck.</li>
+    <li>The portfolio is concentrated: the largest handful of holdings decide most of the result.</li>
     <li>Free price data is missing some companies that were bought out or went bankrupt, especially before 2018.</li>
     <li>The likely range and chance of loss assume the future moves like the recent past. Markets regularly break that assumption.</li>
     <li>No taxes; trading costs are a rough estimate.</li>
@@ -292,14 +301,18 @@ function markSegs() { document.querySelectorAll(".seg").forEach(s => s.querySele
 function card(k, v, s) { return `<div class="card"><div class="k">${k}</div><div class="v">${v}</div><div class="s">${s}</div></div>`; }
 function stars(p) { const n = p >= .995 ? 3 : p >= .98 ? 2 : 1; return `<span class="stars">${"★".repeat(n)}<span class="off">${"★".repeat(3-n)}</span></span>`; }
 
-const SIMPLE = F && F.model === "simple";
+const SIMPLE = F && F.model === "simple", SIZED = F && F.weighting === "size";
+let showAll = false;
 if (F) $("score-note").textContent = SIMPLE
   ? "how strong the stock's financials are overall: the average of its rank on six measures (cheapness vs earnings and book value, gross profitability, return on assets, revenue growth, low debt) against the other ~500 stocks. 100 = best on everything."
   : "the model's estimated chance this stock beats the typical S&P 500 stock over the period.";
 
 function renderPicks() {
   const h = F.horizons[H], s = h.summary, top = (h.calibration || []).find(c => c.bucket === "Top 20%");
-  $("picks-lede").textContent = SIMPLE
+  $("picks-lede").textContent = SIZED
+    ? `Today's portfolio: the ${h.picks.length} S&P 500 stocks with the best scores (the top ${Math.round(F.top_fraction*100)}% of ${h.universe}), `
+      + `each held in proportion to its company's value, biggest first. The same stocks for every holding period; the track record and risk numbers change with the period. Prices as of ${F.data_through}.`
+    : SIMPLE
     ? `The ${h.picks.length} S&P 500 stocks with the strongest combination of value, profitability, growth and low debt, out of ${h.universe} current members. `
       + `The list is the same for every holding period; the track record and risk numbers change with the period. Prices as of ${F.data_through}.`
     : `The ${h.picks.length} stocks the model rates most likely to beat the typical S&P 500 stock over the next ${h.label}, `
@@ -312,12 +325,17 @@ function renderPicks() {
   ].join("") : "";
   const lo = Math.min(...h.picks.map(p => p.range_low), -0.2), hi = Math.max(...h.picks.map(p => p.range_high), 0.3);
   const X = v => ((v - lo) / (hi - lo) * 100).toFixed(1);
-  $("pick-table").innerHTML = `<thead><tr><th>#</th><th>Stock</th><th>Model score</th><th>Conviction</th><th>Likely range (80%)</th>
+  const n = F.n_show || 15, shown = showAll ? h.picks : h.picks.slice(0, n);
+  $("pick-more").classList.toggle("hidden", h.picks.length <= n);
+  $("pick-more").textContent = showAll ? `Show the top ${n} only` : `Show all ${h.picks.length} holdings`;
+  $("pick-more").onclick = () => { showAll = !showAll; renderPicks(); };
+  $("pick-table").innerHTML = `<thead><tr><th>#</th><th>Stock</th>${SIZED ? '<th class="num">Share</th>' : ""}<th>Model score</th><th>Likely range (80%)</th>
     <th class="num">Chance of loss</th><th>What stands out</th><th class="num">Price</th></tr></thead><tbody>` +
-    h.picks.map(p => `<tr><td>${p.rank}</td>
+    shown.map(p => `<tr><td>${p.rank}</td>
       <td><a class="tk" href="#lookup:${esc(p.ticker)}" onclick="openStock('${esc(p.ticker)}'); return false;">${esc(p.ticker)}</a><div class="nm" title="${esc(p.name)}">${esc(p.name)}</div></td>
-      <td><div class="prob"><div class="track"><div class="fill" style="width:${(p.probability*100).toFixed(0)}%"></div></div><b>${SIMPLE ? Math.round(p.probability * 100) : pct(p.probability, 0)}</b></div></td>
-      <td>${stars(p.percentile)}</td>
+      ${SIZED ? `<td class="num"><div class="share"><div class="track"><div class="fill" style="width:${Math.min(100, p.weight / h.picks[0].weight * 100).toFixed(0)}%"></div></div><b>${pct(p.weight, p.weight < .01 ? 2 : 1)}</b></div></td>` : ""}
+      <td><div class="prob"><div class="track"><div class="fill" style="width:${(p.probability*100).toFixed(0)}%"></div></div><b>${SIMPLE ? Math.round(p.probability * 100) : pct(p.probability, 0)}</b></div>
+        ${p.score_rank ? `<div class="range-txt">#${p.score_rank} of ${h.universe} by score</div>` : ""}</td>
       <td><div class="range"><div class="axis"></div><div class="span" style="left:${X(p.range_low)}%;width:${X(p.range_high)-X(p.range_low)}%"></div><div class="zero" style="left:${X(0)}%"></div></div>
           <div class="range-txt">${signed(p.range_low,0)} to ${signed(p.range_high,0)}</div></td>
       <td class="num">${pct(p.chance_of_loss,0)}<div class="range-txt">(${p.hist_chance_of_loss == null ? "–" : pct(p.hist_chance_of_loss,0)} in history)</div></td>
@@ -337,8 +355,8 @@ function verdict(s, edge) {
 function renderRecord() {
   const h = F.horizons[H], s = h.summary, P = h.periods;
   $("record-lede").textContent = s.periods
-    ? `If you had bought the model's top ${Math.round(F.top_fraction*100)}% of stocks at the start of each quarter and held them for ${h.label}, `
-      + `here is how you would have done against simply buying the S&P 500 on the same day. Periods ending in ${F.holdout_from} or later are held back for a final test.`
+    ? `If you had bought the model's top ${Math.round(F.top_fraction*100)}% of stocks${SIZED ? ", sized by company value," : ""} at the start of each quarter and held them for ${h.label}, `
+      + `here is how you would have done against simply buying the S&P 500 on the same day. ` + (SIZED ? `Covers picks whose period ended before ${F.holdout_from}.` : `Periods ending in ${F.holdout_from} or later are held back for a final test.`)
     : "Not enough history for this holding period yet.";
   const edge = s.periods ? s.avg_picks - s.avg_sp500 : null;
   $("record-cards").innerHTML = s.periods ? [
@@ -376,7 +394,7 @@ function renderLive() {
   }
   const start = new Date(L.started + "T12:00:00"), firstClose = new Date(start); firstClose.setMonth(firstClose.getMonth() + h.months);
   const fmt = d => d.toLocaleDateString(undefined, {month:"short", day:"numeric", year:"numeric"});
-  $("live-lede").textContent = `Real picks, made before the results were known. Started ${fmt(start)}: every morning's top ${F.horizons[H].picks.length} `
+  $("live-lede").textContent = `Real picks, made before the results were known. Started ${fmt(start)}: every morning's `
     + `${h.label} picks are saved permanently and compared with buying the S&P 500 on the same day.`;
   const edge = h.avg_ret - h.avg_sp_ret;
   $("live-cards").innerHTML = [
@@ -452,10 +470,10 @@ function cautions(st, h) {
   return c;
 }
 function detailHtml(st) {
-  const h = hz(st), n = S.length, inPicks = h.rank <= F.horizons[H].picks.length;
+  const h = hz(st), n = S.length, inPicks = st.weight != null;
   return `<div class="detail">
     <div class="detail-head"><span class="big">${esc(st.ticker)}</span><span class="co">${esc(st.name)}</span>
-      ${inPicks ? `<span class="badge">In today's top ${F.horizons[H].picks.length}</span>` : ""}</div>
+      ${inPicks ? `<span class="badge">In the portfolio · ${pct(st.weight, st.weight < .01 ? 2 : 1)} share</span>` : ""}</div>
     <div class="nm" style="max-width:none;white-space:normal">${esc(st.industry)} · $${st.price.toFixed(2)}${st.ret_1y == null ? "" : " · " + signed(st.ret_1y) + " over the past year"}</div>
     <h3>Why the model rates it this way</h3>
     <p class="why">${whyText(st, h)}</p>
