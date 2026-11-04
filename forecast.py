@@ -190,6 +190,28 @@ def all_stocks(monthly, fund, now, names, scores, held):
     return sorted(rows, key=lambda r: r["horizons"][0]["rank"])
 
 
+def industry_mix(stocks, size, date):
+    """Share of the portfolio and of the S&P 500 (by company value) in each industry, biggest first.
+    Industries under 1% of both are grouped as "Other"."""
+    tickers = [s["ticker"] for s in stocks]
+    industry = pd.Series({s["ticker"]: s["industry"] for s in stocks})
+    held = pd.Series({s["ticker"]: s["weight"] for s in stocks if s["weight"] is not None})
+    index = weights(size, date, tickers)
+    df = pd.DataFrame({"portfolio": held.groupby(industry[held.index]).sum(), "sp500": index.groupby(industry).sum()}).fillna(0)
+    small = (df["portfolio"] < 0.01) & (df["sp500"] < 0.01)
+    if small.sum() > 1:
+        df = pd.concat([df[~small], pd.DataFrame({"portfolio": [df.loc[small, "portfolio"].sum()],
+                                                  "sp500": [df.loc[small, "sp500"].sum()]}, index=["Other"])])
+    top = held.sort_values(ascending=False)
+    rows = []
+    for name, r in df.sort_values(["portfolio", "sp500"], ascending=False).iterrows():
+        members = [t for t in top.index if industry[t] == name] if name != "Other" else \
+            [t for t in top.index if small.get(industry[t], False)]
+        rows.append({"industry": name, "portfolio": round(float(r["portfolio"]), 4), "sp500": round(float(r["sp500"]), 4),
+                     "holdings": members[:5], "n_holdings": len(members)})
+    return sorted(rows, key=lambda r: (r["industry"] == "Other", -r["portfolio"], -r["sp500"]))
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--demo", action="store_true", help="fake data, offline (results meaningless)")
@@ -229,6 +251,7 @@ def main():
 
     held = {p["ticker"]: p["weight"] for p in result["horizons"][0]["picks"]}
     result["stocks"] = all_stocks(monthly, fund, now, names, scores, held)
+    result["industry_mix"] = industry_mix(result["stocks"], fund["size"], monthly.index[-1])
 
     result["live"] = None
     if not args.demo and not args.no_record:

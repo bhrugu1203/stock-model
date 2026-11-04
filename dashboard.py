@@ -182,6 +182,25 @@ tr:last-child td { border-bottom:0; }
 .warn { background:var(--down-bg); color:var(--down); border-radius:8px; padding:10px 14px; font-size:13px; margin-bottom:16px; }
 footer { max-width:1180px; margin:0 auto; padding:0 16px 40px; color:var(--muted); font-size:12px; line-height:1.6; }
 .hidden { display:none !important; }
+:root { --mix-port:#b08d57; --mix-sp:#1f5c43; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --mix-port:#c9a46a; --mix-sp:#6f8a7c; } }
+:root[data-theme="dark"] { --mix-port:#c9a46a; --mix-sp:#6f8a7c; }
+.mix { position:relative; }
+.mixrow { display:grid; grid-template-columns:190px 1fr 150px; align-items:center; gap:14px; padding:7px 6px; border-radius:6px; cursor:default; outline:none; }
+.mixrow:hover, .mixrow:focus-visible { background:var(--soft); }
+.mixrow .lab { font-size:13px; font-weight:500; }
+.mixrow .lab small { display:block; color:var(--muted); font-weight:400; font-size:11px; }
+.mixbars { display:flex; flex-direction:column; gap:2px; }
+.mixbars i { display:block; height:8px; border-radius:0 4px 4px 0; min-width:2px; }
+.mixbars .p { background:var(--mix-port); } .mixbars .s { background:var(--mix-sp); }
+.mixval { text-align:right; font-size:13px; white-space:nowrap; }
+.mixval b { font-weight:600; } .mixval span { color:var(--muted); }
+.mixval em { font-style:normal; font-size:11px; display:block; }
+.legend i.p { background:var(--mix-port); } .legend i.s { background:var(--mix-sp); }
+.tip { position:absolute; z-index:3; pointer-events:none; background:var(--panel); border:1px solid var(--line); border-radius:8px; box-shadow:0 4px 14px rgba(0,0,0,.12); padding:10px 12px; font-size:12px; min-width:200px; max-width:260px; }
+.tip b { font-size:13px; } .tip .r { display:flex; justify-content:space-between; gap:12px; margin-top:3px; }
+.tip .sw { display:inline-block; width:8px; height:8px; border-radius:2px; margin-right:6px; }
+@media (max-width:640px) { .mixrow { grid-template-columns:110px 1fr 92px; gap:8px; } .mixval em { display:none; } }
 .clickable { cursor:pointer; }
 .share { display:flex; align-items:center; gap:8px; justify-content:flex-end; min-width:110px; }
 .share .track { width:60px; height:6px; background:var(--soft); border-radius:3px; overflow:hidden; border:1px solid var(--line); }
@@ -238,6 +257,16 @@ tr.drop .detail { margin:0; position:sticky; left:12px; box-sizing:border-box; }
   <b>Model score</b>: <span id="score-note"></span>
   <b>Likely range</b>: where 8 out of 10 outcomes would land if the stock moves as much as it has over the last 3 years (assumes the market's long-run ~8% yearly return).
   <b>Chance of loss</b>: probability of ending the period below today's price, from the same assumption; in brackets, how often this stock actually lost money over periods this long since 2010.</p>
+  <div id="mix-wrap" class="hidden">
+  <h2>Industry mix</h2>
+  <p class="note" id="mix-lede" style="margin:0 0 10px"></p>
+  <div class="panel chart mix">
+    <div class="legend"><span><i class="p"></i>Portfolio</span><span><i class="s"></i>S&amp;P 500 (by company value)</span></div>
+    <div id="mix" role="table" aria-label="Share of the portfolio and of the S&P 500 in each industry"></div>
+    <div class="tip hidden" id="mix-tip" role="status"></div>
+  </div>
+  <p class="note">Industries come from each company's SEC classification code, which can be broad (Alphabet and Meta count as software, Amazon as retail, medical devices as manufacturing).</p>
+  </div>
 </section>
 
 <section id="tab-live" class="hidden">
@@ -429,6 +458,39 @@ function renderPicks() {
       <td>${p.traits.length ? p.traits.slice(0, 2).map(t => `<span class="chip">${esc(t)}</span>`).join("") + (p.traits.length > 2 ? `<span class="more-chip">+${p.traits.length - 2} more</span>` : "") : '<span class="nm">Balanced profile</span>'}</td>
       <td>${latestNews(p.ticker)}</td>
       <td class="num">$${p.price.toFixed(2)}</td></tr>`).join("") + "</tbody>";
+}
+
+function renderMix() {
+  const M = F.industry_mix || [];
+  $("mix-wrap").classList.toggle("hidden", !M.length);
+  if (!M.length) return;
+  const mx = Math.max(...M.map(r => Math.max(r.portfolio, r.sp500))), W = v => (v / mx * 100).toFixed(1) + "%";
+  const pts = d => (d >= 0 ? "+" : "−") + Math.abs(d * 100).toFixed(1) + " pts";
+  const top3 = M.filter(r => r.industry !== "Other").slice(0, 3), p3 = top3.reduce((a, r) => a + r.portfolio, 0), s3 = top3.reduce((a, r) => a + r.sp500, 0);
+  const tilt = M.filter(r => r.industry !== "Other").map(r => ({...r, d: r.portfolio - r.sp500})).sort((a, b) => Math.abs(b.d) - Math.abs(a.d));
+  const over = tilt.find(r => r.d > 0), under = tilt.find(r => r.d < 0);
+  $("mix-lede").innerHTML = `The three biggest industries hold <b>${pct(p3, 0)}</b> of the portfolio, versus ${pct(s3, 0)} of the S&amp;P 500. `
+    + (over ? `Biggest overweight: ${esc(over.industry)} (${pts(over.d)}). ` : "") + (under ? `Biggest underweight: ${esc(under.industry)} (${pts(under.d)}).` : "");
+  $("mix").innerHTML = M.map((r, i) => { const d = r.portfolio - r.sp500;
+    return `<div class="mixrow" role="row" tabindex="0" data-i="${i}">
+      <div class="lab" role="rowheader">${esc(r.industry)}<small>${r.n_holdings} holding${r.n_holdings === 1 ? "" : "s"}</small></div>
+      <div class="mixbars" aria-hidden="true"><i class="p" style="width:${W(r.portfolio)}"></i><i class="s" style="width:${W(r.sp500)}"></i></div>
+      <div class="mixval" role="cell"><b>${pct(r.portfolio)}</b> <span>vs ${pct(r.sp500)}</span><em style="color:var(${Math.abs(d) < .005 ? "--muted" : d > 0 ? "--up" : "--down"})">${Math.abs(d) < .005 ? "about the same" : pts(d)}</em></div></div>`; }).join("");
+  const tip = $("mix-tip"), box = tip.parentElement;
+  const showTip = row => { const r = M[+row.dataset.i], d = r.portfolio - r.sp500;
+    tip.innerHTML = `<b>${esc(r.industry)}</b>
+      <div class="r"><span><i class="sw" style="background:var(--mix-port)"></i>Portfolio</span><b>${pct(r.portfolio)}</b></div>
+      <div class="r"><span><i class="sw" style="background:var(--mix-sp)"></i>S&amp;P 500</span><b>${pct(r.sp500)}</b></div>
+      <div class="r"><span>Difference</span><span>${pts(d)}</span></div>
+      ${r.holdings.length ? `<div style="margin-top:6px;color:var(--muted)">Largest holdings: ${r.holdings.map(esc).join(", ")}${r.n_holdings > r.holdings.length ? ` +${r.n_holdings - r.holdings.length} more` : ""}</div>` : '<div style="margin-top:6px;color:var(--muted)">No holdings in this industry</div>'}`;
+    tip.classList.remove("hidden");
+    const b = box.getBoundingClientRect(), rr = row.getBoundingClientRect();
+    tip.style.top = (rr.bottom - b.top + 4) + "px";
+    tip.style.left = Math.max(8, Math.min(b.width - tip.offsetWidth - 8, rr.left - b.left + 180)) + "px"; };
+  $("mix").querySelectorAll(".mixrow").forEach(row => {
+    row.onmouseenter = row.onfocus = () => showTip(row);
+    row.onmouseleave = row.onblur = () => tip.classList.add("hidden");
+    row.onclick = () => showTip(row); });
 }
 
 function verdict(s, edge) {
@@ -624,7 +686,7 @@ if (S.length) {
 window.addEventListener("hashchange", () => { const [tab, t] = location.hash.slice(1).split(":");
   if (tab === "lookup" && t) openStock(t.toUpperCase()); });
 
-function renderAll() { markSegs(); renderPicks(); renderLive(); renderRecord(); renderLookup(); }
+function renderAll() { markSegs(); renderPicks(); renderMix(); renderLive(); renderRecord(); renderLookup(); }
 
 if (F) {
   if (F.demo) $("picks-warn").innerHTML = '<div class="warn">Demo data: these picks and results are made up for testing.</div>';
