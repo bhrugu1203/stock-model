@@ -49,6 +49,9 @@ Live at https://bhrugu1203.github.io/stock-model/, rebuilt by GitHub every morni
   from the day they were made. Unlike the backtest, this can't be tuned after the fact: it is the real test.
 - **Stock lookup**: every current S&P 500 member ranked by today's score. Search a ticker or company (or open
   `#lookup:AAPL`) to see its rank, risk, where it stands on each of the six measures and what stands out.
+- **News on each stock**: `newsmatch.py` tags every headline with the S&P 500 companies it names (by name, well-known
+  short name or ticker). Each pick shows its latest headline, each stock's dropdown lists its last two weeks of news, and
+  the news page marks which companies a story is about and can show only portfolio holdings.
 - **Market news** and **How it works**.
 
 Holding periods and number of picks are `PICK_HORIZONS` and `N_PICKS` in `config.py`.

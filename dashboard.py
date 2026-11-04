@@ -9,22 +9,32 @@ from datetime import datetime, timedelta, timezone
 
 import config
 import news
+import newsmatch
 
 SITE_DIR = os.path.join(config.OUTPUT_DIR, "site")
 PAGE = os.path.join(SITE_DIR, "index.html")
 FORECAST = os.path.join(config.OUTPUT_DIR, "forecast.json")
 
 
-def _recent_news():
-    cutoff = datetime.now(timezone.utc) - timedelta(days=config.NEWS_PAGE_DAYS)
+def _recent_news(forecast):
+    """(headlines for the news page, headlines about S&P 500 companies for each stock), newest first.
+    Each headline carries 'tk': the tickers it is about (newsmatch.py)."""
+    now = datetime.now(timezone.utc)
+    page_from, stock_from = now - timedelta(days=config.NEWS_PAGE_DAYS), now - timedelta(days=config.STOCK_NEWS_DAYS)
     rows = []
     for r in news.load_archive():
         pub = news._parse_date(r["published"])
-        if pub and pub >= cutoff:
+        if pub and pub >= min(page_from, stock_from):
             rows.append({"t": pub.isoformat(), "source": r["source"], "title": r["title"],
-                         "link": r["link"], "summary": r["summary"], "seen": r["first_seen"]})
+                         "link": r["link"], "summary": r["summary"], "seen": r["first_seen"], "pub": pub})
     rows.sort(key=lambda r: r["t"], reverse=True)
-    return rows
+    stocks = (forecast or {}).get("stocks") or []
+    for r, tk in zip(rows, newsmatch.tag(rows, stocks) if stocks else [[] for _ in rows]):
+        r["tk"] = tk
+    page = [{k: v for k, v in r.items() if k != "pub"} for r in rows if r["pub"] >= page_from]
+    tagged = [{"t": r["t"], "source": r["source"], "title": r["title"], "link": r["link"], "tk": r["tk"]}
+              for r in rows if r["tk"] and r["pub"] >= stock_from]
+    return page, tagged
 
 
 def build():
@@ -32,7 +42,8 @@ def build():
     if os.path.exists(FORECAST):
         with open(FORECAST) as f:
             forecast = json.load(f)
-    payload = {"forecast": forecast, "news": _recent_news(),
+    page, tagged = _recent_news(forecast)
+    payload = {"forecast": forecast, "news": page, "stock_news": tagged,
                "built": datetime.now(timezone.utc).isoformat(timespec="seconds")}
     blob = json.dumps(payload, separators=(",", ":")).replace("</", "<\\/")
     os.makedirs(SITE_DIR, exist_ok=True)
@@ -94,6 +105,17 @@ nav button.on { opacity:1; color:#fff; box-shadow:inset 0 -2px 0 var(--logo); }
 .strip .v { font-size:17px; font-weight:600; margin-top:2px; }
 tbody tr:hover td { background:var(--soft); }
 .more-chip { color:var(--muted); font-size:11px; white-space:nowrap; }
+.hl { max-width:260px; min-width:180px; }
+.hl a { color:var(--text); text-decoration:none; font-size:13px; font-weight:500; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; line-height:1.35; }
+.hl a:hover { color:var(--brand-2); text-decoration:underline; }
+.hl .when { font-size:11px; color:var(--muted); margin-top:2px; white-space:nowrap; }
+.newslist { list-style:none; margin:4px 0 0; padding:0; }
+.newslist li { padding:8px 0; border-bottom:1px solid var(--line); }
+.newslist li:last-child { border-bottom:0; }
+.newslist a { color:var(--text); font-weight:500; text-decoration:none; } .newslist a:hover { color:var(--brand-2); text-decoration:underline; }
+.tkchip { display:inline-block; font-size:11px; font-weight:700; letter-spacing:.03em; padding:1px 7px; border-radius:4px; margin:6px 4px 0 0; background:var(--soft); border:1px solid var(--line); color:var(--brand-2); cursor:pointer; }
+.tkchip:hover { border-color:var(--gold); }
+.tkchip.held { background:var(--brand); color:var(--brand-text); border-color:var(--brand); }
 .foot { display:grid; grid-template-columns:2fr 1fr 1fr; gap:24px; border-top:1px solid var(--line); padding-top:22px; }
 .foot h4 { margin:0 0 6px; font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--text); }
 .foot p { margin:0 0 4px; } .foot a { color:var(--muted); }
@@ -266,6 +288,7 @@ tr.drop .detail { margin:0; position:sticky; left:12px; box-sizing:border-box; }
   <h1>Market news</h1>
   <p class="lede" id="news-lede"></p>
   <input id="q" class="search" type="search" placeholder="Search headlines: Nvidia, Fed, earnings...">
+  <div class="chips"><button class="fchip" id="held-only">Only stocks in the portfolio</button></div>
   <div class="chips" id="news-chips"></div>
   <div id="news-list"></div>
 </section>
@@ -315,6 +338,18 @@ const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt
 const pct = (x, d=1) => x == null ? "–" : (x * 100).toFixed(d) + "%";
 const signed = (x, d=1) => x == null ? "–" : (x >= 0 ? "+" : "") + (x * 100).toFixed(d) + "%";
 const when = s => new Date(s).toLocaleString(undefined, {month:"short", day:"numeric", hour:"numeric", minute:"2-digit"});
+const ago = s => { const m = (Date.now() - new Date(s)) / 60000;
+  return m < 60 ? `${Math.max(1, Math.round(m))}m ago` : m < 1440 ? `${Math.round(m / 60)}h ago` : `${Math.round(m / 1440)}d ago`; };
+const safeUrl = u => /^https?:/.test(u) ? u : "#";
+const NEWS_BY = {};
+(D.stock_news || []).forEach(n => n.tk.forEach(t => (NEWS_BY[t] = NEWS_BY[t] || []).push(n)));
+const HELD = new Set(F ? F.horizons[0].picks.map(p => p.ticker) : []);
+function latestNews(t) {
+  const n = NEWS_BY[t] || [];
+  if (!n.length) return '<span class="nm">No recent headlines</span>';
+  return `<div class="hl"><a href="${esc(safeUrl(n[0].link))}" target="_blank" rel="noopener" title="${esc(n[0].title)}">${esc(n[0].title)}</a>
+    <div class="when">${ago(n[0].t)} · ${esc(n[0].source.replace(/^Google News: /, ""))}${n.length > 1 ? ` · <a class="more-chip" href="#lookup:${esc(t)}" onclick="openStock('${esc(t)}'); return false;" style="display:inline;font-weight:400">+${n.length - 1} more</a>` : ""}</div></div>`;
+}
 
 $("stamp").textContent = "Updated " + when(D.built);
 $("theme").onclick = () => {
@@ -382,7 +417,7 @@ function renderPicks() {
   $("pick-more").textContent = showAll ? `Show the top ${n} only` : `Show all ${h.picks.length} holdings`;
   $("pick-more").onclick = () => { showAll = !showAll; renderPicks(); };
   $("pick-table").innerHTML = `<thead><tr><th>#</th><th>Stock</th>${SIZED ? '<th class="num">Share</th>' : ""}<th>Model score</th><th>Likely range (80%)</th>
-    <th class="num">Chance of loss</th><th>What stands out</th><th class="num">Price</th></tr></thead><tbody>` +
+    <th class="num">Chance of loss</th><th>What stands out</th><th>Latest news</th><th class="num">Price</th></tr></thead><tbody>` +
     shown.map(p => `<tr><td>${p.rank}</td>
       <td><a class="tk" href="#lookup:${esc(p.ticker)}" onclick="openStock('${esc(p.ticker)}'); return false;">${esc(p.ticker)}</a><div class="nm" title="${esc(p.name)}">${esc(p.name)}</div></td>
       ${SIZED ? `<td class="num"><div class="share"><div class="track"><div class="fill" style="width:${Math.min(100, p.weight / h.picks[0].weight * 100).toFixed(0)}%"></div></div><b>${pct(p.weight, p.weight < .01 ? 2 : 1)}</b></div></td>` : ""}
@@ -392,6 +427,7 @@ function renderPicks() {
           <div class="range-txt">${signed(p.range_low,0)} to ${signed(p.range_high,0)}</div></td>
       <td class="num">${pct(p.chance_of_loss,0)}<div class="range-txt">(${p.hist_chance_of_loss == null ? "–" : pct(p.hist_chance_of_loss,0)} in history)</div></td>
       <td>${p.traits.length ? p.traits.slice(0, 2).map(t => `<span class="chip">${esc(t)}</span>`).join("") + (p.traits.length > 2 ? `<span class="more-chip">+${p.traits.length - 2} more</span>` : "") : '<span class="nm">Balanced profile</span>'}</td>
+      <td>${latestNews(p.ticker)}</td>
       <td class="num">$${p.price.toFixed(2)}</td></tr>`).join("") + "</tbody>";
 }
 
@@ -529,6 +565,9 @@ function detailHtml(st) {
     <div class="nm" style="max-width:none;white-space:normal">${esc(st.industry)} · $${st.price.toFixed(2)}${st.ret_1y == null ? "" : " · " + signed(st.ret_1y) + " over the past year"}</div>
     <h3>Why the model rates it this way</h3>
     <p class="why">${whyText(st, h)}</p>
+    <h3>Recent news</h3>${(NEWS_BY[st.ticker] || []).length ? `<ul class="newslist">${NEWS_BY[st.ticker].slice(0, 6).map(n =>
+      `<li><a href="${esc(safeUrl(n.link))}" target="_blank" rel="noopener">${esc(n.title)}</a><div class="when nm" style="max-width:none">${when(n.t)} · ${esc(n.source.replace(/^Google News: /, ""))}</div></li>`).join("")}</ul>`
+      : `<p class="note" style="margin-top:0">No headlines about ${esc(st.name || st.ticker)} in the last two weeks.</p>`}
     <div class="cards">
       ${card("Rank today", `#${h.rank} <span style="font-size:14px;color:var(--muted);font-weight:500">of ${n}</span>`, `${topTxt(h.percentile)} of current S&P 500 members`)}
       ${card("Model score", scoreTxt(h.score), SIMPLE ? "0–100, average rank on the six measures" : `chance of beating the typical stock over ${F.horizons[H].label}`)}
@@ -599,20 +638,24 @@ if (F) {
 const N = D.news, latest = N.reduce((m, r) => r.seen > m ? r.seen : m, "");
 $("news-lede").textContent = `${N.length} headlines from the last few days across ${new Set(N.map(r => r.source.split(":")[0])).size} sources, newest first.`;
 const srcs = [...new Set(N.map(r => r.source.split(":")[0]))].sort(), on = new Set();
+let heldOnly = false;
 $("news-chips").innerHTML = srcs.map(s => `<button class="fchip" data-s="${esc(s)}">${esc(s)}</button>`).join("");
 function renderNews() {
   const q = $("q").value.toLowerCase(); let day = "", out = [];
-  N.filter(r => (!on.size || on.has(r.source.split(":")[0])) && (r.title + " " + r.summary + " " + r.source).toLowerCase().includes(q)).slice(0, 400).forEach(r => {
+  N.filter(r => (!on.size || on.has(r.source.split(":")[0])) && (!heldOnly || (r.tk || []).some(t => HELD.has(t)))
+    && (r.title + " " + r.summary + " " + r.source + " " + (r.tk || []).join(" ")).toLowerCase().includes(q)).slice(0, 400).forEach(r => {
     const d = new Date(r.t), dl = d.toLocaleDateString(undefined, {weekday:"long", month:"long", day:"numeric"});
     if (dl !== day) { day = dl; out.push(`<div class="day">${dl}</div>`); }
     const safe = /^https?:/.test(r.link) ? r.link : "#";
     out.push(`<div class="story"><div class="meta">${d.toLocaleTimeString(undefined, {hour:"numeric", minute:"2-digit"})} · ${esc(r.source)}${r.seen === latest ? ' · <span class="new">New</span>' : ""}</div>
-      <a href="${esc(safe)}" target="_blank" rel="noopener">${esc(r.title)}</a>${r.summary ? `<p>${esc(r.summary)}</p>` : ""}</div>`);
+      <a href="${esc(safe)}" target="_blank" rel="noopener">${esc(r.title)}</a>${r.summary ? `<p>${esc(r.summary)}</p>` : ""}
+      ${(r.tk || []).length ? `<div>${r.tk.map(t => `<span class="tkchip${HELD.has(t) ? " held" : ""}" onclick="openStock('${esc(t)}')" title="${HELD.has(t) ? "In the portfolio · " : ""}Open ${esc(t)} in Stock lookup">${esc(t)}</span>`).join("")}</div>` : ""}</div>`);
   });
   $("news-list").innerHTML = out.join("") || '<p class="note">No headlines match.</p>';
 }
 $("q").oninput = renderNews;
-document.querySelectorAll(".fchip").forEach(c => c.onclick = () => { on.has(c.dataset.s) ? on.delete(c.dataset.s) : on.add(c.dataset.s); c.classList.toggle("on"); renderNews(); });
+$("held-only").onclick = () => { heldOnly = !heldOnly; $("held-only").classList.toggle("on", heldOnly); renderNews(); };
+document.querySelectorAll("#news-chips .fchip").forEach(c => c.onclick = () => { on.has(c.dataset.s) ? on.delete(c.dataset.s) : on.add(c.dataset.s); c.classList.toggle("on"); renderNews(); });
 renderNews();
 </script>
 </body></html>

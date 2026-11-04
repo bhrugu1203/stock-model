@@ -53,3 +53,4 @@ NEWS_FEEDS = {
 }
 WATCHLIST = ["AAPL", "MSFT", "NVDA", "AMZN", "GOOGL", "META", "TSLA"]  # extra Yahoo headlines for these tickers
 NEWS_PAGE_DAYS = 3             # how many days of headlines the news page shows (all are kept on disk)
+STOCK_NEWS_DAYS = 14           # how far back the headlines shown on each stock go
