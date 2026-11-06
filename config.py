@@ -17,6 +17,17 @@ PICK_HORIZONS = [6, 12, 24]    # forecast.py / website: holding periods (months)
 N_PICKS = 15                   # how many holdings the website lists before "show all"
 WEIGHTING = "size"             # "size" = hold the top 20% in proportion to company value, like the S&P 500;
                                # "equal" = same amount in each. Size won in both 2016-22 and 2023-26 (Nov 2026 review)
+# Alternative versions recorded every morning next to the official picks (live.py, data/live/versions.csv) and
+# never used for the official picks. Their saved picks can't be tuned after the fact, so in 6-12 months the live
+# record shows honestly which version works. Each is held for SHADOW_MONTHS and scored against the S&P 500.
+SHADOW_MONTHS = 12
+SHADOW_CAP = 0.10
+SHADOW_VERSIONS = {
+    "main":     "The official model: top 20% by score, sized by company value",
+    "capped":   "Same stocks, but no single stock over 10%",
+    "equal":    "Same stocks, the same amount in each",
+    "momentum": "Six measures plus 12-month price momentum, sized by company value",
+}
 
 MODEL_TYPE = "simple"          # "simple" = average of the ranked inputs; "forest" = random forest (machine learning)
                                # simple won the Nov 2026 comparison (python experiments.py --simple)

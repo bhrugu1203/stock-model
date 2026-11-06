@@ -115,6 +115,8 @@ tbody tr:hover td { background:var(--soft); }
 .newslist a { color:var(--text); font-weight:500; text-decoration:none; } .newslist a:hover { color:var(--brand-2); text-decoration:underline; }
 .tkchip { display:inline-block; font-size:11px; font-weight:700; letter-spacing:.03em; padding:1px 7px; border-radius:4px; margin:6px 4px 0 0; background:var(--soft); border:1px solid var(--line); color:var(--brand-2); cursor:pointer; }
 .tkchip:hover { border-color:var(--gold); }
+.offical { font-size:10px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--brand-text); background:var(--brand); border-radius:4px; padding:1px 6px; margin-left:6px; vertical-align:1px; }
+#versions-table td.desc { color:var(--muted); font-size:12px; min-width:220px; white-space:normal; }
 .tkchip.held { background:var(--brand); color:var(--brand-text); border-color:var(--brand); }
 .foot { display:grid; grid-template-columns:2fr 1fr 1fr; gap:24px; border-top:1px solid var(--line); padding-top:22px; }
 .foot h4 { margin:0 0 6px; font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--text); }
@@ -275,6 +277,11 @@ tr.drop .detail { margin:0; position:sticky; left:12px; box-sizing:border-box; }
   <p class="lede" id="live-lede"></p>
   <div class="seg" id="seg-live"></div>
   <div class="cards" id="live-cards"></div>
+  <div id="versions-wrap" class="hidden">
+    <h2>Alternative versions, tracked side by side</h2>
+    <p class="note" id="versions-lede" style="margin:0 0 10px"></p>
+    <div class="panel scroll"><table id="versions-table"></table></div>
+  </div>
   <h2 id="first-title"></h2>
   <div class="panel scroll"><table id="first-table"></table></div>
   <h2>Every day's picks</h2>
@@ -334,6 +341,11 @@ tr.drop .detail { margin:0; position:sticky; left:12px; box-sizing:border-box; }
   <p>Each stock gets a score: the average of its rank on the six measures. The portfolio is the top 20% of stocks by score, about 100 companies,
   each held in proportion to its market value, like the S&amp;P 500 itself. So the model is the S&amp;P 500 with its weaker-scoring 80% removed.
   This means a few giant companies make up most of the money: check the Share column.</p>
+  <h2>Alternative versions</h2>
+  <p>Next to the official picks, every morning also saves the portfolios of a few alternative designs: one that caps any single stock at 10%,
+  one that puts the same amount in each stock, and one that adds 12-month price momentum. They are never used for the official picks.
+  Because their picks are saved before the results are known, comparing them over the next 6 to 12 months is a fair test of which design
+  works, with no chance of tuning it to past data.</p>
   <h2>How the track record is made</h2>
   <p>The model is replayed on past dates: each January it is retrained using only outcomes already known, then it makes picks every quarter that year.
   Those picks are compared with buying the S&amp;P 500 on the same day. The stock list on each date is the S&amp;P 500 as it actually was, including
@@ -535,6 +547,24 @@ function renderRecord() {
       <td class="num">${pct(p.average_stock)}</td><td class="num"><span class="pill ${e >= 0 ? "up" : "down"}">${signed(e)}</span></td><td class="num">${p.pick_wins} / ${p.pick_count}</td></tr>`; }).join("") + "</tbody>";
 }
 
+function renderVersions() {
+  const V = F.versions;
+  $("versions-wrap").classList.toggle("hidden", !(V && V.versions.length));
+  if (!V || !V.versions.length) return;
+  const start = new Date(V.started + "T12:00:00").toLocaleDateString(undefined, {month:"short", day:"numeric", year:"numeric"});
+  const names = {main: "Official model", capped: "Capped at 10%", equal: "Equal weight", momentum: "Plus momentum"};
+  const days = Math.max(...V.versions.map(v => v.days));
+  $("versions-lede").textContent = `Since ${start}, every morning also saves the portfolio of ${V.versions.length - 1} alternative versions. `
+    + `They are never used for the official picks, and their saved picks can't be changed later, so this is an honest test of which design works. `
+    + `Each day's portfolio is held for ${V.months} months. ` + (days < 60 ? `With only ${days} trading day${days === 1 ? "" : "s"} so far, differences are noise; give it 6 to 12 months.` : "");
+  $("versions-table").innerHTML = `<thead><tr><th>Version</th><th>How it differs</th><th class="num">Days tracked</th><th class="num">Avg return since picked</th>
+    <th class="num">S&amp;P 500</th><th class="num">Edge</th><th class="num">Days ahead</th><th class="num">Largest holding</th></tr></thead><tbody>`
+    + V.versions.map(v => { const e = v.avg_ret - v.avg_sp_ret; return `<tr><td style="white-space:nowrap"><b>${esc(names[v.version] || v.version)}</b>${v.version === "main" ? '<span class="offical">Official</span>' : ""}</td>
+      <td class="desc">${esc(v.description)}</td><td class="num">${v.days}</td><td class="num">${signed(v.avg_ret)}</td><td class="num">${signed(v.avg_sp_ret)}</td>
+      <td class="num"><span class="pill ${e >= 0 ? "up" : "down"}">${signed(e)}</span></td><td class="num">${v.days_ahead} of ${v.days}</td>
+      <td class="num">${esc(v.top)} ${pct(v.top_weight, 0)}<div class="range-txt">${v.holdings} holdings</div></td></tr>`; }).join("") + "</tbody>";
+}
+
 function renderLive() {
   const L = F.live, h = L && L.horizons.find(x => x.months === F.horizons[H].months);
   if (!h) {
@@ -686,7 +716,7 @@ if (S.length) {
 window.addEventListener("hashchange", () => { const [tab, t] = location.hash.slice(1).split(":");
   if (tab === "lookup" && t) openStock(t.toUpperCase()); });
 
-function renderAll() { markSegs(); renderPicks(); renderMix(); renderLive(); renderRecord(); renderLookup(); }
+function renderAll() { markSegs(); renderPicks(); renderMix(); renderLive(); renderVersions(); renderRecord(); renderLookup(); }
 
 if (F) {
   if (F.demo) $("picks-warn").innerHTML = '<div class="warn">Demo data: these picks and results are made up for testing.</div>';

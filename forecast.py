@@ -21,7 +21,7 @@ import config
 import data
 import fundamentals
 import live
-from backtest import SIMPLE_DIRECTIONS, make_model
+from backtest import SIMPLE_DIRECTIONS, SimpleScore, make_model
 from features import build_panel
 
 OUT = os.path.join(config.OUTPUT_DIR, "forecast.json")
@@ -190,6 +190,33 @@ def all_stocks(monthly, fund, now, names, scores, held):
     return sorted(rows, key=lambda r: r["horizons"][0]["rank"])
 
 
+def cap_weights(w, cap):
+    """Limit every weight to cap, handing the excess to the others in proportion to their weight."""
+    w = w / w.sum()
+    for _ in range(50):
+        over = w > cap + 1e-12
+        if not over.any():
+            break
+        excess = (w[over] - cap).sum()
+        w[over] = cap
+        under = ~over & (w < cap)
+        w[under] += excess * w[under] / w[under].sum()
+    return w
+
+
+def versions(panel, names, size, date, held):
+    """Today's portfolio for each alternative in config.SHADOW_VERSIONS: {name: weights}."""
+    out = {"main": held, "capped": cap_weights(held.copy(), config.SHADOW_CAP),
+           "equal": pd.Series(1 / len(held), index=held.index)}
+    now = panel[panel.index.get_level_values("date") == date].droplevel("date")
+    extra = names + ["mom_12_1"]
+    now = now.dropna(subset=extra)
+    score = pd.Series(SimpleScore().fit(now[extra]).predict_proba(now[extra])[:, 1], index=now.index)
+    top = score.nlargest(max(1, int(len(score) * config.TOP_FRACTION))).index
+    out["momentum"] = weights(size, date, top)
+    return {k: v.sort_values(ascending=False) for k, v in out.items() if k in config.SHADOW_VERSIONS}
+
+
 def industry_mix(stocks, size, date):
     """Share of the portfolio and of the S&P 500 (by company value) in each industry, biggest first.
     Industries under 1% of both are grouped as "Other"."""
@@ -233,11 +260,12 @@ def main():
               "holdout_from": config.HOLDOUT_FROM_YEAR, "top_fraction": config.TOP_FRACTION,
               "market_drift": MARKET_DRIFT, "model": config.MODEL_TYPE, "weighting": config.WEIGHTING,
               "n_show": config.N_PICKS, "horizons": []}
-    scores = {}
+    scores, panels = {}, {}
     for h in config.PICK_HORIZONS:
         print(f"Horizon {horizon_label(h)}...")
         config.HORIZON_MONTHS = h
         panel, names = build_panel(monthly, members, fund)
+        panels[h] = panel
         periods, calibration = track_record(monthly, spy, panel, names, h, size=fund["size"])
         picks, importance, scores[h], now = todays_picks(monthly, fund, panel, names, h)
         universe = len(scores[h])
@@ -253,10 +281,15 @@ def main():
     result["stocks"] = all_stocks(monthly, fund, now, names, scores, held)
     result["industry_mix"] = industry_mix(result["stocks"], fund["size"], monthly.index[-1])
 
-    result["live"] = None
+    result["live"] = result["versions"] = None
     if not args.demo and not args.no_record:
         ledger = live.record(monthly.index[-1], result["horizons"], monthly, spy)
         result["live"] = live.scoreboard(ledger, monthly, spy, result["horizons"])
+        h = config.SHADOW_MONTHS if config.SHADOW_MONTHS in panels else config.PICK_HORIZONS[-1]
+        main = next(x for x in result["horizons"] if x["months"] == h)["picks"]
+        held_w = pd.Series({p["ticker"]: p["weight"] for p in main})
+        alts = versions(panels[h], names, fund["size"], monthly.index[-1], held_w)
+        result["versions"] = live.versions_board(live.record_versions(monthly.index[-1], alts, monthly, spy), monthly, spy)
 
     os.makedirs(config.OUTPUT_DIR, exist_ok=True)
     with open(OUT, "w") as f:

@@ -12,6 +12,8 @@ import pandas as pd
 import config
 
 LEDGER = os.path.join(config.CACHE_DIR, "live", "picks.csv")
+VERSIONS = os.path.join(config.CACHE_DIR, "live", "versions.csv")
+V_COLUMNS = ["date", "version", "ticker", "weight", "price", "sp500", "exit_date", "exit_price", "exit_sp500"]
 COLUMNS = ["date", "months", "rank", "ticker", "price", "sp500", "probability",
            "exit_date", "exit_price", "exit_sp500", "model", "weight"]
 
@@ -98,3 +100,56 @@ def scoreboard(ledger, monthly, spy, horizons):
             "latest_date": g["date"].max(),
         })
     return out
+
+
+def record_versions(date, portfolios, monthly, spy):
+    """Save today's portfolio for each alternative version (config.SHADOW_VERSIONS), once per trading day,
+    and close each day's portfolio after config.SHADOW_MONTHS. Same rules as the official record."""
+    ledger = pd.read_csv(VERSIONS, dtype={"ticker": str}) if os.path.exists(VERSIONS) else pd.DataFrame(columns=V_COLUMNS)
+    day = date.strftime("%Y-%m-%d")
+    spy_now = float(spy.dropna().iloc[-1])
+    prices = monthly.ffill().iloc[-1]
+    new = [{"date": day, "version": v, "ticker": t, "weight": round(float(w), 5),
+            "price": round(float(prices[t]), 2), "sp500": round(spy_now, 2)}
+           for v, ws in portfolios.items() if not ((ledger["date"] == day) & (ledger["version"] == v)).any()
+           for t, w in ws.items() if w > 0]
+    if new:
+        ledger = pd.concat([ledger, pd.DataFrame(new)], ignore_index=True)
+    due = ledger["exit_date"].isna() & (pd.to_datetime(ledger["date"]) + pd.DateOffset(months=config.SHADOW_MONTHS) <= date)
+    for i in ledger.index[due]:
+        ledger.loc[i, ["exit_date", "exit_price", "exit_sp500"]] = [
+            day, round(float(prices.get(ledger.at[i, "ticker"], float("nan"))), 2), round(spy_now, 2)]
+    os.makedirs(os.path.dirname(VERSIONS), exist_ok=True)
+    ledger[V_COLUMNS].to_csv(VERSIONS, index=False)
+    print(f"Alternative versions: {len({r['version'] for r in new})} saved today, {len(ledger)} rows in total")
+    return ledger
+
+
+def versions_board(ledger, monthly, spy):
+    """One row per version: how its daily portfolios have done since each was picked, against the S&P 500."""
+    if ledger.empty:
+        return None
+    prices = monthly.ffill().iloc[-1]
+    spy_now = float(spy.dropna().iloc[-1])
+    df = ledger.copy()
+    closed = df["exit_date"].notna()
+    df["now"] = df["ticker"].map(prices).where(~closed, df["exit_price"])
+    df["sp_now"] = df["exit_sp500"].where(closed, spy_now)
+    df["ret"] = df["now"] / df["price"] - 1
+    df["wret"] = (df["ret"] * df["weight"]).fillna(0)
+    df["wseen"] = df["weight"].where(df["ret"].notna(), 0)
+    rows = []
+    for v, desc in config.SHADOW_VERSIONS.items():
+        g = df[df["version"] == v]
+        if g.empty:
+            continue
+        days = g.groupby("date").agg(wret=("wret", "sum"), wseen=("wseen", "sum"),
+                                     sp=("sp_now", "first"), sp0=("sp500", "first"), n=("ticker", "size"))
+        days["ret"] = days["wret"] / days["wseen"].where(days["wseen"] > 0)
+        days["sp_ret"] = days["sp"] / days["sp0"] - 1
+        last = g[g["date"] == g["date"].max()].sort_values("weight", ascending=False)
+        rows.append({"version": v, "description": desc, "days": len(days),
+                     "avg_ret": round(float(days["ret"].mean()), 4), "avg_sp_ret": round(float(days["sp_ret"].mean()), 4),
+                     "days_ahead": int((days["ret"] > days["sp_ret"]).sum()),
+                     "holdings": int(len(last)), "top": last["ticker"].iloc[0], "top_weight": round(float(last["weight"].iloc[0]), 4)})
+    return {"started": df["date"].min(), "months": config.SHADOW_MONTHS, "versions": rows}
