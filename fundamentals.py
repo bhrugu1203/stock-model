@@ -229,12 +229,17 @@ def build(monthly, refresh=False):
 
 
 def company_size(monthly, fund):
-    """Estimated market value per ticker, for size weighting. A company with several share classes
-    in the data (GOOG and GOOGL) reports one company-wide float, so it is split evenly between them."""
+    """Estimated market value per ticker, for size weighting. Uses the public float (shares not held by
+    insiders), the same idea the S&P 500 uses for its own weights. A company with no float on file (AMD,
+    Exxon) falls back to shares outstanding x price. A company with several share classes in the data
+    (GOOG and GOOGL) reports one company-wide float, so it is split evenly between them."""
+    value = fund["market_cap"]
+    if "shares" in fund:
+        value = value.fillna((fund["shares"] * monthly).where(fund["shares"] > 0))
     cik = _ticker_map()["cik"].reindex(monthly.columns)
     company = cik.astype(object).where(cik.notna(), pd.Series(monthly.columns, index=monthly.columns))
     classes = monthly.notna().T.groupby(company.to_numpy()).transform("sum").T
-    return fund["market_cap"] / classes.where(classes > 0)
+    return value / classes.where(classes > 0)
 
 
 def synthetic(monthly, seed=2):
