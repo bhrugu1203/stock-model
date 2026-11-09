@@ -246,7 +246,7 @@ tr.drop .detail { margin:0; position:sticky; left:12px; box-sizing:border-box; }
 
 <main>
 <section id="tab-picks">
-  <div class="eyebrow">Portfolio · updated every morning</div>
+  <div class="eyebrow">Portfolio · updated after every market close</div>
   <h1>Today's picks</h1>
   <p class="lede" id="picks-lede"></p>
   <div id="picks-warn"></div>
@@ -286,7 +286,7 @@ tr.drop .detail { margin:0; position:sticky; left:12px; box-sizing:border-box; }
   <div class="panel scroll"><table id="first-table"></table></div>
   <h2>Every day's picks</h2>
   <div class="panel scroll"><table id="cohort-table"></table></div>
-  <p class="note">Each row is one morning's picks for this holding period, scored from that day's closing price. A pick stays <b>open</b>
+  <p class="note">Each row is one trading day's picks for this holding period, scored from that day's closing price. A pick stays <b>open</b>
   until its holding period ends; then its result is <b>final</b> and never changes. The record is saved on GitHub, where every change is dated.</p>
 </section>
 
@@ -342,7 +342,7 @@ tr.drop .detail { margin:0; position:sticky; left:12px; box-sizing:border-box; }
   each held in proportion to its market value, like the S&amp;P 500 itself. So the model is the S&amp;P 500 with its weaker-scoring 80% removed.
   This means a few giant companies make up most of the money: check the Share column.</p>
   <h2>Alternative versions</h2>
-  <p>Next to the official picks, every morning also saves the portfolios of a few alternative designs: one that caps any single stock at 10%,
+  <p>Next to the official picks, every trading day also saves the portfolios of a few alternative designs: one that caps any single stock at 10%,
   one that puts the same amount in each stock, and one that adds 12-month price momentum. They are never used for the official picks.
   Because their picks are saved before the results are known, comparing them over the next 6 to 12 months is a fair test of which design
   works, with no chance of tuning it to past data.</p>
@@ -367,7 +367,7 @@ tr.drop .detail { margin:0; position:sticky; left:12px; box-sizing:border-box; }
   <div><div class="wm"><svg viewBox="0 0 34 34" width="20" height="20" fill="none" aria-hidden="true" style="vertical-align:-4px;margin-right:6px"><circle cx="17" cy="17" r="15.6" stroke="var(--gold)" stroke-width="1.8"/><text x="17" y="23.6" text-anchor="middle" font-family="'Source Serif 4', Georgia, serif" font-size="18" font-weight="700" fill="var(--gold)">B</text></svg>Bhrugu&rsquo;s Stock Model</div><p>An educational research project. Nothing here is investment advice, and past results do not predict future returns.
   Picks are not recommendations to buy or sell any security.</p></div>
   <div><h4>Data</h4><p>Company financials: SEC EDGAR</p><p>Prices: Yahoo Finance</p><p>News: public RSS feeds</p></div>
-  <div><h4>Updates</h4><p>Picks: every weekday morning</p><p>News: hourly, 7 AM–8 PM ET</p><p><a href="https://github.com/bhrugu1203/stock-model" target="_blank" rel="noopener">Source code on GitHub</a></p></div>
+  <div><h4>Updates</h4><p>Picks: after each close and each morning</p><p>News: hourly, 7 AM–8 PM ET</p><p><a href="https://github.com/bhrugu1203/stock-model" target="_blank" rel="noopener">Source code on GitHub</a></p></div>
 </div></footer>
 
 <script id="data" type="application/json">__DATA__</script>
@@ -554,7 +554,7 @@ function renderVersions() {
   const start = new Date(V.started + "T12:00:00").toLocaleDateString(undefined, {month:"short", day:"numeric", year:"numeric"});
   const names = {main: "Official model", capped: "Capped at 10%", equal: "Equal weight", momentum: "Plus momentum"};
   const days = Math.max(...V.versions.map(v => v.days));
-  $("versions-lede").textContent = `Since ${start}, every morning also saves the portfolio of ${V.versions.length - 1} alternative versions. `
+  $("versions-lede").textContent = `Since ${start}, every trading day also saves the portfolio of ${V.versions.length - 1} alternative versions. `
     + `They are never used for the official picks, and their saved picks can't be changed later, so this is an honest test of which design works. `
     + `Each day's portfolio is held for ${V.months} months. ` + (days < 60 ? `With only ${days} trading day${days === 1 ? "" : "s"} so far, differences are noise; give it 6 to 12 months.` : "");
   $("versions-table").innerHTML = `<thead><tr><th>Version</th><th>How it differs</th><th class="num">Days tracked</th><th class="num">Avg return since picked</th>
@@ -568,13 +568,13 @@ function renderVersions() {
 function renderLive() {
   const L = F.live, h = L && L.horizons.find(x => x.months === F.horizons[H].months);
   if (!h) {
-    $("live-lede").textContent = "The live record starts with the next morning update: from then on, every day's picks are saved and scored here.";
+    $("live-lede").textContent = "The live record starts with the next update: from then on, every day's picks are saved and scored here.";
     ["live-cards", "first-table", "cohort-table"].forEach(id => $(id).innerHTML = ""); $("first-title").textContent = "";
     return;
   }
   const start = new Date(L.started + "T12:00:00"), firstClose = new Date(start); firstClose.setMonth(firstClose.getMonth() + h.months);
   const fmt = d => d.toLocaleDateString(undefined, {month:"short", day:"numeric", year:"numeric"});
-  $("live-lede").textContent = `Real picks, made before the results were known. Started ${fmt(start)}: every morning's `
+  $("live-lede").textContent = `Real picks, made before the results were known. Started ${fmt(start)}: every trading day's `
     + `${h.label} picks are saved permanently and compared with buying the S&P 500 on the same day.`;
   const edge = h.avg_ret - h.avg_sp_ret;
   $("live-cards").innerHTML = [
@@ -676,7 +676,7 @@ function detailHtml(st) {
   </div>`;
 }
 function renderLookup() {
-  if (!S.length) { $("lookup-lede").textContent = "The stock list appears after the next morning update."; return; }
+  if (!S.length) { $("lookup-lede").textContent = "The stock list appears after the next update."; return; }
   $("lookup-lede").textContent = `Every current S&P 500 member, ranked by today's model score for the chosen holding period. `
     + `Click any stock to open it and see why the model rates it the way it does.`;
   const q = $("lq").value.trim().toLowerCase();

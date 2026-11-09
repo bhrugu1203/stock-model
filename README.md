@@ -40,16 +40,16 @@ python forecast.py --no-record   # picks for 6 months, 1 year and 2 years, each 
 python dashboard.py     # rebuild the website in outputs/site/index.html
 ```
 
-Live at https://bhrugu1203.github.io/stock-model/, rebuilt by GitHub every morning (see below). Tabs:
+Live at https://bhrugu1203.github.io/stock-model/, rebuilt by GitHub after every market close and every morning (see below). Tabs:
 - **Today's picks**: the top stocks for each holding period, with the model's score, conviction, an 80% likely
   range and chance of loss (from the stock's recent volatility), and what stands out in its financials.
 - **Backtest**: what would have happened if you had bought the picks every quarter since 2016 and held them,
   compared with just buying the S&P 500 on the same day; and whether higher-rated stocks really won more often.
-- **Live record**: every morning's picks, saved permanently in `data/live/picks.csv` and scored against the S&P 500
+- **Live record**: every trading day's picks, saved permanently in `data/live/picks.csv` and scored against the S&P 500
   from the day they were made. Unlike the backtest, this can't be tuned after the fact: it is the real test.
 - **Stock lookup**: every current S&P 500 member ranked by today's score. Search a ticker or company (or open
   `#lookup:AAPL`) to see its rank, risk, where it stands on each of the six measures and what stands out.
-- **Alternative versions** (Live record tab): every morning also saves the portfolios of a few other designs
+- **Alternative versions** (Live record tab): every trading day also saves the portfolios of a few other designs
   (`SHADOW_VERSIONS` in `config.py`: capped at 10% per stock, equal weight, plus momentum) to `data/live/versions.csv`.
   They never affect the official picks; after 6-12 months they show, without any after-the-fact tuning, which design works.
 - **News on each stock**: `newsmatch.py` tags every headline with the S&P 500 companies it names (by name, well-known
@@ -75,8 +75,10 @@ Change sources, the watchlist and how many days the page shows in `config.py`.
 
 **Runs automatically in the cloud** (`.github/workflows/update.yml`). Every morning at 11:00 UTC (6-7 AM New York,
 before the market opens) GitHub collects headlines, downloads the latest closing prices, retrains the model on
-everything up to then, remakes the picks and publishes the website. Then, every hour until about 8 PM New York time,
-it collects new headlines and republishes. Your Mac doesn't need to be on.
+everything up to then, remakes the picks and publishes the website. Each weekday it does the same again at 21:30 UTC (4:30 PM New York in
+winter, 5:30 PM in summer, always after the close), so the picks use that day's closing prices the same evening. The live
+record saves one entry per trading day, so the two runs can't double-count. Every hour until about 8 PM New York time,
+it also collects new headlines and republishes. Your Mac doesn't need to be on.
 - Run it now: on GitHub, open **Actions → Daily update → Run workflow**.
 - Get the latest headlines onto your Mac before working with them: `git pull`.
 - Don't commit a `news.py` run made on your Mac; it would clash with the cloud's copy of `headlines.csv`.

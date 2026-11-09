@@ -1,12 +1,14 @@
 # Keeps the website current on GitHub's servers.
 #   Every morning, before the US market opens: collect headlines, download the latest closing
 #   prices, retrain the model on everything up to yesterday, remake the picks, publish the site.
+#   Every weekday after the market closes: the same again, so picks use that day's closing prices the same evening.
 #   Every hour after that until evening: collect headlines and republish (picks stay the same).
 name: Daily update
 
 on:
   schedule:
     - cron: "0 11 * * *"           # 11:00 UTC = 6:00 New York in winter, 7:00 in summer: news + picks
+    - cron: "30 21 * * 1-5"        # 21:30 UTC = 4:30 PM New York in winter, 5:30 PM in summer (always after the close): news + picks
     - cron: "0 12-23,0-1 * * *"    # hourly 12:00-01:00 UTC (about 7 AM to 8 PM New York): news only
   workflow_dispatch:
     inputs:
@@ -30,7 +32,7 @@ jobs:
     timeout-minutes: 45
     env:
       TZ: America/New_York
-      PICKS: ${{ github.event.schedule == '0 11 * * *' || inputs.picks }}
+      PICKS: ${{ github.event.schedule == '0 11 * * *' || github.event.schedule == '30 21 * * 1-5' || inputs.picks }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
