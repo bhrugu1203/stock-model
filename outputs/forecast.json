@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-09T22:17:11+00:00",
+ "generated": "2026-11-10T11:49:56+00:00",
  "data_through": "2026-11-09",
  "demo": false,
  "holdout_from": 2023,
@@ -13506,10 +13506,10 @@
    "name": "W.W. Grainger, Inc.",
    "industry": "Wholesale",
    "price": 1447.67,
-   "ret_1y": 0.4909,
+   "ret_1y": 0.4935,
    "measures": {
     "earnings_yield": 0.383,
-    "book_to_market": 0.119,
+    "book_to_market": 0.116,
     "gross_prof": 0.963,
     "roa": 0.941,
     "rev_growth": 0.359,
@@ -13528,7 +13528,7 @@
      "percentile": 0.741,
      "volatility": 0.203,
      "range_low": -0.143,
-     "range_high": 0.238,
+     "range_high": 0.239,
      "chance_of_loss": 0.418,
      "hist_chance_of_loss": 0.279
     },
@@ -13550,7 +13550,7 @@
      "percentile": 0.741,
      "volatility": 0.203,
      "range_low": -0.221,
-     "range_high": 0.627,
+     "range_high": 0.628,
      "chance_of_loss": 0.34,
      "hist_chance_of_loss": 0.156
     }
@@ -15234,7 +15234,7 @@
    "price": 349.47,
    "ret_1y": -0.2998,
    "measures": {
-    "earnings_yield": 0.872,
+    "earnings_yield": 0.874,
     "book_to_market": 0.219,
     "gross_prof": 0.757,
     "roa": 0.939,
@@ -23983,58 +23983,6 @@
    "weight": null
   },
   {
-   "ticker": "VMC",
-   "name": "Vulcan Materials Co",
-   "industry": "Mining & energy",
-   "price": 289.44,
-   "ret_1y": 0.0073,
-   "measures": {
-    "earnings_yield": 0.338,
-    "book_to_market": 0.449,
-    "gross_prof": 0.166,
-    "roa": 0.58,
-    "rev_growth": 0.494,
-    "leverage": 0.749
-   },
-   "traits": [],
-   "horizons": [
-    {
-     "months": 6,
-     "rank": 324,
-     "score": 0.463,
-     "percentile": 0.351,
-     "volatility": 0.265,
-     "range_low": -0.195,
-     "range_high": 0.3,
-     "chance_of_loss": 0.452,
-     "hist_chance_of_loss": 0.294
-    },
-    {
-     "months": 12,
-     "rank": 324,
-     "score": 0.463,
-     "percentile": 0.351,
-     "volatility": 0.265,
-     "range_low": -0.255,
-     "range_high": 0.468,
-     "chance_of_loss": 0.432,
-     "hist_chance_of_loss": 0.277
-    },
-    {
-     "months": 24,
-     "rank": 324,
-     "score": 0.463,
-     "percentile": 0.351,
-     "volatility": 0.265,
-     "range_low": -0.323,
-     "range_high": 0.767,
-     "chance_of_loss": 0.405,
-     "hist_chance_of_loss": 0.106
-    }
-   ],
-   "weight": null
-  },
-  {
    "ticker": "ETN",
    "name": "Eaton Corp Plc",
    "industry": "Tech hardware & electronics",
@@ -24052,9 +24000,9 @@
    "horizons": [
     {
      "months": 6,
-     "rank": 325,
+     "rank": 324,
      "score": 0.462,
-     "percentile": 0.349,
+     "percentile": 0.351,
      "volatility": 0.294,
      "range_low": -0.22,
      "range_high": 0.329,
@@ -24063,9 +24011,9 @@
     },
     {
      "months": 12,
-     "rank": 325,
+     "rank": 324,
      "score": 0.462,
-     "percentile": 0.349,
+     "percentile": 0.351,
      "volatility": 0.294,
      "range_low": -0.288,
      "range_high": 0.512,
@@ -24074,14 +24022,66 @@
     },
     {
      "months": 24,
-     "rank": 325,
+     "rank": 324,
      "score": 0.462,
-     "percentile": 0.349,
+     "percentile": 0.351,
      "volatility": 0.294,
      "range_low": -0.368,
      "range_high": 0.834,
      "chance_of_loss": 0.43,
      "hist_chance_of_loss": 0.084
+    }
+   ],
+   "weight": null
+  },
+  {
+   "ticker": "VMC",
+   "name": "Vulcan Materials Co",
+   "industry": "Mining & energy",
+   "price": 289.44,
+   "ret_1y": 0.0091,
+   "measures": {
+    "earnings_yield": 0.333,
+    "book_to_market": 0.449,
+    "gross_prof": 0.166,
+    "roa": 0.58,
+    "rev_growth": 0.494,
+    "leverage": 0.749
+   },
+   "traits": [],
+   "horizons": [
+    {
+     "months": 6,
+     "rank": 325,
+     "score": 0.462,
+     "percentile": 0.349,
+     "volatility": 0.265,
+     "range_low": -0.195,
+     "range_high": 0.3,
+     "chance_of_loss": 0.452,
+     "hist_chance_of_loss": 0.294
+    },
+    {
+     "months": 12,
+     "rank": 325,
+     "score": 0.462,
+     "percentile": 0.349,
+     "volatility": 0.265,
+     "range_low": -0.255,
+     "range_high": 0.468,
+     "chance_of_loss": 0.432,
+     "hist_chance_of_loss": 0.277
+    },
+    {
+     "months": 24,
+     "rank": 325,
+     "score": 0.462,
+     "percentile": 0.349,
+     "volatility": 0.265,
+     "range_low": -0.323,
+     "range_high": 0.767,
+     "chance_of_loss": 0.405,
+     "hist_chance_of_loss": 0.106
     }
    ],
    "weight": null
@@ -24996,6 +24996,62 @@
    "weight": null
   },
   {
+   "ticker": "SYY",
+   "name": "Sysco Corp",
+   "industry": "Wholesale",
+   "price": 78.38,
+   "ret_1y": 0.0858,
+   "measures": {
+    "earnings_yield": 0.684,
+    "book_to_market": 0.119,
+    "gross_prof": 0.909,
+    "roa": 0.549,
+    "rev_growth": 0.327,
+    "leverage": 0.126
+   },
+   "traits": [
+    "Expensive vs. book value",
+    "Highly profitable business",
+    "Heavy debt load"
+   ],
+   "horizons": [
+    {
+     "months": 6,
+     "rank": 343,
+     "score": 0.452,
+     "percentile": 0.313,
+     "volatility": 0.228,
+     "range_low": -0.164,
+     "range_high": 0.263,
+     "chance_of_loss": 0.433,
+     "hist_chance_of_loss": 0.305
+    },
+    {
+     "months": 12,
+     "rank": 343,
+     "score": 0.452,
+     "percentile": 0.313,
+     "volatility": 0.228,
+     "range_low": -0.211,
+     "range_high": 0.413,
+     "chance_of_loss": 0.406,
+     "hist_chance_of_loss": 0.215
+    },
+    {
+     "months": 24,
+     "rank": 343,
+     "score": 0.452,
+     "percentile": 0.313,
+     "volatility": 0.228,
+     "range_low": -0.262,
+     "range_high": 0.683,
+     "chance_of_loss": 0.368,
+     "hist_chance_of_loss": 0.156
+    }
+   ],
+   "weight": null
+  },
+  {
    "ticker": "CDW",
    "name": "Cdw Corp",
    "industry": "Retail",
@@ -25013,9 +25069,9 @@
    "horizons": [
     {
      "months": 6,
-     "rank": 343,
+     "rank": 344,
      "score": 0.452,
-     "percentile": 0.313,
+     "percentile": 0.311,
      "volatility": 0.291,
      "range_low": -0.217,
      "range_high": 0.327,
@@ -25024,9 +25080,9 @@
     },
     {
      "months": 12,
-     "rank": 343,
+     "rank": 344,
      "score": 0.452,
-     "percentile": 0.313,
+     "percentile": 0.311,
      "volatility": 0.291,
      "range_low": -0.285,
      "range_high": 0.508,
@@ -25035,9 +25091,9 @@
     },
     {
      "months": 24,
-     "rank": 343,
+     "rank": 344,
      "score": 0.452,
-     "percentile": 0.313,
+     "percentile": 0.311,
      "volatility": 0.291,
      "range_low": -0.364,
      "range_high": 0.828,
@@ -25065,9 +25121,9 @@
    "horizons": [
     {
      "months": 6,
-     "rank": 344,
+     "rank": 345,
      "score": 0.452,
-     "percentile": 0.311,
+     "percentile": 0.309,
      "volatility": 0.27,
      "range_low": -0.2,
      "range_high": 0.305,
@@ -25076,9 +25132,9 @@
     },
     {
      "months": 12,
-     "rank": 344,
+     "rank": 345,
      "score": 0.452,
-     "percentile": 0.311,
+     "percentile": 0.309,
      "volatility": 0.27,
      "range_low": -0.261,
      "range_high": 0.476,
@@ -25087,70 +25143,14 @@
     },
     {
      "months": 24,
-     "rank": 344,
+     "rank": 345,
      "score": 0.452,
-     "percentile": 0.311,
+     "percentile": 0.309,
      "volatility": 0.27,
      "range_low": -0.331,
      "range_high": 0.78,
      "chance_of_loss": 0.41,
      "hist_chance_of_loss": 0.184
-    }
-   ],
-   "weight": null
-  },
-  {
-   "ticker": "SYY",
-   "name": "Sysco Corp",
-   "industry": "Wholesale",
-   "price": 78.38,
-   "ret_1y": 0.0858,
-   "measures": {
-    "earnings_yield": 0.684,
-    "book_to_market": 0.116,
-    "gross_prof": 0.909,
-    "roa": 0.549,
-    "rev_growth": 0.327,
-    "leverage": 0.126
-   },
-   "traits": [
-    "Expensive vs. book value",
-    "Highly profitable business",
-    "Heavy debt load"
-   ],
-   "horizons": [
-    {
-     "months": 6,
-     "rank": 345,
-     "score": 0.452,
-     "percentile": 0.309,
-     "volatility": 0.228,
-     "range_low": -0.164,
-     "range_high": 0.263,
-     "chance_of_loss": 0.433,
-     "hist_chance_of_loss": 0.305
-    },
-    {
-     "months": 12,
-     "rank": 345,
-     "score": 0.452,
-     "percentile": 0.309,
-     "volatility": 0.228,
-     "range_low": -0.211,
-     "range_high": 0.413,
-     "chance_of_loss": 0.406,
-     "hist_chance_of_loss": 0.215
-    },
-    {
-     "months": 24,
-     "rank": 345,
-     "score": 0.452,
-     "percentile": 0.309,
-     "volatility": 0.228,
-     "range_low": -0.262,
-     "range_high": 0.683,
-     "chance_of_loss": 0.368,
-     "hist_chance_of_loss": 0.156
     }
    ],
    "weight": null
@@ -28466,7 +28466,7 @@
    "price": 236.61,
    "ret_1y": 0.2042,
    "measures": {
-    "earnings_yield": 0.333,
+    "earnings_yield": 0.335,
     "book_to_market": 0.181,
     "gross_prof": 0.395,
     "roa": 0.517,
@@ -29339,6 +29339,60 @@
    "weight": null
   },
   {
+   "ticker": "PANW",
+   "name": "Palo Alto Networks Inc",
+   "industry": "Tech hardware & electronics",
+   "price": 330.89,
+   "ret_1y": 0.5024,
+   "measures": {
+    "earnings_yield": 0.089,
+    "book_to_market": 0.249,
+    "gross_prof": 0.176,
+    "roa": 0.226,
+    "rev_growth": 0.797,
+    "leverage": 0.829
+   },
+   "traits": [
+    "Expensive vs. earnings"
+   ],
+   "horizons": [
+    {
+     "months": 6,
+     "rank": 423,
+     "score": 0.394,
+     "percentile": 0.153,
+     "volatility": 0.455,
+     "range_low": -0.346,
+     "range_high": 0.493,
+     "chance_of_loss": 0.515,
+     "hist_chance_of_loss": 0.311
+    },
+    {
+     "months": 12,
+     "rank": 423,
+     "score": 0.394,
+     "percentile": 0.153,
+     "volatility": 0.455,
+     "range_low": -0.455,
+     "range_high": 0.751,
+     "chance_of_loss": 0.521,
+     "hist_chance_of_loss": 0.242
+    },
+    {
+     "months": 24,
+     "rank": 423,
+     "score": 0.394,
+     "percentile": 0.153,
+     "volatility": 0.455,
+     "range_low": -0.582,
+     "range_high": 1.177,
+     "chance_of_loss": 0.529,
+     "hist_chance_of_loss": 0.081
+    }
+   ],
+   "weight": null
+  },
+  {
    "ticker": "HON",
    "name": "Honeywell International Inc",
    "industry": "Manufacturing",
@@ -29356,9 +29410,9 @@
    "horizons": [
     {
      "months": 6,
-     "rank": 423,
+     "rank": 424,
      "score": 0.394,
-     "percentile": 0.153,
+     "percentile": 0.151,
      "volatility": 0.221,
      "range_low": -0.159,
      "range_high": 0.256,
@@ -29367,9 +29421,9 @@
     },
     {
      "months": 12,
-     "rank": 423,
+     "rank": 424,
      "score": 0.394,
-     "percentile": 0.153,
+     "percentile": 0.151,
      "volatility": 0.221,
      "range_low": -0.204,
      "range_high": 0.404,
@@ -29378,68 +29432,14 @@
     },
     {
      "months": 24,
-     "rank": 423,
+     "rank": 424,
      "score": 0.394,
-     "percentile": 0.153,
+     "percentile": 0.151,
      "volatility": 0.221,
      "range_low": -0.252,
      "range_high": 0.669,
      "chance_of_loss": 0.361,
      "hist_chance_of_loss": 0.05
-    }
-   ],
-   "weight": null
-  },
-  {
-   "ticker": "PANW",
-   "name": "Palo Alto Networks Inc",
-   "industry": "Tech hardware & electronics",
-   "price": 330.89,
-   "ret_1y": 0.5024,
-   "measures": {
-    "earnings_yield": 0.089,
-    "book_to_market": 0.247,
-    "gross_prof": 0.176,
-    "roa": 0.226,
-    "rev_growth": 0.797,
-    "leverage": 0.829
-   },
-   "traits": [
-    "Expensive vs. earnings"
-   ],
-   "horizons": [
-    {
-     "months": 6,
-     "rank": 424,
-     "score": 0.394,
-     "percentile": 0.151,
-     "volatility": 0.455,
-     "range_low": -0.346,
-     "range_high": 0.493,
-     "chance_of_loss": 0.515,
-     "hist_chance_of_loss": 0.311
-    },
-    {
-     "months": 12,
-     "rank": 424,
-     "score": 0.394,
-     "percentile": 0.151,
-     "volatility": 0.455,
-     "range_low": -0.455,
-     "range_high": 0.751,
-     "chance_of_loss": 0.521,
-     "hist_chance_of_loss": 0.242
-    },
-    {
-     "months": 24,
-     "rank": 424,
-     "score": 0.394,
-     "percentile": 0.151,
-     "volatility": 0.455,
-     "range_low": -0.582,
-     "range_high": 1.177,
-     "chance_of_loss": 0.529,
-     "hist_chance_of_loss": 0.081
     }
    ],
    "weight": null
@@ -30047,10 +30047,10 @@
    "name": "Ameriprise Financial Inc",
    "industry": "Finance",
    "price": 518.3,
-   "ret_1y": 0.1599,
+   "ret_1y": 0.1639,
    "measures": {
-    "earnings_yield": 0.874,
-    "book_to_market": 0.249,
+    "earnings_yield": 0.872,
+    "book_to_market": 0.247,
     "gross_prof": null,
     "roa": 0.175,
     "rev_growth": 0.406,
@@ -30068,7 +30068,7 @@
      "percentile": 0.127,
      "volatility": 0.238,
      "range_low": -0.173,
-     "range_high": 0.273,
+     "range_high": 0.274,
      "chance_of_loss": 0.439,
      "hist_chance_of_loss": 0.305
     },
@@ -30090,7 +30090,7 @@
      "percentile": 0.127,
      "volatility": 0.238,
      "range_low": -0.28,
-     "range_high": 0.707,
+     "range_high": 0.708,
      "chance_of_loss": 0.38,
      "hist_chance_of_loss": 0.117
     }
@@ -30923,7 +30923,7 @@
    "name": "Fedex Corp",
    "industry": "Transport",
    "price": 318.84,
-   "ret_1y": 0.5854,
+   "ret_1y": 0.5853,
    "measures": {
     "earnings_yield": 0.054,
     "book_to_market": 0.577,
@@ -31087,8 +31087,8 @@
    "ticker": "MCHP",
    "name": "Microchip Technology Inc",
    "industry": "Tech hardware & electronics",
-   "price": 61.49,
-   "ret_1y": 0.011,
+   "price": 61.5,
+   "ret_1y": 0.0111,
    "measures": {
     "earnings_yield": 0.1,
     "book_to_market": 0.405,
@@ -33428,7 +33428,7 @@
    "price": 252.56,
    "ret_1y": 0.1447,
    "measures": {
-    "earnings_yield": 0.335,
+    "earnings_yield": 0.338,
     "book_to_market": 0.081,
     "gross_prof": 0.128,
     "roa": 0.266,
@@ -33444,7 +33444,7 @@
     {
      "months": 6,
      "rank": 497,
-     "score": 0.197,
+     "score": 0.198,
      "percentile": 0.004,
      "volatility": 0.359,
      "range_low": -0.272,
@@ -33455,7 +33455,7 @@
     {
      "months": 12,
      "rank": 497,
-     "score": 0.197,
+     "score": 0.198,
      "percentile": 0.004,
      "volatility": 0.359,
      "range_low": -0.359,
@@ -33466,7 +33466,7 @@
     {
      "months": 24,
      "rank": 497,
-     "score": 0.197,
+     "score": 0.198,
      "percentile": 0.004,
      "volatility": 0.359,
      "range_low": -0.462,
