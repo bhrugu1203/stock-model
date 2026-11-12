@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-11T22:39:57+00:00",
+ "generated": "2026-11-12T11:57:49+00:00",
  "data_through": "2026-11-11",
  "demo": false,
  "holdout_from": 2023,
@@ -4392,7 +4392,7 @@
     {
      "start": "2016-10",
      "end": "2018-10",
-     "picks": 0.4974,
+     "picks": 0.4973,
      "average_stock": 0.2859,
      "sp500": 0.3227,
      "pick_wins": 38,
@@ -12004,7 +12004,7 @@
    "ticker": "MSFT",
    "name": "Microsoft Corp",
    "industry": "Software & business services",
-   "price": 521.12,
+   "price": 521.13,
    "ret_1y": 0.0147,
    "measures": {
     "earnings_yield": 0.279,
@@ -12223,7 +12223,7 @@
    "name": "Dexcom Inc",
    "industry": "Manufacturing",
    "price": 80.35,
-   "ret_1y": 0.38,
+   "ret_1y": 0.3801,
    "measures": {
     "earnings_yield": 0.292,
     "book_to_market": 0.151,
@@ -14096,8 +14096,8 @@
    "ticker": "CSGP",
    "name": "Costar Group, Inc.",
    "industry": "Software & business services",
-   "price": 30.26,
-   "ret_1y": -0.5602,
+   "price": 30.27,
+   "ret_1y": -0.5601,
    "measures": {
     "earnings_yield": 0.063,
     "book_to_market": 0.863,
@@ -14259,60 +14259,6 @@
    "weight": null
   },
   {
-   "ticker": "GEN",
-   "name": "Gen Digital Inc.",
-   "industry": "Software & business services",
-   "price": 30.64,
-   "ret_1y": 0.1854,
-   "measures": {
-    "earnings_yield": 0.799,
-    "book_to_market": 0.326,
-    "gross_prof": 0.507,
-    "roa": 0.551,
-    "rev_growth": 0.927,
-    "leverage": 0.214
-   },
-   "traits": [
-    "Fast revenue growth"
-   ],
-   "horizons": [
-    {
-     "months": 6,
-     "rank": 144,
-     "score": 0.554,
-     "percentile": 0.713,
-     "volatility": 0.414,
-     "range_low": -0.315,
-     "range_high": 0.451,
-     "chance_of_loss": 0.504,
-     "hist_chance_of_loss": 0.416
-    },
-    {
-     "months": 12,
-     "rank": 144,
-     "score": 0.554,
-     "percentile": 0.713,
-     "volatility": 0.414,
-     "range_low": -0.415,
-     "range_high": 0.69,
-     "chance_of_loss": 0.505,
-     "hist_chance_of_loss": 0.361
-    },
-    {
-     "months": 24,
-     "rank": 144,
-     "score": 0.554,
-     "percentile": 0.713,
-     "volatility": 0.414,
-     "range_low": -0.533,
-     "range_high": 1.093,
-     "chance_of_loss": 0.508,
-     "hist_chance_of_loss": 0.246
-    }
-   ],
-   "weight": null
-  },
-  {
    "ticker": "DG",
    "name": "Dollar General Corp",
    "industry": "Retail",
@@ -14330,9 +14276,9 @@
    "horizons": [
     {
      "months": 6,
-     "rank": 145,
+     "rank": 144,
      "score": 0.554,
-     "percentile": 0.711,
+     "percentile": 0.713,
      "volatility": 0.364,
      "range_low": -0.276,
      "range_high": 0.401,
@@ -14341,9 +14287,9 @@
     },
     {
      "months": 12,
-     "rank": 145,
+     "rank": 144,
      "score": 0.554,
-     "percentile": 0.711,
+     "percentile": 0.713,
      "volatility": 0.364,
      "range_low": -0.364,
      "range_high": 0.617,
@@ -14352,14 +14298,68 @@
     },
     {
      "months": 24,
-     "rank": 145,
+     "rank": 144,
      "score": 0.554,
-     "percentile": 0.711,
+     "percentile": 0.713,
      "volatility": 0.364,
      "range_low": -0.469,
      "range_high": 0.989,
      "chance_of_loss": 0.479,
      "hist_chance_of_loss": 0.212
+    }
+   ],
+   "weight": null
+  },
+  {
+   "ticker": "GEN",
+   "name": "Gen Digital Inc.",
+   "industry": "Software & business services",
+   "price": 30.64,
+   "ret_1y": 0.1856,
+   "measures": {
+    "earnings_yield": 0.799,
+    "book_to_market": 0.323,
+    "gross_prof": 0.507,
+    "roa": 0.551,
+    "rev_growth": 0.927,
+    "leverage": 0.214
+   },
+   "traits": [
+    "Fast revenue growth"
+   ],
+   "horizons": [
+    {
+     "months": 6,
+     "rank": 145,
+     "score": 0.553,
+     "percentile": 0.711,
+     "volatility": 0.414,
+     "range_low": -0.315,
+     "range_high": 0.451,
+     "chance_of_loss": 0.504,
+     "hist_chance_of_loss": 0.416
+    },
+    {
+     "months": 12,
+     "rank": 145,
+     "score": 0.553,
+     "percentile": 0.711,
+     "volatility": 0.414,
+     "range_low": -0.415,
+     "range_high": 0.69,
+     "chance_of_loss": 0.505,
+     "hist_chance_of_loss": 0.361
+    },
+    {
+     "months": 24,
+     "rank": 145,
+     "score": 0.553,
+     "percentile": 0.711,
+     "volatility": 0.414,
+     "range_low": -0.533,
+     "range_high": 1.093,
+     "chance_of_loss": 0.508,
+     "hist_chance_of_loss": 0.246
     }
    ],
    "weight": null
@@ -20440,6 +20440,60 @@
    "weight": null
   },
   {
+   "ticker": "BBY",
+   "name": "Best Buy Co Inc",
+   "industry": "Retail",
+   "price": 105.16,
+   "ret_1y": 0.3484,
+   "measures": {
+    "earnings_yield": 0.753,
+    "book_to_market": 0.326,
+    "gross_prof": 0.922,
+    "roa": 0.584,
+    "rev_growth": 0.167,
+    "leverage": 0.234
+   },
+   "traits": [
+    "Highly profitable business"
+   ],
+   "horizons": [
+    {
+     "months": 6,
+     "rank": 258,
+     "score": 0.498,
+     "percentile": 0.484,
+     "volatility": 0.339,
+     "range_low": -0.256,
+     "range_high": 0.375,
+     "chance_of_loss": 0.481,
+     "hist_chance_of_loss": 0.447
+    },
+    {
+     "months": 12,
+     "rank": 258,
+     "score": 0.498,
+     "percentile": 0.484,
+     "volatility": 0.339,
+     "range_low": -0.337,
+     "range_high": 0.579,
+     "chance_of_loss": 0.473,
+     "hist_chance_of_loss": 0.429
+    },
+    {
+     "months": 24,
+     "rank": 258,
+     "score": 0.498,
+     "percentile": 0.484,
+     "volatility": 0.339,
+     "range_low": -0.433,
+     "range_high": 0.933,
+     "chance_of_loss": 0.462,
+     "hist_chance_of_loss": 0.313
+    }
+   ],
+   "weight": null
+  },
+  {
    "ticker": "ETR",
    "name": "Entergy Corp /De/",
    "industry": "Utilities",
@@ -20457,9 +20511,9 @@
    "horizons": [
     {
      "months": 6,
-     "rank": 258,
+     "rank": 259,
      "score": 0.497,
-     "percentile": 0.484,
+     "percentile": 0.482,
      "volatility": 0.197,
      "range_low": -0.138,
      "range_high": 0.233,
@@ -20468,9 +20522,9 @@
     },
     {
      "months": 12,
-     "rank": 258,
+     "rank": 259,
      "score": 0.497,
-     "percentile": 0.484,
+     "percentile": 0.482,
      "volatility": 0.197,
      "range_low": -0.175,
      "range_high": 0.368,
@@ -20479,68 +20533,14 @@
     },
     {
      "months": 24,
-     "rank": 258,
+     "rank": 259,
      "score": 0.497,
-     "percentile": 0.484,
+     "percentile": 0.482,
      "volatility": 0.197,
      "range_low": -0.211,
      "range_high": 0.614,
      "chance_of_loss": 0.332,
      "hist_chance_of_loss": 0.156
-    }
-   ],
-   "weight": null
-  },
-  {
-   "ticker": "BBY",
-   "name": "Best Buy Co Inc",
-   "industry": "Retail",
-   "price": 105.16,
-   "ret_1y": 0.3484,
-   "measures": {
-    "earnings_yield": 0.753,
-    "book_to_market": 0.323,
-    "gross_prof": 0.922,
-    "roa": 0.584,
-    "rev_growth": 0.167,
-    "leverage": 0.234
-   },
-   "traits": [
-    "Highly profitable business"
-   ],
-   "horizons": [
-    {
-     "months": 6,
-     "rank": 259,
-     "score": 0.497,
-     "percentile": 0.482,
-     "volatility": 0.339,
-     "range_low": -0.256,
-     "range_high": 0.375,
-     "chance_of_loss": 0.481,
-     "hist_chance_of_loss": 0.447
-    },
-    {
-     "months": 12,
-     "rank": 259,
-     "score": 0.497,
-     "percentile": 0.482,
-     "volatility": 0.339,
-     "range_low": -0.337,
-     "range_high": 0.579,
-     "chance_of_loss": 0.473,
-     "hist_chance_of_loss": 0.429
-    },
-    {
-     "months": 24,
-     "rank": 259,
-     "score": 0.497,
-     "percentile": 0.482,
-     "volatility": 0.339,
-     "range_low": -0.433,
-     "range_high": 0.933,
-     "chance_of_loss": 0.462,
-     "hist_chance_of_loss": 0.313
     }
    ],
    "weight": null
@@ -29830,7 +29830,7 @@
    "ticker": "CME",
    "name": "Cme Group Inc.",
    "industry": "Finance",
-   "price": 315.86,
+   "price": 315.87,
    "ret_1y": 0.2359,
    "measures": {
     "earnings_yield": 0.491,
@@ -34318,7 +34318,7 @@
     "days": 4,
     "avg_ret": 0.0112,
     "avg_sp_ret": 0.014,
-    "days_ahead": 1,
+    "days_ahead": 2,
     "holdings": 99,
     "top": "NVDA",
     "top_weight": 0.2286
