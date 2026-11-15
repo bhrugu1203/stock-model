@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-14T11:37:47+00:00",
+ "generated": "2026-11-15T11:39:08+00:00",
  "data_through": "2026-11-13",
  "demo": false,
  "holdout_from": 2023,
@@ -121,7 +121,7 @@
      "end": "2019-01",
      "picks": -0.0425,
      "average_stock": -0.0354,
-     "sp500": -0.0305,
+     "sp500": -0.0306,
      "pick_wins": 35,
      "pick_count": 82
     },
@@ -4396,7 +4396,7 @@
     {
      "start": "2016-10",
      "end": "2018-10",
-     "picks": 0.4974,
+     "picks": 0.4973,
      "average_stock": 0.2859,
      "sp500": 0.3227,
      "pick_wins": 38,
@@ -16674,7 +16674,7 @@
      "volatility": 0.194,
      "range_low": -0.135,
      "range_high": 0.229,
-     "chance_of_loss": 0.411,
+     "chance_of_loss": 0.412,
      "hist_chance_of_loss": 0.264
     },
     {
@@ -21680,7 +21680,7 @@
    "name": "Dte Energy Co",
    "industry": "Utilities",
    "price": 139.72,
-   "ret_1y": 0.0664,
+   "ret_1y": 0.0663,
    "measures": {
     "earnings_yield": 0.708,
     "book_to_market": 0.688,
@@ -31156,7 +31156,7 @@
    "name": "3M Co",
    "industry": "Manufacturing",
    "price": 183.66,
-   "ret_1y": 0.1282,
+   "ret_1y": 0.1281,
    "measures": {
     "earnings_yield": 0.45,
     "book_to_market": 0.037,
