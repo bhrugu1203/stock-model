@@ -27,6 +27,7 @@ from features import build_panel
 OUT = os.path.join(config.OUTPUT_DIR, "forecast.json")
 START_MONTHS = [1, 4, 7, 10]   # track record: a new set of picks every quarter
 MARKET_DRIFT = 0.08             # assumed long-run yearly stock return, used for the risk range
+MIN_PRICE_COVERAGE = 0.9       # share of today's S&P 500 members that must have a price on the latest day
 TRAITS = {                      # plain-English labels for a stock that ranks in the top or bottom 15%
     "earnings_yield": ("Cheap vs. earnings", "Expensive vs. earnings"),
     "book_to_market": ("Cheap vs. book value", "Expensive vs. book value"),
@@ -239,6 +240,39 @@ def industry_mix(stocks, size, date):
     return sorted(rows, key=lambda r: (r["industry"] == "Other", -r["portfolio"], -r["sp500"]))
 
 
+def download_problem(monthly, spy, members, previous=None):
+    """Why a fresh price download can't be trusted to make picks, or None if it looks complete.
+
+    Yahoo sometimes returns only part of a day (some stocks missing their latest price) or an
+    older copy. Picks made from that would be saved to the permanent live record, so it's
+    better to skip one update and keep the last good picks.
+    """
+    if monthly.empty or spy.dropna().empty:
+        return "no prices came back"
+    last = monthly.index[-1]
+    if pd.isna(spy.iloc[-1]):
+        return f"the S&P 500 (SPY) has no price for {last:%Y-%m-%d}"
+    current = members.iloc[-1] if len(members) else pd.Series(dtype=bool)
+    current = current[current].index.intersection(monthly.columns)
+    if len(current):
+        have = monthly.loc[last, current].notna().mean()
+        if have < MIN_PRICE_COVERAGE:
+            return (f"only {have:.0%} of current S&P 500 members have a price for {last:%Y-%m-%d} "
+                    f"(need {MIN_PRICE_COVERAGE:.0%})")
+    before = (previous or {}).get("data_through")
+    if before and not (previous or {}).get("demo") and last < pd.Timestamp(before):
+        return f"the prices end on {last:%Y-%m-%d}, older than the last picks ({before})"
+    return None
+
+
+def _previous():
+    try:
+        with open(OUT) as f:
+            return json.load(f)
+    except (OSError, ValueError):
+        return None
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--demo", action="store_true", help="fake data, offline (results meaningless)")
@@ -252,6 +286,11 @@ def main():
         fund = fundamentals.synthetic(monthly)
     else:
         monthly, spy, members = data.load_prices(refresh=args.refresh_prices)
+        problem = download_problem(monthly, spy, members, _previous())
+        if problem:
+            # keep yesterday's picks and live record untouched; the website still rebuilds with fresh news
+            print(f"::warning::Picks not remade: {problem}. Keeping the last good picks.")
+            return
         fund = fundamentals.build(monthly)
     fund["size"] = fundamentals.company_size(monthly, fund)
 
