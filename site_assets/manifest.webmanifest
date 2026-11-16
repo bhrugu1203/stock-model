@@ -1,0 +1,22 @@
+{
+  "name": "Bhrugu's Stock Model",
+  "short_name": "Stock Model",
+  "description": "Daily S&P 500 stock picks from company financials, with an honest backtest, a live track record, stock lookup and market news.",
+  "id": "./",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0f2a1f",
+  "theme_color": "#0f2a1f",
+  "categories": ["finance", "education"],
+  "icons": [
+    {"src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"},
+    {"src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any"},
+    {"src": "icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}
+  ],
+  "shortcuts": [
+    {"name": "Today's picks", "url": "./#picks", "icons": [{"src": "icons/icon-192.png", "sizes": "192x192"}]},
+    {"name": "Stock lookup", "url": "./#lookup", "icons": [{"src": "icons/icon-192.png", "sizes": "192x192"}]},
+    {"name": "Market news", "url": "./#news", "icons": [{"src": "icons/icon-192.png", "sizes": "192x192"}]}
+  ]
+}

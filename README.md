@@ -59,6 +59,17 @@ Live at https://bhrugu1203.github.io/stock-model/, rebuilt by GitHub after every
 
 Holding periods and number of picks are `PICK_HORIZONS` and `N_PICKS` in `config.py`.
 
+## Phone app
+
+The website installs as an app with its own home-screen icon:
+- **iPhone:** open the site in Safari, tap Share, then Add to Home Screen.
+- **Android / Chrome / Edge:** tap **Get the app** in the header (or the browser's Install option).
+
+It is the same page, so it updates whenever the site does, and offline it opens the last picks it saw. On phones the
+tabs sit in one row you can swipe. `dashboard.py` copies the app files from `site_assets/` (manifest, `sw.js` offline
+copy, `pwa.js` install button, `pwa.css`, icons) next to `index.html`. If you change `sw.js`, bump `VERSION` so phones
+pick up the new copy.
+
 ## Market news
 
 ```bash
