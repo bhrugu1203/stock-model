@@ -1,0 +1,53 @@
+# Quick checks on every pull request, so a change that would break the daily update or the
+# website shows up as a red X on the pull request instead of after it is merged.
+# Uses only fake data and the files already in the repo: nothing is downloaded, committed or published.
+name: Checks
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      TZ: America/New_York
+      MPLBACKEND: Agg
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"   # same as the daily update
+          cache: pip
+
+      - run: pip install -r requirements.txt
+
+      - name: Code compiles and loads
+        run: |
+          python -m compileall -q -x '(^|/)\.' .
+          python -c "import config, data, features, backtest, fundamentals, forecast, live, dashboard, news, newsmatch, picks, run, experiments, holdout"
+
+      - name: Model runs end to end on fake data
+        run: python tests/smoke_test.py
+
+      - name: Website builds from the saved picks and news
+        run: python dashboard.py
+
+      - name: Website script has no syntax errors
+        run: |
+          node -e '
+            const html = require("fs").readFileSync("outputs/site/index.html", "utf8");
+            const tags = [...html.matchAll(/<script([^>]*)>([\s\S]*?)<\/script>/g)];
+            let n = 0;
+            for (const [, attrs, body] of tags) {
+              if (/\bsrc=/.test(attrs) || !body.trim()) continue;
+              if (/type="application\/(ld\+)?json"/.test(attrs)) { JSON.parse(body); continue; }
+              try { new Function(body); n++ } catch (e) { console.error("website script: " + e.message); process.exit(1) }
+            }
+            console.log("outputs/site/index.html: " + n + " script(s) parse, embedded data is valid JSON");
+          '
