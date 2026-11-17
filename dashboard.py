@@ -5,6 +5,7 @@ Everything is embedded in one self-contained page, so it works from GitHub Pages
 """
 import json
 import os
+import shutil
 from datetime import datetime, timedelta, timezone
 
 import config
@@ -12,6 +13,7 @@ import news
 import newsmatch
 
 SITE_DIR = os.path.join(config.OUTPUT_DIR, "site")
+APP_FILES = os.path.join(os.path.dirname(os.path.abspath(__file__)), "site_assets")  # phone app: manifest, offline copy, icons
 PAGE = os.path.join(SITE_DIR, "index.html")
 FORECAST = os.path.join(config.OUTPUT_DIR, "forecast.json")
 
@@ -49,15 +51,24 @@ def build():
     os.makedirs(SITE_DIR, exist_ok=True)
     with open(PAGE, "w", encoding="utf-8") as f:
         f.write(TEMPLATE.replace("__DATA__", blob))
+    if os.path.isdir(APP_FILES):
+        shutil.copytree(APP_FILES, SITE_DIR, dirs_exist_ok=True)
     return PAGE
 
 
 TEMPLATE = r"""<!doctype html>
 <html lang="en"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Bhrugu's Stock Model</title>
 <meta name="description" content="Daily S&amp;P 500 stock picks from company financials, with an honest backtest, a live track record, stock lookup and market news.">
 <meta name="theme-color" content="#0f2a1f">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Stock Model">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<script src="pwa.js" defer></script>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 34 34'%3E%3Ccircle cx='17' cy='17' r='16.5' fill='%230f2a1f'/%3E%3Ccircle cx='17' cy='17' r='14' fill='none' stroke='%23b08d57' stroke-width='1.6'/%3E%3Ctext x='17' y='24' text-anchor='middle' font-family='Georgia,serif' font-size='19' font-weight='700' fill='%23b08d57'%3EB%3C/text%3E%3C/svg%3E">
 <script>try { const t = localStorage.getItem("theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -233,7 +244,8 @@ tr.drop .detail { margin:0; position:sticky; left:12px; box-sizing:border-box; }
 @media (max-width:1060px) { .bar { padding-top:10px; gap:0 20px; } nav { order:3; width:100%; margin:0 -12px; } nav button { min-height:44px; } .hright { order:2; } }
 @media (max-width:640px) { .hright { position:absolute; top:14px; right:16px; } .stamp { display:none; } .bar { gap:4px; padding-top:10px; position:relative; }
   nav button { min-height:44px; padding:0 10px; } h1 { font-size:26px; } .foot { grid-template-columns:1fr; } .hbar { grid-template-columns:110px 1fr 46px; } }
-</style></head>
+</style>
+<link rel="stylesheet" href="pwa.css"></head>
 <body>
 <header><div class="bar">
   <div class="logo"><svg viewBox="0 0 34 34" fill="none" aria-hidden="true"><circle cx="17" cy="17" r="15.6" stroke="var(--logo)" stroke-width="1.5"/><circle cx="17" cy="17" r="12.6" stroke="var(--logo)" stroke-width=".7"/><text x="17" y="23.6" text-anchor="middle" font-family="'Source Serif 4', Georgia, serif" font-size="18" font-weight="700" fill="var(--logo)">B</text></svg><span><span class="wm">Bhrugu&rsquo;s Stock Model</span><span class="sub">S&amp;P 500 research</span></span></div>
