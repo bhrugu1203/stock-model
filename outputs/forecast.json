@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-17T22:26:49+00:00",
+ "generated": "2026-11-18T11:59:38+00:00",
  "data_through": "2026-11-17",
  "demo": false,
  "holdout_from": 2023,
@@ -121,7 +121,7 @@
      "end": "2019-01",
      "picks": -0.0425,
      "average_stock": -0.0354,
-     "sp500": -0.0306,
+     "sp500": -0.0305,
      "pick_wins": 35,
      "pick_count": 82
     },
@@ -4386,7 +4386,7 @@
     {
      "start": "2016-10",
      "end": "2018-10",
-     "picks": 0.4973,
+     "picks": 0.4974,
      "average_stock": 0.2859,
      "sp500": 0.3227,
      "pick_wins": 38,
@@ -14906,8 +14906,8 @@
    "ticker": "NDAQ",
    "name": "Nasdaq, Inc.",
    "industry": "Finance",
-   "price": 105.12,
-   "ret_1y": 0.2459,
+   "price": 105.13,
+   "ret_1y": 0.246,
    "measures": {
     "earnings_yield": 0.517,
     "book_to_market": 0.474,
@@ -31679,7 +31679,7 @@
      "percentile": 0.068,
      "volatility": 0.303,
      "range_low": -0.382,
-     "range_high": 0.855,
+     "range_high": 0.854,
      "chance_of_loss": 0.437,
      "hist_chance_of_loss": 0.385
     }
