@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-21T11:45:47+00:00",
+ "generated": "2026-11-22T11:44:08+00:00",
  "data_through": "2026-11-20",
  "demo": false,
  "holdout_from": 2023,
@@ -121,7 +121,7 @@
      "end": "2019-01",
      "picks": -0.0425,
      "average_stock": -0.0354,
-     "sp500": -0.0306,
+     "sp500": -0.0305,
      "pick_wins": 35,
      "pick_count": 82
     },
@@ -255,7 +255,7 @@
      "start": "2022-04",
      "end": "2022-10",
      "picks": -0.0825,
-     "average_stock": -0.0405,
+     "average_stock": -0.0406,
      "sp500": -0.0547,
      "pick_wins": 38,
      "pick_count": 91
@@ -278,8 +278,8 @@
     },
     {
      "bucket": "20-40%",
-     "hit_rate": 0.468,
-     "n": 2275
+     "hit_rate": 0.467,
+     "n": 2274
     },
     {
      "bucket": "40-60%",
@@ -288,8 +288,8 @@
     },
     {
      "bucket": "60-80%",
-     "hit_rate": 0.514,
-     "n": 2275
+     "hit_rate": 0.515,
+     "n": 2274
     },
     {
      "bucket": "Top 20%",
@@ -4388,7 +4388,7 @@
     {
      "start": "2016-10",
      "end": "2018-10",
-     "picks": 0.4974,
+     "picks": 0.4973,
      "average_stock": 0.2859,
      "sp500": 0.3227,
      "pick_wins": 38,
