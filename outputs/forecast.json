@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-22T11:44:08+00:00",
+ "generated": "2026-11-23T12:00:41+00:00",
  "data_through": "2026-11-20",
  "demo": false,
  "holdout_from": 2023,
@@ -121,7 +121,7 @@
      "end": "2019-01",
      "picks": -0.0425,
      "average_stock": -0.0354,
-     "sp500": -0.0305,
+     "sp500": -0.0306,
      "pick_wins": 35,
      "pick_count": 82
     },
