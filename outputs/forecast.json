@@ -1,6 +1,6 @@
 {
- "generated": "2026-11-26T22:28:52+00:00",
- "data_through": "2026-11-25",
+ "generated": "2026-11-27T11:57:27+00:00",
+ "data_through": "2026-11-26",
  "demo": false,
  "holdout_from": 2023,
  "top_fraction": 0.2,
@@ -33693,15 +33693,24 @@
    {
     "months": 6,
     "label": "6 months",
-    "picks": 1614,
+    "picks": 1713,
     "closed": 0,
-    "open": 1614,
+    "open": 1713,
     "closed_wins": 0,
     "closed_losses": 0,
-    "open_beating": 1119,
-    "avg_ret": -0.0427,
-    "avg_sp_ret": -0.028,
+    "open_beating": 1150,
+    "avg_ret": -0.0405,
+    "avg_sp_ret": -0.0265,
     "cohorts": [
+     {
+      "date": "2026-11-26",
+      "ret": 0.0,
+      "sp_ret": 0.0,
+      "beat": 31,
+      "n": 99,
+      "closed": false,
+      "tickers": "NVDA MSFT AMZN AVGO GOOGL"
+     },
      {
       "date": "2026-11-25",
       "ret": 0.0,
@@ -33972,20 +33981,29 @@
       "sp_ret": -0.0471
      }
     ],
-    "latest_date": "2026-11-25"
+    "latest_date": "2026-11-26"
    },
    {
     "months": 12,
     "label": "1 year",
-    "picks": 1614,
+    "picks": 1713,
     "closed": 0,
-    "open": 1614,
+    "open": 1713,
     "closed_wins": 0,
     "closed_losses": 0,
-    "open_beating": 1119,
-    "avg_ret": -0.0443,
-    "avg_sp_ret": -0.028,
+    "open_beating": 1150,
+    "avg_ret": -0.042,
+    "avg_sp_ret": -0.0265,
     "cohorts": [
+     {
+      "date": "2026-11-26",
+      "ret": 0.0,
+      "sp_ret": 0.0,
+      "beat": 31,
+      "n": 99,
+      "closed": false,
+      "tickers": "NVDA MSFT AMZN AVGO GOOGL"
+     },
      {
       "date": "2026-11-25",
       "ret": 0.0,
@@ -34256,20 +34274,29 @@
       "sp_ret": -0.0471
      }
     ],
-    "latest_date": "2026-11-25"
+    "latest_date": "2026-11-26"
    },
    {
     "months": 24,
     "label": "2 years",
-    "picks": 1614,
+    "picks": 1713,
     "closed": 0,
-    "open": 1614,
+    "open": 1713,
     "closed_wins": 0,
     "closed_losses": 0,
-    "open_beating": 1121,
-    "avg_ret": -0.0425,
-    "avg_sp_ret": -0.028,
+    "open_beating": 1152,
+    "avg_ret": -0.0403,
+    "avg_sp_ret": -0.0265,
     "cohorts": [
+     {
+      "date": "2026-11-26",
+      "ret": 0.0,
+      "sp_ret": 0.0,
+      "beat": 31,
+      "n": 99,
+      "closed": false,
+      "tickers": "NVDA MSFT AMZN AVGO GOOGL"
+     },
      {
       "date": "2026-11-25",
       "ret": 0.0,
@@ -34540,7 +34567,7 @@
       "sp_ret": -0.0471
      }
     ],
-    "latest_date": "2026-11-25"
+    "latest_date": "2026-11-26"
    }
   ]
  },
@@ -34551,9 +34578,9 @@
    {
     "version": "main",
     "description": "The official model: top 20% by score, sized by company value",
-    "days": 14,
-    "avg_ret": -0.0409,
-    "avg_sp_ret": -0.0228,
+    "days": 15,
+    "avg_ret": -0.0382,
+    "avg_sp_ret": -0.0213,
     "days_ahead": 1,
     "holdings": 98,
     "top": "NVDA",
@@ -34562,9 +34589,9 @@
    {
     "version": "capped",
     "description": "Same stocks, but no single stock over 10%",
-    "days": 14,
-    "avg_ret": -0.0347,
-    "avg_sp_ret": -0.0228,
+    "days": 15,
+    "avg_ret": -0.0324,
+    "avg_sp_ret": -0.0213,
     "days_ahead": 1,
     "holdings": 98,
     "top": "NVDA",
@@ -34573,9 +34600,9 @@
    {
     "version": "equal",
     "description": "Same stocks, the same amount in each",
-    "days": 14,
-    "avg_ret": -0.0046,
-    "avg_sp_ret": -0.0228,
+    "days": 15,
+    "avg_ret": -0.0043,
+    "avg_sp_ret": -0.0213,
     "days_ahead": 13,
     "holdings": 99,
     "top": "NVDA",
@@ -34584,9 +34611,9 @@
    {
     "version": "momentum",
     "description": "Six measures plus 12-month price momentum, sized by company value",
-    "days": 14,
-    "avg_ret": -0.0366,
-    "avg_sp_ret": -0.0228,
+    "days": 15,
+    "avg_ret": -0.0341,
+    "avg_sp_ret": -0.0213,
     "days_ahead": 2,
     "holdings": 99,
     "top": "NVDA",
