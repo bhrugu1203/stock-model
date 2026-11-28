@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-27T22:29:36+00:00",
+ "generated": "2026-11-28T11:49:09+00:00",
  "data_through": "2026-11-27",
  "demo": false,
  "holdout_from": 2023,
@@ -121,7 +121,7 @@
      "end": "2019-01",
      "picks": -0.0425,
      "average_stock": -0.0354,
-     "sp500": -0.0306,
+     "sp500": -0.0305,
      "pick_wins": 35,
      "pick_count": 82
     },
@@ -532,7 +532,7 @@
      "name": "Lam Research Corp",
      "weight": 0.0097,
      "score_rank": 28,
-     "probability": 0.68,
+     "probability": 0.681,
      "percentile": 0.946,
      "price": 192.69,
      "traits": [
@@ -738,7 +738,7 @@
      "name": "Regeneron Pharmaceuticals, Inc.",
      "weight": 0.0046,
      "score_rank": 86,
-     "probability": 0.599,
+     "probability": 0.6,
      "percentile": 0.829,
      "price": 992.14,
      "traits": [
@@ -1355,7 +1355,7 @@
      "traits": [],
      "volatility": 0.173,
      "range_low": -0.117,
-     "range_high": 0.208,
+     "range_high": 0.209,
      "chance_of_loss": 0.395,
      "hist_chance_of_loss": 0.213
     },
@@ -2690,7 +2690,7 @@
      "name": "Lam Research Corp",
      "weight": 0.0097,
      "score_rank": 28,
-     "probability": 0.68,
+     "probability": 0.681,
      "percentile": 0.946,
      "price": 192.69,
      "traits": [
@@ -2896,7 +2896,7 @@
      "name": "Regeneron Pharmaceuticals, Inc.",
      "weight": 0.0046,
      "score_rank": 86,
-     "probability": 0.599,
+     "probability": 0.6,
      "percentile": 0.829,
      "price": 992.14,
      "traits": [
@@ -4390,7 +4390,7 @@
     {
      "start": "2016-10",
      "end": "2018-10",
-     "picks": 0.4974,
+     "picks": 0.4973,
      "average_stock": 0.2859,
      "sp500": 0.3227,
      "pick_wins": 38,
@@ -4812,7 +4812,7 @@
      "name": "Lam Research Corp",
      "weight": 0.0097,
      "score_rank": 28,
-     "probability": 0.68,
+     "probability": 0.681,
      "percentile": 0.946,
      "price": 192.69,
      "traits": [
@@ -5018,7 +5018,7 @@
      "name": "Regeneron Pharmaceuticals, Inc.",
      "weight": 0.0046,
      "score_rank": 86,
-     "probability": 0.599,
+     "probability": 0.6,
      "percentile": 0.829,
      "price": 992.14,
      "traits": [
@@ -7092,7 +7092,7 @@
    "ret_1y": -0.3101,
    "measures": {
     "earnings_yield": 0.9,
-    "book_to_market": 0.237,
+    "book_to_market": 0.24,
     "gross_prof": 0.956,
     "roa": 0.975,
     "rev_growth": 0.707,
@@ -7973,7 +7973,7 @@
    "price": 192.69,
    "ret_1y": 0.2294,
    "measures": {
-    "earnings_yield": 0.449,
+    "earnings_yield": 0.451,
     "book_to_market": 0.077,
     "gross_prof": 0.868,
     "roa": 0.989,
@@ -7990,7 +7990,7 @@
     {
      "months": 6,
      "rank": 28,
-     "score": 0.68,
+     "score": 0.681,
      "percentile": 0.946,
      "volatility": 0.548,
      "range_low": -0.412,
@@ -8001,7 +8001,7 @@
     {
      "months": 12,
      "rank": 28,
-     "score": 0.68,
+     "score": 0.681,
      "percentile": 0.946,
      "volatility": 0.548,
      "range_low": -0.538,
@@ -8012,7 +8012,7 @@
     {
      "months": 24,
      "rank": 28,
-     "score": 0.68,
+     "score": 0.681,
      "percentile": 0.946,
      "volatility": 0.548,
      "range_low": -0.678,
@@ -8031,7 +8031,7 @@
    "ret_1y": 0.2359,
    "measures": {
     "earnings_yield": 0.779,
-    "book_to_market": 0.23,
+    "book_to_market": 0.233,
     "gross_prof": 0.949,
     "roa": 0.924,
     "rev_growth": 0.662,
@@ -10013,7 +10013,7 @@
      "percentile": 0.871,
      "volatility": 0.173,
      "range_low": -0.117,
-     "range_high": 0.208,
+     "range_high": 0.209,
      "chance_of_loss": 0.395,
      "hist_chance_of_loss": 0.213
     },
@@ -10703,7 +10703,7 @@
    "ret_1y": -0.3208,
    "measures": {
     "earnings_yield": 0.685,
-    "book_to_market": 0.244,
+    "book_to_market": 0.247,
     "gross_prof": null,
     "roa": 0.913,
     "rev_growth": 0.713,
@@ -11136,7 +11136,7 @@
    "ret_1y": 0.5315,
    "measures": {
     "earnings_yield": 0.627,
-    "book_to_market": 0.542,
+    "book_to_market": 0.544,
     "gross_prof": null,
     "roa": 0.786,
     "rev_growth": 0.182,
@@ -11149,7 +11149,7 @@
     {
      "months": 6,
      "rank": 86,
-     "score": 0.599,
+     "score": 0.6,
      "percentile": 0.829,
      "volatility": 0.356,
      "range_low": -0.269,
@@ -11160,7 +11160,7 @@
     {
      "months": 12,
      "rank": 86,
-     "score": 0.599,
+     "score": 0.6,
      "percentile": 0.829,
      "volatility": 0.356,
      "range_low": -0.355,
@@ -11171,7 +11171,7 @@
     {
      "months": 24,
      "rank": 86,
-     "score": 0.599,
+     "score": 0.6,
      "percentile": 0.829,
      "volatility": 0.356,
      "range_low": -0.457,
@@ -12437,10 +12437,10 @@
    "name": "Huntington Ingalls Industries, Inc.",
    "industry": "Manufacturing",
    "price": 304.48,
-   "ret_1y": -0.0388,
+   "ret_1y": -0.0342,
    "measures": {
-    "earnings_yield": 0.709,
-    "book_to_market": 0.681,
+    "earnings_yield": 0.707,
+    "book_to_market": 0.679,
     "gross_prof": null,
     "roa": 0.436,
     "rev_growth": 0.578,
@@ -12451,7 +12451,7 @@
     {
      "months": 6,
      "rank": 110,
-     "score": 0.584,
+     "score": 0.583,
      "percentile": 0.781,
      "volatility": 0.396,
      "range_low": -0.301,
@@ -12462,7 +12462,7 @@
     {
      "months": 12,
      "rank": 110,
-     "score": 0.584,
+     "score": 0.583,
      "percentile": 0.781,
      "volatility": 0.396,
      "range_low": -0.397,
@@ -12473,10 +12473,10 @@
     {
      "months": 24,
      "rank": 110,
-     "score": 0.584,
+     "score": 0.583,
      "percentile": 0.781,
      "volatility": 0.396,
-     "range_low": -0.511,
+     "range_low": -0.51,
      "range_high": 1.056,
      "chance_of_loss": 0.498,
      "hist_chance_of_loss": 0.188
@@ -12755,9 +12755,9 @@
    "name": "Yum Brands Inc",
    "industry": "Retail",
    "price": 166.97,
-   "ret_1y": 0.2315,
+   "ret_1y": 0.2371,
    "measures": {
-    "earnings_yield": 0.451,
+    "earnings_yield": 0.449,
     "book_to_market": null,
     "gross_prof": 0.946,
     "roa": 0.945,
@@ -12776,9 +12776,9 @@
      "rank": 116,
      "score": 0.576,
      "percentile": 0.769,
-     "volatility": 0.225,
+     "volatility": 0.226,
      "range_low": -0.162,
-     "range_high": 0.26,
+     "range_high": 0.261,
      "chance_of_loss": 0.432,
      "hist_chance_of_loss": 0.284
     },
@@ -12787,9 +12787,9 @@
      "rank": 116,
      "score": 0.576,
      "percentile": 0.769,
-     "volatility": 0.225,
+     "volatility": 0.226,
      "range_low": -0.209,
-     "range_high": 0.409,
+     "range_high": 0.41,
      "chance_of_loss": 0.404,
      "hist_chance_of_loss": 0.157
     },
@@ -12798,9 +12798,9 @@
      "rank": 116,
      "score": 0.576,
      "percentile": 0.769,
-     "volatility": 0.225,
-     "range_low": -0.258,
-     "range_high": 0.678,
+     "volatility": 0.226,
+     "range_low": -0.259,
+     "range_high": 0.679,
      "chance_of_loss": 0.366,
      "hist_chance_of_loss": 0.017
     }
@@ -13485,7 +13485,7 @@
      "percentile": 0.743,
      "volatility": 0.255,
      "range_low": -0.244,
-     "range_high": 0.455,
+     "range_high": 0.454,
      "chance_of_loss": 0.426,
      "hist_chance_of_loss": 0.377
     },
@@ -13668,6 +13668,60 @@
    "weight": null
   },
   {
+   "ticker": "JNJ",
+   "name": "Johnson & Johnson",
+   "industry": "Chemicals & pharma",
+   "price": 275.51,
+   "ret_1y": 0.499,
+   "measures": {
+    "earnings_yield": 0.575,
+    "book_to_market": 0.235,
+    "gross_prof": 0.658,
+    "roa": 0.858,
+    "rev_growth": 0.435,
+    "leverage": 0.602
+   },
+   "traits": [
+    "Strong return on assets"
+   ],
+   "horizons": [
+    {
+     "months": 6,
+     "rank": 133,
+     "score": 0.56,
+     "percentile": 0.735,
+     "volatility": 0.18,
+     "range_low": -0.123,
+     "range_high": 0.215,
+     "chance_of_loss": 0.401,
+     "hist_chance_of_loss": 0.259
+    },
+    {
+     "months": 12,
+     "rank": 133,
+     "score": 0.56,
+     "percentile": 0.735,
+     "volatility": 0.18,
+     "range_low": -0.154,
+     "range_high": 0.342,
+     "chance_of_loss": 0.362,
+     "hist_chance_of_loss": 0.183
+    },
+    {
+     "months": 24,
+     "rank": 133,
+     "score": 0.56,
+     "percentile": 0.735,
+     "volatility": 0.18,
+     "range_low": -0.18,
+     "range_high": 0.574,
+     "chance_of_loss": 0.308,
+     "hist_chance_of_loss": 0.095
+    }
+   ],
+   "weight": null
+  },
+  {
    "ticker": "BKNG",
    "name": "Booking Holdings Inc.",
    "industry": "Transport",
@@ -13689,9 +13743,9 @@
    "horizons": [
     {
      "months": 6,
-     "rank": 133,
+     "rank": 134,
      "score": 0.56,
-     "percentile": 0.735,
+     "percentile": 0.733,
      "volatility": 0.263,
      "range_low": -0.194,
      "range_high": 0.298,
@@ -13700,9 +13754,9 @@
     },
     {
      "months": 12,
-     "rank": 133,
+     "rank": 134,
      "score": 0.56,
-     "percentile": 0.735,
+     "percentile": 0.733,
      "volatility": 0.263,
      "range_low": -0.253,
      "range_high": 0.466,
@@ -13711,9 +13765,9 @@
     },
     {
      "months": 24,
-     "rank": 133,
+     "rank": 134,
      "score": 0.56,
-     "percentile": 0.735,
+     "percentile": 0.733,
      "volatility": 0.263,
      "range_low": -0.32,
      "range_high": 0.764,
@@ -13743,9 +13797,9 @@
    "horizons": [
     {
      "months": 6,
-     "rank": 134,
+     "rank": 135,
      "score": 0.56,
-     "percentile": 0.733,
+     "percentile": 0.731,
      "volatility": 0.451,
      "range_low": -0.342,
      "range_high": 0.488,
@@ -13754,9 +13808,9 @@
     },
     {
      "months": 12,
-     "rank": 134,
+     "rank": 135,
      "score": 0.56,
-     "percentile": 0.733,
+     "percentile": 0.731,
      "volatility": 0.451,
      "range_low": -0.451,
      "range_high": 0.744,
@@ -13765,68 +13819,14 @@
     },
     {
      "months": 24,
-     "rank": 134,
+     "rank": 135,
      "score": 0.56,
-     "percentile": 0.733,
+     "percentile": 0.731,
      "volatility": 0.451,
      "range_low": -0.577,
      "range_high": 1.168,
      "chance_of_loss": 0.527,
      "hist_chance_of_loss": 0.151
-    }
-   ],
-   "weight": null
-  },
-  {
-   "ticker": "JNJ",
-   "name": "Johnson & Johnson",
-   "industry": "Chemicals & pharma",
-   "price": 275.51,
-   "ret_1y": 0.499,
-   "measures": {
-    "earnings_yield": 0.575,
-    "book_to_market": 0.233,
-    "gross_prof": 0.658,
-    "roa": 0.858,
-    "rev_growth": 0.435,
-    "leverage": 0.602
-   },
-   "traits": [
-    "Strong return on assets"
-   ],
-   "horizons": [
-    {
-     "months": 6,
-     "rank": 135,
-     "score": 0.56,
-     "percentile": 0.731,
-     "volatility": 0.18,
-     "range_low": -0.123,
-     "range_high": 0.215,
-     "chance_of_loss": 0.401,
-     "hist_chance_of_loss": 0.259
-    },
-    {
-     "months": 12,
-     "rank": 135,
-     "score": 0.56,
-     "percentile": 0.731,
-     "volatility": 0.18,
-     "range_low": -0.154,
-     "range_high": 0.342,
-     "chance_of_loss": 0.362,
-     "hist_chance_of_loss": 0.183
-    },
-    {
-     "months": 24,
-     "rank": 135,
-     "score": 0.56,
-     "percentile": 0.731,
-     "volatility": 0.18,
-     "range_low": -0.18,
-     "range_high": 0.574,
-     "chance_of_loss": 0.308,
-     "hist_chance_of_loss": 0.095
     }
    ],
    "weight": null
@@ -14048,7 +14048,7 @@
    "price": 218.04,
    "ret_1y": 0.2507,
    "measures": {
-    "earnings_yield": 0.54,
+    "earnings_yield": 0.542,
     "book_to_market": null,
     "gross_prof": null,
     "roa": 0.602,
@@ -14060,7 +14060,7 @@
     {
      "months": 6,
      "rank": 140,
-     "score": 0.556,
+     "score": 0.557,
      "percentile": 0.721,
      "volatility": 0.227,
      "range_low": -0.163,
@@ -14071,7 +14071,7 @@
     {
      "months": 12,
      "rank": 140,
-     "score": 0.556,
+     "score": 0.557,
      "percentile": 0.721,
      "volatility": 0.227,
      "range_low": -0.21,
@@ -14082,7 +14082,7 @@
     {
      "months": 24,
      "rank": 140,
-     "score": 0.556,
+     "score": 0.557,
      "percentile": 0.721,
      "volatility": 0.227,
      "range_low": -0.261,
@@ -14146,6 +14146,63 @@
    "weight": null
   },
   {
+   "ticker": "ORLY",
+   "name": "O Reilly Automotive Inc",
+   "industry": "Retail",
+   "price": 96.28,
+   "ret_1y": 0.0195,
+   "measures": {
+    "earnings_yield": 0.54,
+    "book_to_market": null,
+    "gross_prof": 0.898,
+    "roa": 0.896,
+    "rev_growth": 0.456,
+    "leverage": 0.035
+   },
+   "traits": [
+    "Highly profitable business",
+    "Strong return on assets",
+    "Heavy debt load",
+    "Negative book value"
+   ],
+   "horizons": [
+    {
+     "months": 6,
+     "rank": 142,
+     "score": 0.554,
+     "percentile": 0.717,
+     "volatility": 0.225,
+     "range_low": -0.162,
+     "range_high": 0.26,
+     "chance_of_loss": 0.432,
+     "hist_chance_of_loss": 0.183
+    },
+    {
+     "months": 12,
+     "rank": 142,
+     "score": 0.554,
+     "percentile": 0.717,
+     "volatility": 0.225,
+     "range_low": -0.208,
+     "range_high": 0.409,
+     "chance_of_loss": 0.404,
+     "hist_chance_of_loss": 0.115
+    },
+    {
+     "months": 24,
+     "rank": 142,
+     "score": 0.554,
+     "percentile": 0.717,
+     "volatility": 0.225,
+     "range_low": -0.258,
+     "range_high": 0.678,
+     "chance_of_loss": 0.366,
+     "hist_chance_of_loss": 0.056
+    }
+   ],
+   "weight": null
+  },
+  {
    "ticker": "CB",
    "name": "Chubb Ltd",
    "industry": "Finance",
@@ -14165,9 +14222,9 @@
    "horizons": [
     {
      "months": 6,
-     "rank": 142,
+     "rank": 143,
      "score": 0.554,
-     "percentile": 0.717,
+     "percentile": 0.715,
      "volatility": 0.179,
      "range_low": -0.122,
      "range_high": 0.214,
@@ -14176,9 +14233,9 @@
     },
     {
      "months": 12,
-     "rank": 142,
+     "rank": 143,
      "score": 0.554,
-     "percentile": 0.717,
+     "percentile": 0.715,
      "volatility": 0.179,
      "range_low": -0.152,
      "range_high": 0.341,
@@ -14187,71 +14244,14 @@
     },
     {
      "months": 24,
-     "rank": 142,
+     "rank": 143,
      "score": 0.554,
-     "percentile": 0.717,
+     "percentile": 0.715,
      "volatility": 0.179,
      "range_low": -0.178,
      "range_high": 0.572,
      "chance_of_loss": 0.307,
      "hist_chance_of_loss": 0.034
-    }
-   ],
-   "weight": null
-  },
-  {
-   "ticker": "ORLY",
-   "name": "O Reilly Automotive Inc",
-   "industry": "Retail",
-   "price": 96.28,
-   "ret_1y": 0.0195,
-   "measures": {
-    "earnings_yield": 0.538,
-    "book_to_market": null,
-    "gross_prof": 0.898,
-    "roa": 0.896,
-    "rev_growth": 0.456,
-    "leverage": 0.035
-   },
-   "traits": [
-    "Highly profitable business",
-    "Strong return on assets",
-    "Heavy debt load",
-    "Negative book value"
-   ],
-   "horizons": [
-    {
-     "months": 6,
-     "rank": 143,
-     "score": 0.554,
-     "percentile": 0.715,
-     "volatility": 0.225,
-     "range_low": -0.162,
-     "range_high": 0.26,
-     "chance_of_loss": 0.432,
-     "hist_chance_of_loss": 0.183
-    },
-    {
-     "months": 12,
-     "rank": 143,
-     "score": 0.554,
-     "percentile": 0.715,
-     "volatility": 0.225,
-     "range_low": -0.208,
-     "range_high": 0.409,
-     "chance_of_loss": 0.404,
-     "hist_chance_of_loss": 0.115
-    },
-    {
-     "months": 24,
-     "rank": 143,
-     "score": 0.554,
-     "percentile": 0.715,
-     "volatility": 0.225,
-     "range_low": -0.258,
-     "range_high": 0.678,
-     "chance_of_loss": 0.366,
-     "hist_chance_of_loss": 0.056
     }
    ],
    "weight": null
@@ -18953,6 +18953,60 @@
    "weight": null
   },
   {
+   "ticker": "BKR",
+   "name": "Baker Hughes Co",
+   "industry": "Tech hardware & electronics",
+   "price": 47.47,
+   "ret_1y": 0.0007,
+   "measures": {
+    "earnings_yield": 0.77,
+    "book_to_market": 0.681,
+    "gross_prof": null,
+    "roa": 0.449,
+    "rev_growth": 0.139,
+    "leverage": 0.52
+   },
+   "traits": [
+    "Shrinking or slow revenue"
+   ],
+   "horizons": [
+    {
+     "months": 6,
+     "rank": 231,
+     "score": 0.51,
+     "percentile": 0.538,
+     "volatility": 0.359,
+     "range_low": -0.272,
+     "range_high": 0.396,
+     "chance_of_loss": 0.488,
+     "hist_chance_of_loss": 0.437
+    },
+    {
+     "months": 12,
+     "rank": 231,
+     "score": 0.51,
+     "percentile": 0.538,
+     "volatility": 0.359,
+     "range_low": -0.359,
+     "range_high": 0.609,
+     "chance_of_loss": 0.483,
+     "hist_chance_of_loss": 0.414
+    },
+    {
+     "months": 24,
+     "rank": 231,
+     "score": 0.51,
+     "percentile": 0.538,
+     "volatility": 0.359,
+     "range_low": -0.462,
+     "range_high": 0.978,
+     "chance_of_loss": 0.476,
+     "hist_chance_of_loss": 0.408
+    }
+   ],
+   "weight": null
+  },
+  {
    "ticker": "VLTO",
    "name": "Veralto Corp",
    "industry": "Manufacturing",
@@ -18970,9 +19024,9 @@
    "horizons": [
     {
      "months": 6,
-     "rank": 231,
+     "rank": 232,
      "score": 0.51,
-     "percentile": 0.538,
+     "percentile": 0.536,
      "volatility": 0.215,
      "range_low": -0.153,
      "range_high": 0.25,
@@ -18981,9 +19035,9 @@
     },
     {
      "months": 12,
-     "rank": 231,
+     "rank": 232,
      "score": 0.51,
-     "percentile": 0.538,
+     "percentile": 0.536,
      "volatility": 0.215,
      "range_low": -0.196,
      "range_high": 0.394,
@@ -18992,9 +19046,9 @@
     },
     {
      "months": 24,
-     "rank": 231,
+     "rank": 232,
      "score": 0.51,
-     "percentile": 0.538,
+     "percentile": 0.536,
      "volatility": 0.215,
      "range_low": -0.241,
      "range_high": 0.654,
@@ -19027,9 +19081,9 @@
    "horizons": [
     {
      "months": 6,
-     "rank": 232,
+     "rank": 233,
      "score": 0.51,
-     "percentile": 0.536,
+     "percentile": 0.534,
      "volatility": 0.828,
      "range_low": -0.586,
      "range_high": 0.857,
@@ -19038,9 +19092,9 @@
     },
     {
      "months": 12,
-     "rank": 232,
+     "rank": 233,
      "score": 0.51,
-     "percentile": 0.536,
+     "percentile": 0.534,
      "volatility": 0.828,
      "range_low": -0.734,
      "range_high": 1.222,
@@ -19049,9 +19103,9 @@
     },
     {
      "months": 24,
-     "rank": 232,
+     "rank": 233,
      "score": 0.51,
-     "percentile": 0.536,
+     "percentile": 0.534,
      "volatility": 0.828,
      "range_low": -0.868,
      "range_high": 1.652,
@@ -19082,9 +19136,9 @@
    "horizons": [
     {
      "months": 6,
-     "rank": 233,
+     "rank": 234,
      "score": 0.51,
-     "percentile": 0.534,
+     "percentile": 0.532,
      "volatility": 0.401,
      "range_low": -0.305,
      "range_high": 0.438,
@@ -19093,9 +19147,9 @@
     },
     {
      "months": 12,
-     "rank": 233,
+     "rank": 234,
      "score": 0.51,
-     "percentile": 0.534,
+     "percentile": 0.532,
      "volatility": 0.401,
      "range_low": -0.402,
      "range_high": 0.671,
@@ -19104,68 +19158,14 @@
     },
     {
      "months": 24,
-     "rank": 233,
+     "rank": 234,
      "score": 0.51,
-     "percentile": 0.534,
+     "percentile": 0.532,
      "volatility": 0.401,
      "range_low": -0.517,
      "range_high": 1.067,
      "chance_of_loss": 0.501,
      "hist_chance_of_loss": 0.312
-    }
-   ],
-   "weight": null
-  },
-  {
-   "ticker": "BKR",
-   "name": "Baker Hughes Co",
-   "industry": "Tech hardware & electronics",
-   "price": 47.47,
-   "ret_1y": 0.0007,
-   "measures": {
-    "earnings_yield": 0.77,
-    "book_to_market": 0.679,
-    "gross_prof": null,
-    "roa": 0.449,
-    "rev_growth": 0.139,
-    "leverage": 0.52
-   },
-   "traits": [
-    "Shrinking or slow revenue"
-   ],
-   "horizons": [
-    {
-     "months": 6,
-     "rank": 234,
-     "score": 0.51,
-     "percentile": 0.532,
-     "volatility": 0.359,
-     "range_low": -0.272,
-     "range_high": 0.396,
-     "chance_of_loss": 0.488,
-     "hist_chance_of_loss": 0.437
-    },
-    {
-     "months": 12,
-     "rank": 234,
-     "score": 0.51,
-     "percentile": 0.532,
-     "volatility": 0.359,
-     "range_low": -0.359,
-     "range_high": 0.609,
-     "chance_of_loss": 0.483,
-     "hist_chance_of_loss": 0.414
-    },
-    {
-     "months": 24,
-     "rank": 234,
-     "score": 0.51,
-     "percentile": 0.532,
-     "volatility": 0.359,
-     "range_low": -0.462,
-     "range_high": 0.978,
-     "chance_of_loss": 0.476,
-     "hist_chance_of_loss": 0.408
     }
    ],
    "weight": null
@@ -20921,7 +20921,7 @@
    "ret_1y": 0.1214,
    "measures": {
     "earnings_yield": 0.744,
-    "book_to_market": 0.228,
+    "book_to_market": 0.23,
     "gross_prof": 0.353,
     "roa": 0.746,
     "rev_growth": 0.608,
@@ -21716,7 +21716,7 @@
    "price": 137.9,
    "ret_1y": 0.0525,
    "measures": {
-    "earnings_yield": 0.707,
+    "earnings_yield": 0.709,
     "book_to_market": 0.684,
     "gross_prof": null,
     "roa": 0.261,
@@ -21728,7 +21728,7 @@
     {
      "months": 6,
      "rank": 282,
-     "score": 0.486,
+     "score": 0.487,
      "percentile": 0.436,
      "volatility": 0.182,
      "range_low": -0.125,
@@ -21739,7 +21739,7 @@
     {
      "months": 12,
      "rank": 282,
-     "score": 0.486,
+     "score": 0.487,
      "percentile": 0.436,
      "volatility": 0.182,
      "range_low": -0.156,
@@ -21750,7 +21750,7 @@
     {
      "months": 24,
      "rank": 282,
-     "score": 0.486,
+     "score": 0.487,
      "percentile": 0.436,
      "volatility": 0.182,
      "range_low": -0.184,
@@ -22034,6 +22034,58 @@
    "weight": null
   },
   {
+   "ticker": "AON",
+   "name": "Aon Plc",
+   "industry": "Finance",
+   "price": 348.43,
+   "ret_1y": 0.0304,
+   "measures": {
+    "earnings_yield": 0.696,
+    "book_to_market": 0.237,
+    "gross_prof": null,
+    "roa": 0.593,
+    "rev_growth": 0.647,
+    "leverage": 0.22
+   },
+   "traits": [],
+   "horizons": [
+    {
+     "months": 6,
+     "rank": 288,
+     "score": 0.482,
+     "percentile": 0.424,
+     "volatility": 0.255,
+     "range_low": -0.188,
+     "range_high": 0.291,
+     "chance_of_loss": 0.448,
+     "hist_chance_of_loss": 0.269
+    },
+    {
+     "months": 12,
+     "rank": 288,
+     "score": 0.482,
+     "percentile": 0.424,
+     "volatility": 0.255,
+     "range_low": -0.244,
+     "range_high": 0.455,
+     "chance_of_loss": 0.426,
+     "hist_chance_of_loss": 0.173
+    },
+    {
+     "months": 24,
+     "rank": 288,
+     "score": 0.482,
+     "percentile": 0.424,
+     "volatility": 0.255,
+     "range_low": -0.308,
+     "range_high": 0.747,
+     "chance_of_loss": 0.397,
+     "hist_chance_of_loss": 0.045
+    }
+   ],
+   "weight": null
+  },
+  {
    "ticker": "IBKR",
    "name": "Interactive Brokers Group, Inc.",
    "industry": "Finance",
@@ -22054,9 +22106,9 @@
    "horizons": [
     {
      "months": 6,
-     "rank": 288,
+     "rank": 289,
      "score": 0.482,
-     "percentile": 0.424,
+     "percentile": 0.422,
      "volatility": 0.372,
      "range_low": -0.282,
      "range_high": 0.409,
@@ -22065,9 +22117,9 @@
     },
     {
      "months": 12,
-     "rank": 288,
+     "rank": 289,
      "score": 0.482,
-     "percentile": 0.424,
+     "percentile": 0.422,
      "volatility": 0.372,
      "range_low": -0.373,
      "range_high": 0.628,
@@ -22076,66 +22128,14 @@
     },
     {
      "months": 24,
-     "rank": 288,
+     "rank": 289,
      "score": 0.482,
-     "percentile": 0.424,
+     "percentile": 0.422,
      "volatility": 0.372,
      "range_low": -0.479,
      "range_high": 1.006,
      "chance_of_loss": 0.484,
      "hist_chance_of_loss": 0.151
-    }
-   ],
-   "weight": null
-  },
-  {
-   "ticker": "AON",
-   "name": "Aon Plc",
-   "industry": "Finance",
-   "price": 348.43,
-   "ret_1y": 0.0304,
-   "measures": {
-    "earnings_yield": 0.696,
-    "book_to_market": 0.235,
-    "gross_prof": null,
-    "roa": 0.593,
-    "rev_growth": 0.647,
-    "leverage": 0.22
-   },
-   "traits": [],
-   "horizons": [
-    {
-     "months": 6,
-     "rank": 289,
-     "score": 0.482,
-     "percentile": 0.422,
-     "volatility": 0.255,
-     "range_low": -0.188,
-     "range_high": 0.291,
-     "chance_of_loss": 0.448,
-     "hist_chance_of_loss": 0.269
-    },
-    {
-     "months": 12,
-     "rank": 289,
-     "score": 0.482,
-     "percentile": 0.422,
-     "volatility": 0.255,
-     "range_low": -0.244,
-     "range_high": 0.455,
-     "chance_of_loss": 0.426,
-     "hist_chance_of_loss": 0.173
-    },
-    {
-     "months": 24,
-     "rank": 289,
-     "score": 0.482,
-     "percentile": 0.422,
-     "volatility": 0.255,
-     "range_low": -0.308,
-     "range_high": 0.747,
-     "chance_of_loss": 0.397,
-     "hist_chance_of_loss": 0.045
     }
    ],
    "weight": null
@@ -22682,6 +22682,58 @@
    "weight": null
   },
   {
+   "ticker": "BR",
+   "name": "Broadridge Financial Solutions, Inc.",
+   "industry": "Software & business services",
+   "price": 186.79,
+   "ret_1y": -0.1331,
+   "measures": {
+    "earnings_yield": 0.544,
+    "book_to_market": 0.244,
+    "gross_prof": 0.481,
+    "roa": 0.737,
+    "rev_growth": 0.43,
+    "leverage": 0.424
+   },
+   "traits": [],
+   "horizons": [
+    {
+     "months": 6,
+     "rank": 300,
+     "score": 0.477,
+     "percentile": 0.4,
+     "volatility": 0.241,
+     "range_low": -0.176,
+     "range_high": 0.276,
+     "chance_of_loss": 0.441,
+     "hist_chance_of_loss": 0.259
+    },
+    {
+     "months": 12,
+     "rank": 300,
+     "score": 0.477,
+     "percentile": 0.4,
+     "volatility": 0.241,
+     "range_low": -0.227,
+     "range_high": 0.433,
+     "chance_of_loss": 0.416,
+     "hist_chance_of_loss": 0.178
+    },
+    {
+     "months": 24,
+     "rank": 300,
+     "score": 0.477,
+     "percentile": 0.4,
+     "volatility": 0.241,
+     "range_low": -0.285,
+     "range_high": 0.714,
+     "chance_of_loss": 0.383,
+     "hist_chance_of_loss": 0.095
+    }
+   ],
+   "weight": null
+  },
+  {
    "ticker": "COST",
    "name": "Costco Wholesale Corp /New",
    "industry": "Retail",
@@ -22702,9 +22754,9 @@
    "horizons": [
     {
      "months": 6,
-     "rank": 300,
+     "rank": 301,
      "score": 0.477,
-     "percentile": 0.4,
+     "percentile": 0.398,
      "volatility": 0.213,
      "range_low": -0.152,
      "range_high": 0.248,
@@ -22713,9 +22765,9 @@
     },
     {
      "months": 12,
-     "rank": 300,
+     "rank": 301,
      "score": 0.477,
-     "percentile": 0.4,
+     "percentile": 0.398,
      "volatility": 0.213,
      "range_low": -0.194,
      "range_high": 0.392,
@@ -22724,9 +22776,9 @@
     },
     {
      "months": 24,
-     "rank": 300,
+     "rank": 301,
      "score": 0.477,
-     "percentile": 0.4,
+     "percentile": 0.398,
      "volatility": 0.213,
      "range_low": -0.238,
      "range_high": 0.65,
@@ -22757,9 +22809,9 @@
    "horizons": [
     {
      "months": 6,
-     "rank": 301,
+     "rank": 302,
      "score": 0.477,
-     "percentile": 0.398,
+     "percentile": 0.396,
      "volatility": 0.215,
      "range_low": -0.154,
      "range_high": 0.25,
@@ -22768,9 +22820,9 @@
     },
     {
      "months": 12,
-     "rank": 301,
+     "rank": 302,
      "score": 0.477,
-     "percentile": 0.398,
+     "percentile": 0.396,
      "volatility": 0.215,
      "range_low": -0.197,
      "range_high": 0.395,
@@ -22779,9 +22831,9 @@
     },
     {
      "months": 24,
-     "rank": 301,
+     "rank": 302,
      "score": 0.477,
-     "percentile": 0.398,
+     "percentile": 0.396,
      "volatility": 0.215,
      "range_low": -0.242,
      "range_high": 0.655,
@@ -22811,9 +22863,9 @@
    "horizons": [
     {
      "months": 6,
-     "rank": 302,
+     "rank": 303,
      "score": 0.477,
-     "percentile": 0.396,
+     "percentile": 0.394,
      "volatility": 0.796,
      "range_low": -0.568,
      "range_high": 0.828,
@@ -22822,9 +22874,9 @@
     },
     {
      "months": 12,
-     "rank": 302,
+     "rank": 303,
      "score": 0.477,
-     "percentile": 0.396,
+     "percentile": 0.394,
      "volatility": 0.796,
      "range_low": -0.716,
      "range_high": 1.189,
@@ -22833,66 +22885,14 @@
     },
     {
      "months": 24,
-     "rank": 302,
+     "rank": 303,
      "score": 0.477,
-     "percentile": 0.396,
+     "percentile": 0.394,
      "volatility": 0.796,
      "range_low": -0.853,
      "range_high": 1.636,
      "chance_of_loss": 0.663,
      "hist_chance_of_loss": 0.171
-    }
-   ],
-   "weight": null
-  },
-  {
-   "ticker": "BR",
-   "name": "Broadridge Financial Solutions, Inc.",
-   "industry": "Software & business services",
-   "price": 186.79,
-   "ret_1y": -0.1331,
-   "measures": {
-    "earnings_yield": 0.544,
-    "book_to_market": 0.242,
-    "gross_prof": 0.481,
-    "roa": 0.737,
-    "rev_growth": 0.43,
-    "leverage": 0.424
-   },
-   "traits": [],
-   "horizons": [
-    {
-     "months": 6,
-     "rank": 303,
-     "score": 0.477,
-     "percentile": 0.394,
-     "volatility": 0.241,
-     "range_low": -0.176,
-     "range_high": 0.276,
-     "chance_of_loss": 0.441,
-     "hist_chance_of_loss": 0.259
-    },
-    {
-     "months": 12,
-     "rank": 303,
-     "score": 0.477,
-     "percentile": 0.394,
-     "volatility": 0.241,
-     "range_low": -0.227,
-     "range_high": 0.433,
-     "chance_of_loss": 0.416,
-     "hist_chance_of_loss": 0.178
-    },
-    {
-     "months": 24,
-     "rank": 303,
-     "score": 0.477,
-     "percentile": 0.394,
-     "volatility": 0.241,
-     "range_low": -0.285,
-     "range_high": 0.714,
-     "chance_of_loss": 0.383,
-     "hist_chance_of_loss": 0.095
     }
    ],
    "weight": null
@@ -24090,7 +24090,7 @@
    "ret_1y": 0.1929,
    "measures": {
     "earnings_yield": 0.384,
-    "book_to_market": 0.251,
+    "book_to_market": 0.253,
     "gross_prof": 0.475,
     "roa": 0.814,
     "rev_growth": 0.133,
@@ -24137,58 +24137,6 @@
    "weight": null
   },
   {
-   "ticker": "NEE",
-   "name": "Nextera Energy Inc",
-   "industry": "Utilities",
-   "price": 84.95,
-   "ret_1y": 0.0736,
-   "measures": {
-    "earnings_yield": 0.542,
-    "book_to_market": 0.544,
-    "gross_prof": null,
-    "roa": 0.288,
-    "rev_growth": null,
-    "leverage": 0.402
-   },
-   "traits": [],
-   "horizons": [
-    {
-     "months": 6,
-     "rank": 327,
-     "score": 0.463,
-     "percentile": 0.345,
-     "volatility": 0.244,
-     "range_low": -0.178,
-     "range_high": 0.279,
-     "chance_of_loss": 0.442,
-     "hist_chance_of_loss": 0.218
-    },
-    {
-     "months": 12,
-     "rank": 327,
-     "score": 0.463,
-     "percentile": 0.345,
-     "volatility": 0.244,
-     "range_low": -0.231,
-     "range_high": 0.438,
-     "chance_of_loss": 0.419,
-     "hist_chance_of_loss": 0.141
-    },
-    {
-     "months": 24,
-     "rank": 327,
-     "score": 0.463,
-     "percentile": 0.345,
-     "volatility": 0.244,
-     "range_low": -0.29,
-     "range_high": 0.721,
-     "chance_of_loss": 0.386,
-     "hist_chance_of_loss": 0.112
-    }
-   ],
-   "weight": null
-  },
-  {
    "ticker": "AJG",
    "name": "Arthur J. Gallagher & Co.",
    "industry": "Finance",
@@ -24208,9 +24156,9 @@
    "horizons": [
     {
      "months": 6,
-     "rank": 328,
+     "rank": 327,
      "score": 0.462,
-     "percentile": 0.343,
+     "percentile": 0.345,
      "volatility": 0.294,
      "range_low": -0.22,
      "range_high": 0.33,
@@ -24219,9 +24167,9 @@
     },
     {
      "months": 12,
-     "rank": 328,
+     "rank": 327,
      "score": 0.462,
-     "percentile": 0.343,
+     "percentile": 0.345,
      "volatility": 0.294,
      "range_low": -0.289,
      "range_high": 0.513,
@@ -24230,14 +24178,66 @@
     },
     {
      "months": 24,
-     "rank": 328,
+     "rank": 327,
      "score": 0.462,
-     "percentile": 0.343,
+     "percentile": 0.345,
      "volatility": 0.294,
      "range_low": -0.369,
      "range_high": 0.835,
      "chance_of_loss": 0.43,
      "hist_chance_of_loss": 0.078
+    }
+   ],
+   "weight": null
+  },
+  {
+   "ticker": "NEE",
+   "name": "Nextera Energy Inc",
+   "industry": "Utilities",
+   "price": 84.95,
+   "ret_1y": 0.0815,
+   "measures": {
+    "earnings_yield": 0.538,
+    "book_to_market": 0.542,
+    "gross_prof": null,
+    "roa": 0.288,
+    "rev_growth": null,
+    "leverage": 0.402
+   },
+   "traits": [],
+   "horizons": [
+    {
+     "months": 6,
+     "rank": 328,
+     "score": 0.462,
+     "percentile": 0.343,
+     "volatility": 0.244,
+     "range_low": -0.178,
+     "range_high": 0.279,
+     "chance_of_loss": 0.442,
+     "hist_chance_of_loss": 0.218
+    },
+    {
+     "months": 12,
+     "rank": 328,
+     "score": 0.462,
+     "percentile": 0.343,
+     "volatility": 0.244,
+     "range_low": -0.231,
+     "range_high": 0.438,
+     "chance_of_loss": 0.419,
+     "hist_chance_of_loss": 0.141
+    },
+    {
+     "months": 24,
+     "rank": 328,
+     "score": 0.462,
+     "percentile": 0.343,
+     "volatility": 0.244,
+     "range_low": -0.29,
+     "range_high": 0.721,
+     "chance_of_loss": 0.386,
+     "hist_chance_of_loss": 0.112
     }
    ],
    "weight": null
@@ -24471,7 +24471,7 @@
    "ret_1y": 0.3519,
    "measures": {
     "earnings_yield": 0.295,
-    "book_to_market": 0.253,
+    "book_to_market": 0.256,
     "gross_prof": 0.593,
     "roa": 0.659,
     "rev_growth": 0.388,
@@ -27210,7 +27210,7 @@
    "ret_1y": -0.5036,
    "measures": {
     "earnings_yield": 0.087,
-    "book_to_market": 0.256,
+    "book_to_market": 0.258,
     "gross_prof": 0.403,
     "roa": 0.163,
     "rev_growth": 0.94,
@@ -27864,9 +27864,9 @@
    "name": "Fortive Corp",
    "industry": "Manufacturing",
    "price": 66.03,
-   "ret_1y": 0.3175,
+   "ret_1y": 0.3189,
    "measures": {
-    "earnings_yield": 0.219,
+    "earnings_yield": 0.217,
     "book_to_market": 0.491,
     "gross_prof": 0.431,
     "roa": 0.419,
@@ -27878,7 +27878,7 @@
     {
      "months": 6,
      "rank": 396,
-     "score": 0.423,
+     "score": 0.422,
      "percentile": 0.207,
      "volatility": 0.235,
      "range_low": -0.171,
@@ -27889,7 +27889,7 @@
     {
      "months": 12,
      "rank": 396,
-     "score": 0.423,
+     "score": 0.422,
      "percentile": 0.207,
      "volatility": 0.235,
      "range_low": -0.221,
@@ -27900,7 +27900,7 @@
     {
      "months": 24,
      "rank": 396,
-     "score": 0.423,
+     "score": 0.422,
      "percentile": 0.207,
      "volatility": 0.235,
      "range_low": -0.275,
@@ -29338,6 +29338,58 @@
    "weight": null
   },
   {
+   "ticker": "HON",
+   "name": "Honeywell International Inc",
+   "industry": "Manufacturing",
+   "price": 228.48,
+   "ret_1y": 0.1067,
+   "measures": {
+    "earnings_yield": 0.43,
+    "book_to_market": 0.228,
+    "gross_prof": 0.295,
+    "roa": 0.54,
+    "rev_growth": 0.555,
+    "leverage": 0.298
+   },
+   "traits": [],
+   "horizons": [
+    {
+     "months": 6,
+     "rank": 423,
+     "score": 0.391,
+     "percentile": 0.153,
+     "volatility": 0.221,
+     "range_low": -0.159,
+     "range_high": 0.257,
+     "chance_of_loss": 0.43,
+     "hist_chance_of_loss": 0.254
+    },
+    {
+     "months": 12,
+     "rank": 423,
+     "score": 0.391,
+     "percentile": 0.153,
+     "volatility": 0.221,
+     "range_low": -0.204,
+     "range_high": 0.404,
+     "chance_of_loss": 0.401,
+     "hist_chance_of_loss": 0.147
+    },
+    {
+     "months": 24,
+     "rank": 423,
+     "score": 0.391,
+     "percentile": 0.153,
+     "volatility": 0.221,
+     "range_low": -0.252,
+     "range_high": 0.669,
+     "chance_of_loss": 0.361,
+     "hist_chance_of_loss": 0.05
+    }
+   ],
+   "weight": null
+  },
+  {
    "ticker": "SHW",
    "name": "Sherwin Williams Co",
    "industry": "Retail",
@@ -29357,9 +29409,9 @@
    "horizons": [
     {
      "months": 6,
-     "rank": 423,
+     "rank": 424,
      "score": 0.391,
-     "percentile": 0.153,
+     "percentile": 0.151,
      "volatility": 0.257,
      "range_low": -0.189,
      "range_high": 0.292,
@@ -29368,9 +29420,9 @@
     },
     {
      "months": 12,
-     "rank": 423,
+     "rank": 424,
      "score": 0.391,
-     "percentile": 0.153,
+     "percentile": 0.151,
      "volatility": 0.257,
      "range_low": -0.246,
      "range_high": 0.457,
@@ -29379,66 +29431,14 @@
     },
     {
      "months": 24,
-     "rank": 423,
+     "rank": 424,
      "score": 0.391,
-     "percentile": 0.153,
+     "percentile": 0.151,
      "volatility": 0.257,
      "range_low": -0.311,
      "range_high": 0.751,
      "chance_of_loss": 0.398,
      "hist_chance_of_loss": 0.112
-    }
-   ],
-   "weight": null
-  },
-  {
-   "ticker": "HON",
-   "name": "Honeywell International Inc",
-   "industry": "Manufacturing",
-   "price": 228.48,
-   "ret_1y": 0.1067,
-   "measures": {
-    "earnings_yield": 0.43,
-    "book_to_market": 0.226,
-    "gross_prof": 0.295,
-    "roa": 0.54,
-    "rev_growth": 0.555,
-    "leverage": 0.298
-   },
-   "traits": [],
-   "horizons": [
-    {
-     "months": 6,
-     "rank": 424,
-     "score": 0.39,
-     "percentile": 0.151,
-     "volatility": 0.221,
-     "range_low": -0.159,
-     "range_high": 0.257,
-     "chance_of_loss": 0.43,
-     "hist_chance_of_loss": 0.254
-    },
-    {
-     "months": 12,
-     "rank": 424,
-     "score": 0.39,
-     "percentile": 0.151,
-     "volatility": 0.221,
-     "range_low": -0.204,
-     "range_high": 0.404,
-     "chance_of_loss": 0.401,
-     "hist_chance_of_loss": 0.147
-    },
-    {
-     "months": 24,
-     "rank": 424,
-     "score": 0.39,
-     "percentile": 0.151,
-     "volatility": 0.221,
-     "range_low": -0.252,
-     "range_high": 0.669,
-     "chance_of_loss": 0.361,
-     "hist_chance_of_loss": 0.05
     }
    ],
    "weight": null
@@ -29829,7 +29829,7 @@
    "ret_1y": 0.2288,
    "measures": {
     "earnings_yield": 0.278,
-    "book_to_market": 0.24,
+    "book_to_market": 0.242,
     "gross_prof": 0.485,
     "roa": 0.597,
     "rev_growth": 0.225,
@@ -29840,7 +29840,7 @@
     {
      "months": 6,
      "rank": 432,
-     "score": 0.379,
+     "score": 0.38,
      "percentile": 0.135,
      "volatility": 0.198,
      "range_low": -0.139,
@@ -29851,7 +29851,7 @@
     {
      "months": 12,
      "rank": 432,
-     "score": 0.379,
+     "score": 0.38,
      "percentile": 0.135,
      "volatility": 0.198,
      "range_low": -0.176,
@@ -29862,13 +29862,68 @@
     {
      "months": 24,
      "rank": 432,
-     "score": 0.379,
+     "score": 0.38,
      "percentile": 0.135,
      "volatility": 0.198,
      "range_low": -0.213,
      "range_high": 0.616,
      "chance_of_loss": 0.334,
      "hist_chance_of_loss": 0.134
+    }
+   ],
+   "weight": null
+  },
+  {
+   "ticker": "AMP",
+   "name": "Ameriprise Financial Inc",
+   "industry": "Finance",
+   "price": 507.12,
+   "ret_1y": 0.1388,
+   "measures": {
+    "earnings_yield": 0.874,
+    "book_to_market": 0.249,
+    "gross_prof": null,
+    "roa": 0.176,
+    "rev_growth": 0.405,
+    "leverage": 0.071
+   },
+   "traits": [
+    "Cheap vs. earnings",
+    "Heavy debt load"
+   ],
+   "horizons": [
+    {
+     "months": 6,
+     "rank": 433,
+     "score": 0.379,
+     "percentile": 0.133,
+     "volatility": 0.237,
+     "range_low": -0.172,
+     "range_high": 0.272,
+     "chance_of_loss": 0.439,
+     "hist_chance_of_loss": 0.305
+    },
+    {
+     "months": 12,
+     "rank": 433,
+     "score": 0.379,
+     "percentile": 0.133,
+     "volatility": 0.237,
+     "range_low": -0.223,
+     "range_high": 0.427,
+     "chance_of_loss": 0.413,
+     "hist_chance_of_loss": 0.241
+    },
+    {
+     "months": 24,
+     "rank": 433,
+     "score": 0.379,
+     "percentile": 0.133,
+     "volatility": 0.237,
+     "range_low": -0.278,
+     "range_high": 0.705,
+     "chance_of_loss": 0.379,
+     "hist_chance_of_loss": 0.117
     }
    ],
    "weight": null
@@ -29891,9 +29946,9 @@
    "horizons": [
     {
      "months": 6,
-     "rank": 433,
+     "rank": 434,
      "score": 0.379,
-     "percentile": 0.133,
+     "percentile": 0.131,
      "volatility": 0.245,
      "range_low": -0.179,
      "range_high": 0.28,
@@ -29902,9 +29957,9 @@
     },
     {
      "months": 12,
-     "rank": 433,
+     "rank": 434,
      "score": 0.379,
-     "percentile": 0.133,
+     "percentile": 0.131,
      "volatility": 0.245,
      "range_low": -0.232,
      "range_high": 0.439,
@@ -29913,9 +29968,9 @@
     },
     {
      "months": 24,
-     "rank": 433,
+     "rank": 434,
      "score": 0.379,
-     "percentile": 0.133,
+     "percentile": 0.131,
      "volatility": 0.245,
      "range_low": -0.291,
      "range_high": 0.722,
@@ -29947,9 +30002,9 @@
    "horizons": [
     {
      "months": 6,
-     "rank": 434,
+     "rank": 435,
      "score": 0.379,
-     "percentile": 0.131,
+     "percentile": 0.129,
      "volatility": 0.389,
      "range_low": -0.295,
      "range_high": 0.426,
@@ -29958,9 +30013,9 @@
     },
     {
      "months": 12,
-     "rank": 434,
+     "rank": 435,
      "score": 0.379,
-     "percentile": 0.131,
+     "percentile": 0.129,
      "volatility": 0.389,
      "range_low": -0.39,
      "range_high": 0.653,
@@ -29969,69 +30024,14 @@
     },
     {
      "months": 24,
-     "rank": 434,
+     "rank": 435,
      "score": 0.379,
-     "percentile": 0.131,
+     "percentile": 0.129,
      "volatility": 0.389,
      "range_low": -0.501,
      "range_high": 1.041,
      "chance_of_loss": 0.494,
      "hist_chance_of_loss": 0.522
-    }
-   ],
-   "weight": null
-  },
-  {
-   "ticker": "AMP",
-   "name": "Ameriprise Financial Inc",
-   "industry": "Finance",
-   "price": 507.12,
-   "ret_1y": 0.1388,
-   "measures": {
-    "earnings_yield": 0.874,
-    "book_to_market": 0.247,
-    "gross_prof": null,
-    "roa": 0.176,
-    "rev_growth": 0.405,
-    "leverage": 0.071
-   },
-   "traits": [
-    "Cheap vs. earnings",
-    "Heavy debt load"
-   ],
-   "horizons": [
-    {
-     "months": 6,
-     "rank": 435,
-     "score": 0.379,
-     "percentile": 0.129,
-     "volatility": 0.237,
-     "range_low": -0.172,
-     "range_high": 0.272,
-     "chance_of_loss": 0.439,
-     "hist_chance_of_loss": 0.305
-    },
-    {
-     "months": 12,
-     "rank": 435,
-     "score": 0.379,
-     "percentile": 0.129,
-     "volatility": 0.237,
-     "range_low": -0.223,
-     "range_high": 0.427,
-     "chance_of_loss": 0.413,
-     "hist_chance_of_loss": 0.241
-    },
-    {
-     "months": 24,
-     "rank": 435,
-     "score": 0.379,
-     "percentile": 0.129,
-     "volatility": 0.237,
-     "range_low": -0.278,
-     "range_high": 0.705,
-     "chance_of_loss": 0.379,
-     "hist_chance_of_loss": 0.117
     }
    ],
    "weight": null
@@ -30430,7 +30430,7 @@
    "ret_1y": -0.3449,
    "measures": {
     "earnings_yield": 0.206,
-    "book_to_market": 0.249,
+    "book_to_market": 0.251,
     "gross_prof": null,
     "roa": 0.22,
     "rev_growth": 0.869,
@@ -31581,63 +31581,6 @@
    "weight": null
   },
   {
-   "ticker": "SNDK",
-   "name": "Sandisk Corp",
-   "industry": "Tech hardware & electronics",
-   "price": 85.36,
-   "ret_1y": 2.4259,
-   "measures": {
-    "earnings_yield": 0.028,
-    "book_to_market": 0.258,
-    "gross_prof": 0.102,
-    "roa": 0.015,
-    "rev_growth": 0.7,
-    "leverage": 0.939
-   },
-   "traits": [
-    "Expensive vs. earnings",
-    "Low gross profitability",
-    "Weak return on assets",
-    "Low debt"
-   ],
-   "horizons": [
-    {
-     "months": 6,
-     "rank": 464,
-     "score": 0.34,
-     "percentile": 0.07,
-     "volatility": 1.678,
-     "range_low": -0.887,
-     "range_high": 1.355,
-     "chance_of_loss": 0.712,
-     "hist_chance_of_loss": 0.062
-    },
-    {
-     "months": 12,
-     "rank": 464,
-     "score": 0.34,
-     "percentile": 0.07,
-     "volatility": 1.678,
-     "range_low": -0.969,
-     "range_high": 1.277,
-     "chance_of_loss": 0.786,
-     "hist_chance_of_loss": null
-    },
-    {
-     "months": 24,
-     "rank": 464,
-     "score": 0.34,
-     "percentile": 0.07,
-     "volatility": 1.678,
-     "range_low": -0.997,
-     "range_high": 0.47,
-     "chance_of_loss": 0.868,
-     "hist_chance_of_loss": null
-    }
-   ],
-   "weight": null
-  },
-  {
    "ticker": "PCG",
    "name": "Pg&E Corp",
    "industry": "Utilities",
@@ -31659,9 +31602,9 @@
    "horizons": [
     {
      "months": 6,
-     "rank": 465,
+     "rank": 464,
      "score": 0.34,
-     "percentile": 0.068,
+     "percentile": 0.07,
      "volatility": 0.308,
      "range_low": -0.231,
      "range_high": 0.344,
@@ -31670,9 +31613,9 @@
     },
     {
      "months": 12,
-     "rank": 465,
+     "rank": 464,
      "score": 0.34,
-     "percentile": 0.068,
+     "percentile": 0.07,
      "volatility": 0.308,
      "range_low": -0.304,
      "range_high": 0.533,
@@ -31681,9 +31624,9 @@
     },
     {
      "months": 24,
-     "rank": 465,
+     "rank": 464,
      "score": 0.34,
-     "percentile": 0.068,
+     "percentile": 0.07,
      "volatility": 0.308,
      "range_low": -0.389,
      "range_high": 0.865,
@@ -31713,9 +31656,9 @@
    "horizons": [
     {
      "months": 6,
-     "rank": 466,
+     "rank": 465,
      "score": 0.338,
-     "percentile": 0.066,
+     "percentile": 0.068,
      "volatility": 0.324,
      "range_low": -0.244,
      "range_high": 0.359,
@@ -31724,9 +31667,9 @@
     },
     {
      "months": 12,
-     "rank": 466,
+     "rank": 465,
      "score": 0.338,
-     "percentile": 0.066,
+     "percentile": 0.068,
      "volatility": 0.324,
      "range_low": -0.321,
      "range_high": 0.556,
@@ -31735,14 +31678,71 @@
     },
     {
      "months": 24,
-     "rank": 466,
+     "rank": 465,
      "score": 0.338,
-     "percentile": 0.066,
+     "percentile": 0.068,
      "volatility": 0.324,
      "range_low": -0.412,
      "range_high": 0.9,
      "chance_of_loss": 0.452,
      "hist_chance_of_loss": 0.056
+    }
+   ],
+   "weight": null
+  },
+  {
+   "ticker": "SNDK",
+   "name": "Sandisk Corp",
+   "industry": "Tech hardware & electronics",
+   "price": 94.39,
+   "ret_1y": 2.7885,
+   "measures": {
+    "earnings_yield": 0.028,
+    "book_to_market": 0.223,
+    "gross_prof": 0.102,
+    "roa": 0.015,
+    "rev_growth": 0.7,
+    "leverage": 0.939
+   },
+   "traits": [
+    "Expensive vs. earnings",
+    "Low gross profitability",
+    "Weak return on assets",
+    "Low debt"
+   ],
+   "horizons": [
+    {
+     "months": 6,
+     "rank": 466,
+     "score": 0.334,
+     "percentile": 0.066,
+     "volatility": 1.665,
+     "range_low": -0.885,
+     "range_high": 1.353,
+     "chance_of_loss": 0.71,
+     "hist_chance_of_loss": 0.062
+    },
+    {
+     "months": 12,
+     "rank": 466,
+     "score": 0.334,
+     "percentile": 0.066,
+     "volatility": 1.665,
+     "range_low": -0.968,
+     "range_high": 1.289,
+     "chance_of_loss": 0.784,
+     "hist_chance_of_loss": null
+    },
+    {
+     "months": 24,
+     "rank": 466,
+     "score": 0.334,
+     "percentile": 0.066,
+     "volatility": 1.665,
+     "range_low": -0.996,
+     "range_high": 0.501,
+     "chance_of_loss": 0.866,
+     "hist_chance_of_loss": null
     }
    ],
    "weight": null
@@ -32307,7 +32307,7 @@
    "name": "Baxter International Inc",
    "industry": "Manufacturing",
    "price": 26.79,
-   "ret_1y": 0.4533,
+   "ret_1y": 0.4538,
    "measures": {
     "earnings_yield": 0.015,
     "book_to_market": 0.714,
@@ -32350,7 +32350,7 @@
      "percentile": 0.044,
      "volatility": 0.363,
      "range_low": -0.467,
-     "range_high": 0.985,
+     "range_high": 0.986,
      "chance_of_loss": 0.478,
      "hist_chance_of_loss": 0.358
     }
@@ -33092,7 +33092,7 @@
    "ret_1y": 0.1209,
    "measures": {
     "earnings_yield": 0.189,
-    "book_to_market": 0.223,
+    "book_to_market": 0.226,
     "gross_prof": null,
     "roa": 0.199,
     "rev_growth": 0.163,
@@ -33315,7 +33315,7 @@
    "price": 282.86,
    "ret_1y": 0.4967,
    "measures": {
-    "earnings_yield": 0.217,
+    "earnings_yield": 0.219,
     "book_to_market": null,
     "gross_prof": 0.193,
     "roa": 0.265,
@@ -33554,7 +33554,7 @@
   {
    "industry": "Tech hardware & electronics",
    "portfolio": 0.2936,
-   "sp500": 0.2698,
+   "sp500": 0.2699,
    "holdings": [
     "NVDA",
     "AVGO",
@@ -33580,7 +33580,7 @@
   {
    "industry": "Finance",
    "portfolio": 0.0895,
-   "sp500": 0.1313,
+   "sp500": 0.1312,
    "holdings": [
     "BRK-B",
     "UNH",
@@ -33700,7 +33700,7 @@
     "cohorts": [
      {
       "date": "2026-11-27",
-      "ret": -0.0,
+      "ret": 0.0,
       "sp_ret": 0.0,
       "beat": 42,
       "n": 99,
@@ -34002,7 +34002,7 @@
     "cohorts": [
      {
       "date": "2026-11-27",
-      "ret": -0.0,
+      "ret": 0.0,
       "sp_ret": 0.0,
       "beat": 42,
       "n": 99,
@@ -34304,7 +34304,7 @@
     "cohorts": [
      {
       "date": "2026-11-27",
-      "ret": -0.0,
+      "ret": 0.0,
       "sp_ret": 0.0,
       "beat": 42,
       "n": 99,
